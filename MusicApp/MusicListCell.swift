@@ -10,11 +10,9 @@ import UIKit
 
 class MusicListCell: UITableViewCell {
     //MARK: - Outlets
-    
     @IBOutlet weak var songCover: UIImageView!
     @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var artist: UILabel!
-    
     
     //MARK: - Properties
     var item: MusicItem! {
@@ -25,7 +23,7 @@ class MusicListCell: UITableViewCell {
                 self.songCover!.image = UIImage(named: "defaultmusicicon")
             }
             self.songName!.text = item!.name
-            self.artist!.text = item.artist
+            self.artist!.text = item!.artist
         }
     }
     
