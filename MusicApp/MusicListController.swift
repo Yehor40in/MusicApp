@@ -60,7 +60,7 @@ class MusicListController: UIViewController {
     
     func preparedItems(from raw: [MusicItem]) -> [Character: [MusicItem]] {
         
-        let temp = raw.sorted { $0.name.first! < $1.name.first! }
+        let temp = raw.sorted { $0.name < $1.name }
         var prepared = [Character: [MusicItem]]()
         
         for item in temp {
