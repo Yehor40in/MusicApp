@@ -25,7 +25,7 @@ class MusicListCell: UITableViewCell {
                 self.songCover!.image = UIImage(named: "defaultmusicicon")
             }
             self.songName!.text = item!.name
-            self.artist!.text = item.artist
+            self.artist!.text = item!.artist
         }
     }
     
