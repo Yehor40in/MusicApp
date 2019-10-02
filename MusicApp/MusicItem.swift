@@ -16,7 +16,7 @@ class MusicItem {
     var artist: String
     var name: String
     var location: URL!
-    var dateAdded: Date!
+    var dateAdded: Date
     
     
     init(image: String? = nil, artist: String, name: String) {
