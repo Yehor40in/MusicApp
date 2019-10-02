@@ -27,5 +27,6 @@ class MusicItem {
         self.image = image
         self.artist = artist
         self.name = name
+        self.dateAdded = Date()
     }
 }
