@@ -26,8 +26,7 @@ class MusicListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let raw = getItems()
-        self.items = preparedItems(from: raw)
+        self.items = preparedItems(from: getItems())
         self.sectionTitles = items.keys.map { String($0) }
         
         tableView.dataSource = self
