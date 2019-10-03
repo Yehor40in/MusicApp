@@ -20,7 +20,7 @@ extension MusicListController: UITableViewDelegate {
         let key = Character(sectionTitles[playingKeyIndex])
         let item = items[key]![playingRow]
         
-        prepareMusic(for: playingRow, at: key)
+        prepareMusicAndSession(for: playingRow, at: key)
         self.player.play()
         isPLaying = true
         

@@ -17,6 +17,7 @@ class MusicListController: UIViewController {
     
     var player: AVAudioPlayer!
     var isPLaying: Bool = false
+    var paused = false
     
     var playingKeyIndex: Int!
     var playingRow: Int!
@@ -63,7 +64,7 @@ class MusicListController: UIViewController {
         
     }
     
-    
+    //MARK: - Utilities
     func preparedItems(from raw: [MusicItem]) -> [Character: [MusicItem]] {
         
         let temp = raw.sorted { $0.name < $1.name }
@@ -82,7 +83,7 @@ class MusicListController: UIViewController {
     }
     
     
-    func prepareMusic(for index: Int, at key: Character) {
+    func prepareMusicAndSession(for index: Int, at key: Character) {
         
         let item = items[key]![index]
         
@@ -96,6 +97,7 @@ class MusicListController: UIViewController {
         } catch let sessionError {
             print(sessionError)
         }
+        self.forwardButton.isEnabled = true
     }
     
     
@@ -105,7 +107,49 @@ class MusicListController: UIViewController {
         self.playingName.text = object.name
         self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
     }
+    
+    
+    func playRandomSong() {
+        
+        let randomSection = Int.random(in: 0..<sectionTitles.count)
+        let key = Character(sectionTitles[randomSection])
+        
+        var counter = 0
+        for _ in items[key]! {
+            counter += 1
+        }
+        let row = Int.random(in: 0..<counter)
+        
+        prepareMusicAndSession(for: row, at: key)
+        self.isPLaying = true
+        self.player.play()
+        updatePlayingView(with: items[key]![row])
+    }
 
+    
+    //MARK: - Actions
+    @IBAction func playButtonTapped(_ sender: Any) {
+        if !isPLaying {
+            playRandomSong()
+            
+        } else if paused {
+            self.paused = false
+            self.player.play()
+            self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
+            
+        } else {
+            self.paused = true
+            self.player.pause()
+            self.playButton.setImage(UIImage(systemName: "play.fill", withConfiguration: .none), for: .normal)
+        }
+    }
+    
+    
+    @IBAction func forwardTapped(_ sender: Any) {
+        playRandomSong()
+    }
+    
+    
     /*
     // MARK: - Navigation
 

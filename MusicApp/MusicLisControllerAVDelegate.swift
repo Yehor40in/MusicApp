@@ -12,6 +12,7 @@ import UIKit
 extension MusicListController: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+            
         var key = Character(sectionTitles[playingKeyIndex])
         
         //if we faced last item in section then jump to the first one on next section
@@ -25,7 +26,7 @@ extension MusicListController: AVAudioPlayerDelegate {
         }
         
         //play music and update playing view
-        prepareMusic(for: playingRow, at: key)
+        prepareMusicAndSession(for: playingRow, at: key)
         self.player.play()
         
         updatePlayingView(with: items[key]![playingRow])
