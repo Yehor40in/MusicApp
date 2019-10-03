@@ -15,11 +15,11 @@ class MusicItem {
     var image: String?
     var artist: String
     var name: String
-    var location: URL!
-    var dateAdded: Date!
+    var location: URL
+    var dateAdded: Date
     
     
-    init(image: String? = nil, artist: String, name: String) {
+    init(image: String? = nil, artist: String, name: String, path: URL) {
         if let temp = image {
             self.image = temp
         }
@@ -27,5 +27,7 @@ class MusicItem {
         self.image = image
         self.artist = artist
         self.name = name
+        self.location = path
+        self.dateAdded = Date()
     }
 }

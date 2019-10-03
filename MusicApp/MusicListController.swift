@@ -7,11 +7,19 @@
 //
 
 import UIKit
+import AVFoundation
 
 class MusicListController: UIViewController {
+    
     //MARK: - Properties
     var items: [Character: [MusicItem]]!
     var sectionTitles: [String]!
+    
+    var player: AVAudioPlayer!
+    var isPLaying: Bool = false
+    
+    var playingKeyIndex: Int!
+    var playingRow: Int!
     
     
     //MARK: - Outlets
@@ -26,8 +34,7 @@ class MusicListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let raw = getItems()
-        self.items = preparedItems(from: raw)
+        self.items = preparedItems(from: getItems())
         self.sectionTitles = items.keys.map { String($0) }
         
         tableView.dataSource = self
@@ -48,12 +55,10 @@ class MusicListController: UIViewController {
     func getItems() -> [MusicItem] {
         
         return [
-            MusicItem(artist: "The Prodigy", name: "Echo"),
-            MusicItem(artist: "The Prodigy", name: "Alpha"),
-            MusicItem(artist: "The Prodigy", name: "Bravo"),
-            MusicItem(artist: "The Prodigy", name: "Foxtrot"),
-            MusicItem(artist: "The Prodigy", name: "Charlie"),
-            MusicItem(image: "pooh", artist: "The Prodigy", name: "Delta")
+            MusicItem(artist: "Bensound", name: "Dubstep", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-dubstep", ofType: "mp3")!)),
+            MusicItem(artist: "Bensound", name: "Energy", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-energy", ofType: "mp3")!)),
+            MusicItem(artist: "Bensound", name: "Epic", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-epic", ofType: "mp3")!)),
+            MusicItem(artist: "Bensound", name: "Once Again", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-onceagain", ofType: "mp3")!)),
         ]
         
     }
@@ -61,7 +66,7 @@ class MusicListController: UIViewController {
     
     func preparedItems(from raw: [MusicItem]) -> [Character: [MusicItem]] {
         
-        let temp = raw.sorted(by: { $0.name.first! < $1.name.first! })
+        let temp = raw.sorted { $0.name < $1.name }
         var prepared = [Character: [MusicItem]]()
         
         for item in temp {
@@ -74,7 +79,31 @@ class MusicListController: UIViewController {
             }
         }
         return prepared
+    }
+    
+    
+    func prepareMusic(for index: Int, at key: Character) {
         
+        let item = items[key]![index]
+        
+        player = try! AVAudioPlayer(contentsOf: item.location)
+        player.delegate = self
+        player.prepareToPlay()
+        
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(AVAudioSession.Category.playback)
+        } catch let sessionError {
+            print(sessionError)
+        }
+    }
+    
+    
+    func updatePlayingView(with object: MusicItem) {
+        
+        //self.playingCover.image = UIImage(named: object.image!)
+        self.playingName.text = object.name
+        self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
     }
 
     /*

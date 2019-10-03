@@ -12,6 +12,21 @@ import UIKit
 extension MusicListController: UITableViewDelegate {
     //MARK: - TableViewDelegate
      
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        self.playingKeyIndex = indexPath.section
+        self.playingRow = indexPath.row
+        
+        let key = Character(sectionTitles[playingKeyIndex])
+        let item = items[key]![playingRow]
+        
+        prepareMusic(for: playingRow, at: key)
+        self.player.play()
+        isPLaying = true
+        
+        updatePlayingView(with: item)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

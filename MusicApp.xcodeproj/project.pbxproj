@@ -23,6 +23,8 @@
 		7413787E234486590046387C /* MusicListControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413787D234486590046387C /* MusicListControllerDelegate.swift */; };
 		7453D4262343578E007E022F /* MusicListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7453D4252343578E007E022F /* MusicListCell.swift */; };
 		7453D42A23436197007E022F /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7453D42923436197007E022F /* MusicItem.swift */; };
+		74C7256D2345D42800015A5F /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = 74C7256C2345D42800015A5F /* Samples */; };
+		74C7256F2345DA1300015A5F /* MusicLisControllerAVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C7256E2345DA1300015A5F /* MusicLisControllerAVDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		7413787D234486590046387C /* MusicListControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListControllerDelegate.swift; sourceTree = "<group>"; };
 		7453D4252343578E007E022F /* MusicListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListCell.swift; sourceTree = "<group>"; };
 		7453D42923436197007E022F /* MusicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
+		74C7256C2345D42800015A5F /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samples; sourceTree = "<group>"; };
+		74C7256E2345DA1300015A5F /* MusicLisControllerAVDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicLisControllerAVDelegate.swift; sourceTree = "<group>"; };
 		996CB491CC68F50CFA587139 /* Pods-MusicApp-MusicAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp-MusicAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-MusicApp-MusicAppUITests/Pods-MusicApp-MusicAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F92401953C679CE5D3BE220 /* Pods_MusicAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6232E507A08BE30507D1BE5 /* Pods-MusicApp-MusicAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp-MusicAppUITests.release.xcconfig"; path = "Target Support Files/Pods-MusicApp-MusicAppUITests/Pods-MusicApp-MusicAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -154,9 +158,11 @@
 				741378792344840C0046387C /* MusicListController.swift */,
 				7413787B234485E80046387C /* MusicListControllerDataSource.swift */,
 				7413787D234486590046387C /* MusicListControllerDelegate.swift */,
+				74C7256E2345DA1300015A5F /* MusicLisControllerAVDelegate.swift */,
 				7453D42923436197007E022F /* MusicItem.swift */,
 				7453D4252343578E007E022F /* MusicListCell.swift */,
 				7406518F23434E350030A724 /* Main.storyboard */,
+				74C7256C2345D42800015A5F /* Samples */,
 				7406519523434E360030A724 /* Assets.xcassets */,
 				7406519723434E360030A724 /* LaunchScreen.storyboard */,
 				7406519A23434E360030A724 /* Info.plist */,
@@ -290,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74C7256D2345D42800015A5F /* Samples in Resources */,
 				7406519923434E360030A724 /* LaunchScreen.storyboard in Resources */,
 				7406519623434E360030A724 /* Assets.xcassets in Resources */,
 				7406519123434E350030A724 /* Main.storyboard in Resources */,
@@ -388,6 +395,7 @@
 			files = (
 				7453D42A23436197007E022F /* MusicItem.swift in Sources */,
 				7413787C234485E80046387C /* MusicListControllerDataSource.swift in Sources */,
+				74C7256F2345DA1300015A5F /* MusicLisControllerAVDelegate.swift in Sources */,
 				7406518A23434E350030A724 /* AppDelegate.swift in Sources */,
 				7406518C23434E350030A724 /* SceneDelegate.swift in Sources */,
 				7413787E234486590046387C /* MusicListControllerDelegate.swift in Sources */,
