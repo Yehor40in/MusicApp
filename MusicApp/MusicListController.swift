@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 
+
 class MusicListController: UIViewController {
     
     //MARK: - Properties
@@ -42,6 +43,8 @@ class MusicListController: UIViewController {
         playingName.text = "Not Playing"
         playingCover.image = UIImage(named: "defaultmusicicon")
         playingCover.layer.cornerRadius = 8
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     

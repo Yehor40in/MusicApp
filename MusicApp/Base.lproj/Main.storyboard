@@ -52,8 +52,10 @@
                                                 <constraint firstItem="a4y-ZI-TLu" firstAttribute="top" secondItem="fa0-ix-GlN" secondAttribute="bottom" constant="20" id="6YR-OY-ebb"/>
                                                 <constraint firstItem="fa0-ix-GlN" firstAttribute="top" secondItem="m9Q-Po-Ly7" secondAttribute="top" constant="15" id="93W-yw-lyB"/>
                                                 <constraint firstItem="d63-VC-mAQ" firstAttribute="top" secondItem="m9Q-Po-Ly7" secondAttribute="top" constant="15" id="LLA-5i-x3I"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a4y-ZI-TLu" secondAttribute="trailing" constant="20" symbolic="YES" id="Pl2-mb-chd"/>
                                                 <constraint firstItem="a4y-ZI-TLu" firstAttribute="leading" secondItem="d63-VC-mAQ" secondAttribute="trailing" constant="20" id="Sf4-fF-A3t"/>
                                                 <constraint firstItem="fa0-ix-GlN" firstAttribute="leading" secondItem="d63-VC-mAQ" secondAttribute="trailing" constant="20" id="b3a-NC-Vjh"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fa0-ix-GlN" secondAttribute="trailing" constant="20" symbolic="YES" id="fEX-Ve-5OF"/>
                                                 <constraint firstItem="d63-VC-mAQ" firstAttribute="leading" secondItem="m9Q-Po-Ly7" secondAttribute="leading" constant="20" id="j3r-Fp-I8d"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -109,6 +111,7 @@
                                     <constraint firstItem="EGt-Mq-INm" firstAttribute="centerY" secondItem="pLq-hv-UeO" secondAttribute="centerY" id="GN0-Z2-9eF"/>
                                     <constraint firstItem="HpF-b6-gix" firstAttribute="leading" secondItem="pLq-hv-UeO" secondAttribute="leading" constant="20" id="U7n-8F-aTJ"/>
                                     <constraint firstItem="hg8-jY-lkn" firstAttribute="leading" secondItem="EGt-Mq-INm" secondAttribute="trailing" constant="15" id="itl-gy-ibB"/>
+                                    <constraint firstItem="EGt-Mq-INm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HYR-xc-Olg" secondAttribute="trailing" constant="8" symbolic="YES" id="meU-6r-mo4"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -124,9 +127,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yb7-af-LPS"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your Music" largeTitleDisplayMode="always" id="BAp-Ia-s69">
+                    <navigationItem key="navigationItem" title="Your Music" id="BAp-Ia-s69">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="8hQ-Xx-g3g">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="09M-oL-t6h">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="09M-oL-t6h">
                                 <rect key="frame" x="276" y="5" width="83" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
