@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Music List Controller-->
+        <!--Your Music-->
         <scene sceneID="TN7-8e-Zj4">
             <objects>
                 <viewController id="38y-Xj-qmE" customClass="MusicListController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -15,11 +15,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bSe-PL-Q2P">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bSe-PL-Q2P">
                                 <rect key="frame" x="0.0" y="88" width="375" height="580"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <inset key="separatorInset" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <color key="sectionIndexColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MusicListCell" id="gCd-N6-hSI" customClass="MusicListCell" customModule="MusicApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100.33333587646484"/>
@@ -85,7 +84,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGt-Mq-INm">
                                         <rect key="frame" x="299" y="43" width="15" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="play.fill" catalog="system"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="38y-Xj-qmE" eventType="touchUpInside" id="QUO-z9-P8B"/>
@@ -93,14 +92,13 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hg8-jY-lkn">
                                         <rect key="frame" x="329" y="44" width="26" height="22"/>
-                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="forward.fill" catalog="system"/>
                                         <connections>
                                             <action selector="forwardTapped:" destination="38y-Xj-qmE" eventType="touchUpInside" id="Fz1-10-Ojo"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="hg8-jY-lkn" firstAttribute="centerY" secondItem="pLq-hv-UeO" secondAttribute="centerY" id="7mn-WW-W8o"/>
                                     <constraint firstItem="HYR-xc-Olg" firstAttribute="leading" secondItem="HpF-b6-gix" secondAttribute="trailing" constant="15" id="CFe-rl-bft"/>
@@ -126,7 +124,24 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yb7-af-LPS"/>
                     </view>
-                    <navigationItem key="navigationItem" id="BAp-Ia-s69"/>
+                    <navigationItem key="navigationItem" title="Your Music" largeTitleDisplayMode="always" id="BAp-Ia-s69">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="8hQ-Xx-g3g">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="09M-oL-t6h">
+                                <rect key="frame" x="276" y="5" width="83" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Sort">
+                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="sortTapped:" destination="38y-Xj-qmE" eventType="touchUpInside" id="A1Y-XG-5kS"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <action selector="sortTapped:" destination="38y-Xj-qmE" id="lCV-Zu-BAU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="forwardButton" destination="hg8-jY-lkn" id="Urk-mD-96a"/>
                         <outlet property="playButton" destination="EGt-Mq-INm" id="Jw9-6B-oIx"/>

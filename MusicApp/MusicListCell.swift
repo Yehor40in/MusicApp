@@ -17,11 +17,7 @@ class MusicListCell: UITableViewCell {
     //MARK: - Properties
     var item: MusicItem! {
         didSet {
-            if let temp = item!.image {
-                self.songCover!.image = UIImage(named: temp)
-            } else {
-                self.songCover!.image = UIImage(named: "defaultmusicicon")
-            }
+            self.songCover!.image = UIImage(named: item!.image!)
             self.songName!.text = item!.name
             self.artist!.text = item!.artist
         }

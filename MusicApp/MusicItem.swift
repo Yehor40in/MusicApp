@@ -24,7 +24,7 @@ class MusicItem {
             self.image = temp
         }
         
-        self.image = image
+        self.image = image ?? "defaultmusicicon"
         self.artist = artist
         self.name = name
         self.location = path

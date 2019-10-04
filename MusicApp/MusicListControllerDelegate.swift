@@ -14,18 +14,15 @@ extension MusicListController: UITableViewDelegate {
      
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.playingKeyIndex = indexPath.section
         self.playingRow = indexPath.row
         
-        let key = Character(sectionTitles[playingKeyIndex])
-        let item = items[key]![playingRow]
-        
-        prepareMusicAndSession(for: playingRow, at: key)
+        prepareMusicAndSession(for: playingRow)
         self.player.play()
         isPLaying = true
         
-        updatePlayingView(with: item)
+        updatePlayingView(with: items[playingRow])
     }
+    
     
     /*
     // Override to support conditional editing of the table view.
