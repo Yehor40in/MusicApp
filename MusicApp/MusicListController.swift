@@ -35,8 +35,7 @@ class MusicListController: UIViewController {
         super.viewDidLoad()
         
         SKCloudServiceController.requestAuthorization { status in
-            switch status {
-            case .authorized:
+            if status == .authorized {
                 self.query = MPMediaQuery.songs()
                 self.items = self.preparedItems(from: self.query.items!, by: .title)
                 print(self.query!)
@@ -46,18 +45,6 @@ class MusicListController: UIViewController {
                     self.tableView.dataSource = self
                     self.tableView.delegate = self
                 }
-                
-            case .denied:
-                print("User denied library access!")
-                
-            case .restricted:
-                print("It happens ..")
-                
-            case .notDetermined:
-                print("Who knows ..")
-                
-            @unknown default:
-                fatalError("Must grant permissions!")
             }
         }
         
