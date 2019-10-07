@@ -38,7 +38,6 @@ class MusicListController: UIViewController {
             if status == .authorized {
                 self.query = MPMediaQuery.songs()
                 self.items = self.preparedItems(from: self.query.items!, by: .title)
-                print(self.query!)
                 self.preparePlayer()
                 
                 DispatchQueue.main.async {
