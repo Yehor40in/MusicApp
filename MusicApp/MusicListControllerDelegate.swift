@@ -14,7 +14,6 @@ extension MusicListController: UITableViewDelegate {
      
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.playingRow = indexPath.row
         self.setPlayingItem(for: indexPath.row)
         self.player.play()
         self.updatePlayingView()
