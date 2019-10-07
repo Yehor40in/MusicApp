@@ -7,82 +7,69 @@
 //
 
 import AVFoundation
+import MediaPlayer
 import UIKit
 
 extension MusicListController {
+    
     //MARK: - Utilities
-    
-    //sample data for now
-    func getItems() -> [MusicItem] {
-        return [
-            MusicItem(artist: "Bensound", name: "Dubstep", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-dubstep", ofType: "mp3")!)),
-            MusicItem(artist: "Aensound", name: "Energy", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-energy", ofType: "mp3")!)),
-            MusicItem(artist: "Censound", name: "Epic", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-epic", ofType: "mp3")!)),
-            MusicItem(artist: "Fensound", name: "Once Again", path: URL.init(fileURLWithPath: Bundle.main.path(forResource: "Samples/bensound-onceagain", ofType: "mp3")!))
-        ]
-    }
-    
-    
-    func preparedItems(from raw: [MusicItem], by option: SortOption) -> [MusicItem] {
-        var prepared: [MusicItem]!
+    func preparedItems(from raw: [MPMediaItem], by option: SortOption) -> [MPMediaItem] {
+        var prepared: [MPMediaItem]!
         
         self.sectionTitles = [String]()
         
         switch option {
         case .artist:
-            prepared = raw.sorted { $0.artist < $1.artist }
+            prepared = raw.sorted { $0.artist! < $1.artist! }
             _ = prepared.map {
-                sectionTitles.append(String($0.artist.first!))
+                self.sectionTitles.append(String($0.artist!.first!))
             }
         case .title:
-            prepared = raw.sorted { $0.name < $1.name }
+            prepared = raw.sorted { $0.title! < $1.title! }
             _ = prepared.map {
-                sectionTitles.append(String($0.name.first!))
+                self.sectionTitles.append(String($0.title!.first!))
             }
         case .date:
             prepared = raw.sorted { $0.dateAdded < $1.dateAdded }
-            for (index, _) in prepared.enumerated() {
-                sectionTitles.append("\(index)")
+            _ = prepared.map {
+                self.sectionTitles.append(String($0.title!.first!))
             }
         }
         return prepared
     }
     
     
-    func prepareMusicAndSession(for index: Int) {
-        let item = items[index]
-        
-        player = try! AVAudioPlayer(contentsOf: item.location)
-        player.delegate = self
-        player.prepareToPlay()
-        
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setCategory(AVAudioSession.Category.playback)
-        } catch let sessionError {
-            print(sessionError)
-        }
-        self.forwardButton.isEnabled = true
+    func preparePlayer() {
+        self.player = MPMusicPlayerController.systemMusicPlayer
+        self.player.setQueue(with: self.query)
+        self.player.prepareToPlay()
     }
     
     
-    func updatePlayingView(with object: MusicItem) {
-        self.playingCover.image = UIImage(named: object.image!)
-        self.playingName.text = object.name
-        self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
+    func setPlayingItem(for row: Int) {
+        self.player.nowPlayingItem = self.items[row]
+    }
+    
+    
+    func updatePlayingView() {
+        let object = self.player.nowPlayingItem!
+        
+        self.playingCover.image = object.artwork?.image(at: self.playingCover!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+        self.playingName.text = object.title!
+        self.playButton.setImage(UIImage(named: "pause"), for: .normal)
+        self.forwardButton.isEnabled = true
     }
     
     
     func playRandomSong() {
         var counter = 0
-        for _ in items {
+        for _ in self.items {
             counter += 1
         }
         let row = Int.random(in: 0..<counter)
         
-        prepareMusicAndSession(for: row)
-        self.isPLaying = true
+        self.setPlayingItem(for: row)
         self.player.play()
-        updatePlayingView(with: items[row])
+        self.updatePlayingView()
     }
 }

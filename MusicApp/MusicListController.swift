@@ -7,17 +7,18 @@
 //
 
 import UIKit
-import AVFoundation
-
+import MediaPlayer
+import StoreKit
 
 class MusicListController: UIViewController {
     
     //MARK: - Properties
-    var items: [MusicItem]!
+    var items: [MPMediaItem]!
     var sectionTitles: [String]!
     
-    var player: AVAudioPlayer!
-    var isPLaying: Bool = false
+    //var player: AVAudioPlayer!
+    var player: MPMusicPlayerController!
+    var query: MPMediaQuery!
     var paused = false
     
     var playingRow: Int!
@@ -35,10 +36,32 @@ class MusicListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.items = preparedItems(from: getItems(), by: .title)
-        
-        tableView.dataSource = self
-        tableView.delegate = self
+        SKCloudServiceController.requestAuthorization { status in
+            switch status {
+            case .authorized:
+                self.query = MPMediaQuery.songs()
+                self.items = self.preparedItems(from: self.query.items!, by: .title)
+                print(self.query!)
+                self.preparePlayer()
+                
+                DispatchQueue.main.async {
+                    self.tableView.dataSource = self
+                    self.tableView.delegate = self
+                }
+                
+            case .denied:
+                print("User denied library access!")
+                
+            case .restricted:
+                print("It happens ..")
+                
+            case .notDetermined:
+                print("Who knows ..")
+                
+            @unknown default:
+                fatalError("Must grant permissions!")
+            }
+        }
         
         playingName.text = "Not Playing"
         playingCover.image = UIImage(named: "defaultmusicicon")
@@ -50,24 +73,25 @@ class MusicListController: UIViewController {
     
     //MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
-        if !isPLaying {
+        
+        if player.isPreparedToPlay && !forwardButton.isEnabled {
             self.playRandomSong()
             
         } else if paused {
             self.paused = false
             self.player.play()
-            self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
+            self.playButton.setImage(UIImage(named: "pause"), for: .normal)
             
         } else {
             self.paused = true
             self.player.pause()
-            self.playButton.setImage(UIImage(systemName: "play.fill", withConfiguration: .none), for: .normal)
+            self.playButton.setImage(UIImage(named: "play"), for: .normal)
         }
     }
     
     
     @IBAction func forwardTapped(_ sender: Any) {
-        playRandomSong()
+        self.playRandomSong()
     }
     
     

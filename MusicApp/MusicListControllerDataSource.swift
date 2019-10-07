@@ -18,19 +18,19 @@ extension MusicListController: UITableViewDataSource {
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return self.items.count
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as! MusicListCell
-        cell.item = items[indexPath.row]
+        cell.item = self.items[indexPath.row]
         
         return cell
     }
     
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return sectionTitles
+        return self.sectionTitles
     }
 }
