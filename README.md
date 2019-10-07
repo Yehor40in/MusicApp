@@ -1,3 +1,3 @@
 # MusicApp
 
-icons: icons8.com
+icons: https://icons8.com
