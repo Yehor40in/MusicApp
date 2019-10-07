@@ -21,8 +21,6 @@ class MusicListController: UIViewController {
     var query: MPMediaQuery!
     var paused = false
     
-    var playingRow: Int!
-    
     
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
