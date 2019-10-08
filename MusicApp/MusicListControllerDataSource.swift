@@ -13,7 +13,11 @@ extension MusicListController: UITableViewDataSource {
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
+<<<<<<< HEAD
         return sectionTitles.count
+=======
+        return self.sectionTitles.count
+>>>>>>> bf82be8f307db2730c64d5697bf04685e134922e
     }
     
 
