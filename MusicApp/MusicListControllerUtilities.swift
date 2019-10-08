@@ -13,27 +13,48 @@ import UIKit
 extension MusicListController {
     
     //MARK: - Utilities
-    func preparedItems(from raw: [MPMediaItem], by option: SortOption) -> [MPMediaItem] {
-        var prepared: [MPMediaItem]!
+    func preparedItems(from raw: [MPMediaItem], by option: SortOption) -> [Character: [MPMediaItem]] {
+        var prepared = [Character: [MPMediaItem]]()
         
         self.sectionTitles = [String]()
         
         switch option {
         case .artist:
-            prepared = raw.sorted { $0.artist! < $1.artist! }
-            _ = prepared.map {
-                self.sectionTitles.append(String($0.artist!.first!))
+            let temp = raw.sorted { $0.artist! < $1.artist! }
+            _ = temp.map {
+                let key = $0.artist!.first!
+                
+                if prepared[key] == nil {
+                    prepared[key] = [MPMediaItem]()
+                }
+                prepared[key]!.append($0)
+                if !sectionTitles.contains(String(key)) {
+                    self.sectionTitles.append(String(key))
+                }
             }
         case .title:
-            prepared = raw.sorted { $0.title! < $1.title! }
-            _ = prepared.map {
-                self.sectionTitles.append(String($0.title!.first!))
+            let temp = raw.sorted { $0.title! < $1.title! }
+            _ = temp.map {
+                let key = $0.title!.first!
+                
+                if prepared[key] == nil {
+                    prepared[key] = [MPMediaItem]()
+                }
+                prepared[key]!.append($0)
+                if !sectionTitles.contains(String(key)) {
+                    self.sectionTitles.append(String(key))
+                }
             }
         case .date:
-            prepared = raw.sorted { $0.dateAdded < $1.dateAdded }
-            _ = prepared.map {
-                self.sectionTitles.append(String($0.title!.first!))
-            }
+            print()
+            /*let temp = raw.sorted { $0.dateAdded < $1.dateAdded }
+            _ = temp.map {
+                let key = $0.dateAdded.description.first!
+                if prepared[key] == nil {
+                    prepared[key] = [MPMediaItem]()
+                }
+                prepared[key]!.append($0)
+            }*/
         }
         return prepared
     }
@@ -46,8 +67,9 @@ extension MusicListController {
     }
     
     
-    func setPlayingItem(for row: Int) {
-        self.player.nowPlayingItem = self.items[row]
+    func setPlayingItem(for path: IndexPath) {
+        let key = Character(sectionTitles[path.section])
+        self.player.nowPlayingItem = self.items![key]![path.row]
     }
     
     
@@ -62,13 +84,11 @@ extension MusicListController {
     
     
     func playRandomSong() {
-        var counter = 0
-        for _ in self.items {
-            counter += 1
-        }
-        let row = Int.random(in: 0..<counter)
+        let s = Int.random(in: 0..<self.sectionTitles.count)
+        let key = sectionTitles[s].first!
+        let r = Int.random(in: 0..<self.items![key]!.count)
         
-        self.setPlayingItem(for: row)
+        self.setPlayingItem(for: IndexPath(row: r, section: s))
         self.player.play()
         self.updatePlayingView()
     }

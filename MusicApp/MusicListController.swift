@@ -13,15 +13,15 @@ import StoreKit
 class MusicListController: UIViewController {
     
     //MARK: - Properties
-    var items: [MPMediaItem]!
+    var items: [Character: [MPMediaItem]]!
     var sectionTitles: [String]!
     
     //var player: AVAudioPlayer!
     var player: MPMusicPlayerController!
     var query: MPMediaQuery!
-    var paused = false
     
-    var playingRow: Int!
+    var playingKey: Character!
+    var paused = false
     
     
     //MARK: - Outlets
@@ -37,29 +37,16 @@ class MusicListController: UIViewController {
         super.viewDidLoad()
         
         SKCloudServiceController.requestAuthorization { status in
-            switch status {
-            case .authorized:
+            if status == .authorized
+            {
                 self.query = MPMediaQuery.songs()
                 self.items = self.preparedItems(from: self.query.items!, by: .title)
-                print(self.query!)
                 self.preparePlayer()
                 
                 DispatchQueue.main.async {
                     self.tableView.dataSource = self
                     self.tableView.delegate = self
                 }
-                
-            case .denied:
-                print("User denied library access!")
-                
-            case .restricted:
-                print("It happens ..")
-                
-            case .notDetermined:
-                print("Who knows ..")
-                
-            @unknown default:
-                fatalError("Must grant permissions!")
             }
         }
         
@@ -99,21 +86,21 @@ class MusicListController: UIViewController {
         let actionSheet = UIAlertController(title: nil, message: "Sort by", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Artist", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.items, by: .artist)
+            self.items = self.preparedItems(from: self.query.items!, by: .artist)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Title", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.items, by: .title)
+            self.items = self.preparedItems(from: self.query.items!, by: .title)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Recently Added", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.items, by: .date)
+            self.items = self.preparedItems(from: self.query.items!, by: .date)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -125,16 +112,6 @@ class MusicListController: UIViewController {
 
         self.present(actionSheet, animated: true, completion: nil)
     }
-    
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
