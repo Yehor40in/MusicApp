@@ -22,7 +22,6 @@ extension MusicListController: UITableViewDelegate {
         
         prepareMusicAndSession(for: playingRow, at: key)
         self.player.play()
-        isPLaying = true
         
         updatePlayingView(with: item)
     }
