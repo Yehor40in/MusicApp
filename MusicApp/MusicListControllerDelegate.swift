@@ -18,5 +18,4 @@ extension MusicListController: UITableViewDelegate {
         self.player.play()
         self.updatePlayingView()
     }
-
 }

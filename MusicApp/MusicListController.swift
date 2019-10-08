@@ -19,8 +19,6 @@ class MusicListController: UIViewController {
     //var player: AVAudioPlayer!
     var player: MPMusicPlayerController!
     var query: MPMediaQuery!
-    
-    var playingKey: Character!
     var paused = false
     
     
@@ -37,8 +35,7 @@ class MusicListController: UIViewController {
         super.viewDidLoad()
         
         SKCloudServiceController.requestAuthorization { status in
-            if status == .authorized
-            {
+            if status == .authorized {
                 self.query = MPMediaQuery.songs()
                 self.items = self.preparedItems(from: self.query.items!, by: .title)
                 self.preparePlayer()
@@ -112,6 +109,5 @@ class MusicListController: UIViewController {
 
         self.present(actionSheet, animated: true, completion: nil)
     }
-
 
 }
