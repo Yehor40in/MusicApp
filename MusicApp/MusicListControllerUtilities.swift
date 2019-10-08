@@ -13,7 +13,7 @@ import UIKit
 extension MusicListController {
     
     //MARK: - Utilities
-    func preparedItems(from raw: [MPMediaItem], by option: SortOption) -> [MPMediaItem] {
+    func preparedItems(from raw: [MPMediaItem], by option: SortOption) -> [Character: [MPMediaItem]] {
         var prepared = [Character: [MPMediaItem]]()
         
         self.sectionTitles = [String]()
