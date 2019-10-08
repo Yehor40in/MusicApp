@@ -114,11 +114,7 @@ class MusicListController: UIViewController {
         let randomSection = Int.random(in: 0..<sectionTitles.count)
         let key = Character(sectionTitles[randomSection])
         
-        var counter = 0
-        for _ in items[key]! {
-            counter += 1
-        }
-        let row = Int.random(in: 0..<counter)
+        let row = Int.random(in: 0..<items[key]!.count)
         
         prepareMusicAndSession(for: row, at: key)
         self.isPLaying = true
