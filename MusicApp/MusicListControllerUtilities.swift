@@ -62,11 +62,7 @@ extension MusicListController {
     
     
     func playRandomSong() {
-        var counter = 0
-        for _ in self.items {
-            counter += 1
-        }
-        let row = Int.random(in: 0..<counter)
+        let row = Int.random(in: 0..<self.items.count)
         
         self.setPlayingItem(for: row)
         self.player.play()
