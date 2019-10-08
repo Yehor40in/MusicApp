@@ -13,7 +13,7 @@ import StoreKit
 class MusicListController: UIViewController {
     
     //MARK: - Properties
-    var items: [MPMediaItem]!
+    var items: [Character: [MPMediaItem]]!
     var sectionTitles: [String]!
     
     //var player: AVAudioPlayer!
@@ -83,21 +83,21 @@ class MusicListController: UIViewController {
         let actionSheet = UIAlertController(title: nil, message: "Sort by", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Artist", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.items, by: .artist)
+            self.items = self.preparedItems(from: self.query.items!, by: .artist)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Title", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.items, by: .title)
+            self.items = self.preparedItems(from: self.query.items!, by: .title)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Recently Added", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.items, by: .date)
+            self.items = self.preparedItems(from: self.query.items!, by: .date)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
