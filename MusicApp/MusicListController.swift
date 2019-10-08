@@ -16,7 +16,6 @@ class MusicListController: UIViewController {
     var sectionTitles: [String]!
     
     var player: AVAudioPlayer!
-    var isPLaying: Bool = false
     var paused = false
     
     var playingKeyIndex: Int!
@@ -125,7 +124,7 @@ class MusicListController: UIViewController {
     
     //MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
-        if !isPLaying {
+        if !player.isPLaying {
             playRandomSong()
             
         } else if paused {
