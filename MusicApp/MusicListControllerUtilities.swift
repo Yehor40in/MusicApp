@@ -46,15 +46,15 @@ extension MusicListController {
                 }
             }
         case .date:
-            print()
-            /*let temp = raw.sorted { $0.dateAdded < $1.dateAdded }
+            let temp = raw.sorted { $0.dateAdded < $1.dateAdded }
+            
+            self.sectionTitles.append(String(" "))
             _ = temp.map {
-                let key = $0.dateAdded.description.first!
-                if prepared[key] == nil {
-                    prepared[key] = [MPMediaItem]()
+                if prepared[" "] == nil {
+                    prepared[" "] = [MPMediaItem]()
                 }
-                prepared[key]!.append($0)
-            }*/
+                prepared[" "]!.append($0)
+            }
         }
         return prepared
     }
