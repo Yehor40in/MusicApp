@@ -46,24 +46,15 @@ extension MusicListController {
                 }
             }
         case .date:
-<<<<<<< HEAD
-            // TODO: Fix this fucking date sort
             let temp = raw.sorted { $0.dateAdded < $1.dateAdded }
-=======
-            print()
-            /*let temp = raw.sorted { $0.dateAdded < $1.dateAdded }
->>>>>>> bf82be8f307db2730c64d5697bf04685e134922e
+            
+            self.sectionTitles.append(String(" "))
             _ = temp.map {
-                let key = $0.dateAdded.description.first!
-                if prepared[key] == nil {
-                    prepared[key] = [MPMediaItem]()
+                if prepared[" "] == nil {
+                    prepared[" "] = [MPMediaItem]()
                 }
-                prepared[key]!.append($0)
-<<<<<<< HEAD
+                prepared[" "]!.append($0)
             }
-=======
-            }*/
->>>>>>> bf82be8f307db2730c64d5697bf04685e134922e
         }
         return prepared
     }
@@ -93,14 +84,9 @@ extension MusicListController {
     
     
     func playRandomSong() {
-<<<<<<< HEAD
-
-=======
->>>>>>> bf82be8f307db2730c64d5697bf04685e134922e
         let s = Int.random(in: 0..<self.sectionTitles.count)
         let key = sectionTitles[s].first!
         let r = Int.random(in: 0..<self.items![key]!.count)
-
         
         self.setPlayingItem(for: IndexPath(row: r, section: s))
         self.player.play()
