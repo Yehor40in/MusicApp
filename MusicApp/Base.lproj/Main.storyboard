@@ -156,124 +156,11 @@
                         <outlet property="playingName" destination="HYR-xc-Olg" id="2oy-aJ-EOX"/>
                         <outlet property="playingView" destination="pLq-hv-UeO" id="aeH-y4-0h8"/>
                         <outlet property="tableView" destination="bSe-PL-Q2P" id="4Gw-Qp-Fxj"/>
-                        <segue destination="bVJ-Bq-QRB" kind="presentation" identifier="playingInfo" id="NIi-c0-VQh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1so-pW-CyM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3680.8000000000002" y="85.714285714285722"/>
-        </scene>
-        <!--Playing View Controller-->
-        <scene sceneID="5cH-0F-r5d">
-            <objects>
-                <viewController id="bVJ-Bq-QRB" customClass="PlayingViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Lnf-oI-dj6" customClass="Playing">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lB1-Gp-05R">
-                                <rect key="frame" x="60" y="315" width="200" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="JEw-YP-PhL"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYA-Ss-pwq">
-                                <rect key="frame" x="60" y="354" width="200" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="p07-Wc-mmz"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whp-y6-o9H">
-                                <rect key="frame" x="143" y="397" width="32" height="32"/>
-                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="play"/>
-                                <connections>
-                                    <action selector="playButtonTapped:" destination="bVJ-Bq-QRB" eventType="touchUpInside" id="ELR-xh-UJE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3TA-XQ-QDT">
-                                <rect key="frame" x="205" y="397" width="32" height="32"/>
-                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="forward"/>
-                                <connections>
-                                    <action selector="forwardTapped:" destination="bVJ-Bq-QRB" eventType="touchUpInside" id="XQz-ji-Jzq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BPe-vi-d9a">
-                                <rect key="frame" x="81" y="397" width="32" height="32"/>
-                                <state key="normal" image="rewind"/>
-                                <connections>
-                                    <action selector="backwardTapped:" destination="bVJ-Bq-QRB" eventType="touchUpInside" id="Zcm-hz-Cee"/>
-                                </connections>
-                            </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Htu-rf-Mhx">
-                                <rect key="frame" x="58" y="476" width="204" height="31"/>
-                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="uYn-tB-hH1"/>
-                                </constraints>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWP-qC-V2K">
-                                <rect key="frame" x="60" y="5" width="200" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="Tob-FA-x3S"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="chevron"/>
-                                <connections>
-                                    <action selector="cancelTapped:" destination="bVJ-Bq-QRB" eventType="touchUpInside" id="4hP-uu-8bY"/>
-                                </connections>
-                            </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wBt-A0-B7q">
-                                <rect key="frame" x="20" y="34" width="84" height="81"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="81" id="Ge7-Px-rbv"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="3TA-XQ-QDT" firstAttribute="leading" secondItem="whp-y6-o9H" secondAttribute="trailing" constant="30" id="8o5-oW-S2f"/>
-                            <constraint firstItem="3TA-XQ-QDT" firstAttribute="top" secondItem="RYA-Ss-pwq" secondAttribute="bottom" constant="35" id="9RZ-Bi-tRX"/>
-                            <constraint firstItem="BPe-vi-d9a" firstAttribute="top" secondItem="RYA-Ss-pwq" secondAttribute="bottom" constant="35" id="EEs-lg-iy1"/>
-                            <constraint firstItem="Htu-rf-Mhx" firstAttribute="top" secondItem="whp-y6-o9H" secondAttribute="bottom" constant="35" id="FKe-D8-BSm"/>
-                            <constraint firstItem="iWP-qC-V2K" firstAttribute="top" secondItem="KVk-HW-3bq" secondAttribute="top" constant="5" id="I6n-2U-tfW"/>
-                            <constraint firstItem="wBt-A0-B7q" firstAttribute="leading" secondItem="KVk-HW-3bq" secondAttribute="leading" constant="20" id="IBQ-Cs-Km5"/>
-                            <constraint firstItem="KVk-HW-3bq" firstAttribute="trailing" secondItem="wBt-A0-B7q" secondAttribute="trailing" constant="216" id="Ian-BA-U5E"/>
-                            <constraint firstItem="whp-y6-o9H" firstAttribute="centerX" secondItem="Lnf-oI-dj6" secondAttribute="centerX" id="NR9-gr-RKh"/>
-                            <constraint firstItem="RYA-Ss-pwq" firstAttribute="centerX" secondItem="Lnf-oI-dj6" secondAttribute="centerX" id="i8m-bc-mni"/>
-                            <constraint firstItem="whp-y6-o9H" firstAttribute="top" secondItem="RYA-Ss-pwq" secondAttribute="bottom" constant="35" id="kUZ-6s-FVJ"/>
-                            <constraint firstItem="lB1-Gp-05R" firstAttribute="centerX" secondItem="Lnf-oI-dj6" secondAttribute="centerX" id="knI-99-PwN"/>
-                            <constraint firstItem="Htu-rf-Mhx" firstAttribute="centerX" secondItem="Lnf-oI-dj6" secondAttribute="centerX" id="kxV-9l-GA0"/>
-                            <constraint firstItem="iWP-qC-V2K" firstAttribute="centerX" secondItem="Lnf-oI-dj6" secondAttribute="centerX" id="lgD-Ge-qPH"/>
-                            <constraint firstItem="whp-y6-o9H" firstAttribute="leading" secondItem="BPe-vi-d9a" secondAttribute="trailing" constant="30" id="nhc-5Z-xRc"/>
-                            <constraint firstItem="RYA-Ss-pwq" firstAttribute="top" secondItem="lB1-Gp-05R" secondAttribute="bottom" constant="15" id="osg-QE-hb2"/>
-                            <constraint firstItem="wBt-A0-B7q" firstAttribute="top" secondItem="iWP-qC-V2K" secondAttribute="bottom" constant="5" id="qhT-Ab-cOs"/>
-                            <constraint firstItem="lB1-Gp-05R" firstAttribute="top" secondItem="wBt-A0-B7q" secondAttribute="bottom" constant="200" id="u2P-jG-zrQ"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="KVk-HW-3bq"/>
-                    </view>
-                    <connections>
-                        <outlet property="artist" destination="RYA-Ss-pwq" id="Ege-rB-86m"/>
-                        <outlet property="backwardButton" destination="BPe-vi-d9a" id="VJd-W9-BM7"/>
-                        <outlet property="cancelButton" destination="iWP-qC-V2K" id="bg8-ux-f9h"/>
-                        <outlet property="cover" destination="wBt-A0-B7q" id="C8G-q9-ijS"/>
-                        <outlet property="forwardButton" destination="3TA-XQ-QDT" id="FDe-Dd-XmL"/>
-                        <outlet property="name" destination="lB1-Gp-05R" id="0W2-Y3-wLc"/>
-                        <outlet property="playButton" destination="whp-y6-o9H" id="1eB-yK-d5u"/>
-                        <outlet property="songProgress" destination="Htu-rf-Mhx" id="Nhw-xq-SAn"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="flZ-4X-jx0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4565.625" y="85.563380281690144"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aMW-zp-A1C">
@@ -295,9 +182,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chevron" width="24" height="24"/>
         <image name="forward" width="32" height="32"/>
         <image name="play" width="32" height="32"/>
-        <image name="rewind" width="32" height="32"/>
     </resources>
 </document>
