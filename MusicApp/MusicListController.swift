@@ -81,6 +81,7 @@ class MusicListController: UIViewController {
     
     @IBAction func sortTapped(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: "Sort by", preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = UIColor.green
         
         actionSheet.addAction(UIAlertAction(title: "Artist", style: .default, handler: { (_) in
             self.items = self.preparedItems(from: self.query.items!, by: .artist)
