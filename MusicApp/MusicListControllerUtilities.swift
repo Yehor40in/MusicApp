@@ -84,9 +84,11 @@ extension MusicListController {
     
     
     func playRandomSong() {
+
         let s = Int.random(in: 0..<self.sectionTitles.count)
         let key = sectionTitles[s].first!
         let r = Int.random(in: 0..<self.items![key]!.count)
+        
         
         self.setPlayingItem(for: IndexPath(row: r, section: s))
         self.player.play()
