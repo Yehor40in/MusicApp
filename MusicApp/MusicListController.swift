@@ -52,6 +52,8 @@ class MusicListController: UIViewController {
         playingCover.layer.cornerRadius = 8
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.playingInfo(_:))))
     }
 
     
@@ -109,6 +111,19 @@ class MusicListController: UIViewController {
         }))
 
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let target = segue.destination as? PlayingViewController {
+            target.preparedData = PreparedInfo(cover: self.playingCover.image!, title: playingName.text!, artist: player.nowPlayingItem?.artist ?? "Not PLaying", player: self.player)
+        }
+    }
+    
+    func unwindToMusicList(sender: UIStoryboardSegue) {
+        self.updatePlayingView()
     }
 
 }

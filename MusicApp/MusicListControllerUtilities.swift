@@ -94,4 +94,9 @@ extension MusicListController {
         self.player.play()
         self.updatePlayingView()
     }
+    
+    
+    @objc func playingInfo(_ sender: UITapGestureRecognizer? = nil) {
+        self.performSegue(withIdentifier: "playingInfo", sender: self)
+    }
 }
