@@ -94,4 +94,12 @@ extension MusicListController {
         self.player.play()
         self.updatePlayingView()
     }
+    
+    
+    @objc func showDetails(_ sender: UITapGestureRecognizer!) {
+        if let details = self.storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
+            details.prepared = PreparedData(image: self.view.makeScreenshot()!, player: self.player)
+            present(details, animated: false)
+        }
+    }
 }

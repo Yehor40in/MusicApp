@@ -52,7 +52,10 @@ class MusicListController: UIViewController {
         playingCover.layer.cornerRadius = 8
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
     }
+    
 
     
     //MARK: - Actions
