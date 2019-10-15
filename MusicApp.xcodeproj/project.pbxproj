@@ -22,6 +22,8 @@
 		7413787C234485E80046387C /* MusicListControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413787B234485E80046387C /* MusicListControllerDataSource.swift */; };
 		7413787E234486590046387C /* MusicListControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413787D234486590046387C /* MusicListControllerDelegate.swift */; };
 		7445A0D12355AB1A00FF1292 /* PlayingViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */; };
+		7445A0D7235603C000FF1292 /* ControlsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */; };
+		7445A0DB23560A0000FF1292 /* PlayingViewControllerControlsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445A0DA23560A0000FF1292 /* PlayingViewControllerControlsDelegate.swift */; };
 		7453D4262343578E007E022F /* MusicListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7453D4252343578E007E022F /* MusicListCell.swift */; };
 		7460BEAB234F53E400CFFDCB /* UIViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7460BEAA234F53E400CFFDCB /* UIViewHelper.swift */; };
 		7460BEAD234F55E200CFFDCB /* PreparedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7460BEAC234F55E200CFFDCB /* PreparedData.swift */; };
@@ -72,6 +74,8 @@
 		7413787B234485E80046387C /* MusicListControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListControllerDataSource.swift; sourceTree = "<group>"; };
 		7413787D234486590046387C /* MusicListControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListControllerDelegate.swift; sourceTree = "<group>"; };
 		7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewControllerDelegate.swift; sourceTree = "<group>"; };
+		7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsControllerDelegate.swift; sourceTree = "<group>"; };
+		7445A0DA23560A0000FF1292 /* PlayingViewControllerControlsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewControllerControlsDelegate.swift; sourceTree = "<group>"; };
 		7453D4252343578E007E022F /* MusicListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListCell.swift; sourceTree = "<group>"; };
 		7460BEAA234F53E400CFFDCB /* UIViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewHelper.swift; sourceTree = "<group>"; };
 		7460BEAC234F55E200CFFDCB /* PreparedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparedData.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 			children = (
 				74846CF2234F16DF008EC89F /* PlayingViewController.swift */,
 				7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */,
+				7445A0DA23560A0000FF1292 /* PlayingViewControllerControlsDelegate.swift */,
 			);
 			path = PlayingViewController;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				74846CF6234F1788008EC89F /* ControlsViewController.swift */,
+				7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */,
 			);
 			path = ControlsViewController;
 			sourceTree = "<group>";
@@ -433,8 +439,10 @@
 				7460BEAB234F53E400CFFDCB /* UIViewHelper.swift in Sources */,
 				7466F98923472E4D000024AF /* SortOptions.swift in Sources */,
 				7445A0D12355AB1A00FF1292 /* PlayingViewControllerDelegate.swift in Sources */,
+				7445A0D7235603C000FF1292 /* ControlsControllerDelegate.swift in Sources */,
 				74846CF3234F16DF008EC89F /* PlayingViewController.swift in Sources */,
 				7406518A23434E350030A724 /* AppDelegate.swift in Sources */,
+				7445A0DB23560A0000FF1292 /* PlayingViewControllerControlsDelegate.swift in Sources */,
 				74846CF7234F1788008EC89F /* ControlsViewController.swift in Sources */,
 				7406518C23434E350030A724 /* SceneDelegate.swift in Sources */,
 				7413787E234486590046387C /* MusicListControllerDelegate.swift in Sources */,

@@ -295,14 +295,23 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Evk-1d-f4g">
                                 <rect key="frame" x="144" y="42" width="32" height="32"/>
                                 <state key="normal" image="play"/>
+                                <connections>
+                                    <action selector="playTapped:" destination="nyQ-aP-JOz" eventType="touchUpInside" id="jdV-Cu-2LF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CTk-zL-n2z">
                                 <rect key="frame" x="226" y="42" width="32" height="32"/>
                                 <state key="normal" image="forward"/>
+                                <connections>
+                                    <action selector="forwardTapped:" destination="nyQ-aP-JOz" eventType="touchUpInside" id="4CT-iC-0et"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hw6-bS-Xq6">
                                 <rect key="frame" x="62" y="42" width="32" height="32"/>
                                 <state key="normal" image="rewind"/>
+                                <connections>
+                                    <action selector="backwardTapped:" destination="nyQ-aP-JOz" eventType="touchUpInside" id="fzH-XU-Ond"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8A-0x-k1f">
                                 <rect key="frame" x="136" y="104" width="48" height="24"/>

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import MediaPlayer
+
+
 
 class ControlsViewController: UIViewController {
     
@@ -17,22 +20,40 @@ class ControlsViewController: UIViewController {
     @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var artist: UILabel!
     
+    var delegate: ControlsControllerDelegate!
+    var player: MPMusicPlayerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        //updateDetails()
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func backwardTapped(_ sender: Any) {
+        delegate.backward()
+        updateDetails()
     }
-    */
-
+    
+    
+    @IBAction func playTapped(_ sender: Any) {
+        delegate.playPause()
+    }
+    
+    
+    @IBAction func forwardTapped(_ sender: Any) {
+        delegate.forward()
+        updateDetails()
+    }
+    
+    
+    func updateDetails() {
+        
+        if let item = player.nowPlayingItem {
+            songName.text = item.title
+            artist.text = item.artist
+        } else {
+            songName.text = "Not Playing"
+            artist.text = "Not Playing"
+        }
+    }
 }

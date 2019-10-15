@@ -21,15 +21,11 @@ extension MusicListController: UITableViewDelegate {
     }
 }
 
+
 extension MusicListController: PlayingViewControllerDelegate {
     //MARK: - PlayingViewControllerDelegate
     
-    func setStartAnimPosition(sender: PlayingViewController) {
-        sender.view.layoutIfNeeded()
-        
-        sender.coverImageView.layer.cornerRadius = 8
-        sender.coverViewTopConstraint.constant = self.tableView.frame.height + (self.navigationController?.navigationBar.frame.height)!
-        sender.coverImageBottomConstraint.constant = (sender.coverView.frame.height - sender.prepared.outPosition.imageOutBottom)
-        sender.coverImageTrailingConstraint.constant = (sender.coverView.frame.width - sender.prepared.outPosition.imageOutTrailing)
+    func commitChanges() {
+        self.updatePlayingView()
     }
 }

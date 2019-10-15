@@ -44,7 +44,7 @@ class PlayingViewController: UIViewController {
     
     //MARK: - Properties
     var prepared: PreparedData!
-    var player: MPMusicPlayerController?
+    var player: MPMusicPlayerController!
     var delegate: PlayingViewControllerDelegate!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -58,7 +58,7 @@ class PlayingViewController: UIViewController {
         if let temp = prepared {
             fakeBackground.image = temp.image
             player = temp.player
-            coverImageView.image = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            coverImageView.image = player.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
         }
         
         chevron.isHidden = true
@@ -68,7 +68,10 @@ class PlayingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delegate.setStartAnimPosition(sender: self)
+        view.layoutIfNeeded()
+        coverViewTopConstraint.constant = prepared.outPosition.coverOut
+        coverImageBottomConstraint.constant = (coverView.frame.height - prepared.outPosition.imageOutBottom)
+        coverImageTrailingConstraint.constant = (coverView.frame.width - prepared.outPosition.imageOutTrailing)
     }
     
     
@@ -81,6 +84,7 @@ class PlayingViewController: UIViewController {
     //MARK: - Actions
     @IBAction func chevronTapped(_ sender: Any) {
         chevron.isHidden = true
+        delegate.commitChanges()
         animateCoverOut()
     }
     
@@ -127,13 +131,17 @@ class PlayingViewController: UIViewController {
     }
     
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+    func updateCover() {
+        coverImageView.image = player.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
     }
- */
+    
+    
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controls = segue.destination as? ControlsViewController {
+            controls.delegate = self
+        }
+    }
 
 }

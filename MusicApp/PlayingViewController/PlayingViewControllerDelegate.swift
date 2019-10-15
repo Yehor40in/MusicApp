@@ -9,5 +9,5 @@
 import Foundation
 
 protocol PlayingViewControllerDelegate: class {
-    func setStartAnimPosition(sender: PlayingViewController) -> Void
+    func commitChanges() -> Void
 }

@@ -110,6 +110,7 @@ extension MusicListController {
             details.prepared = PreparedData(image: self.view.makeScreenshot()!, player: self.player, outPosition: pos)
             details.delegate = self
             
+            details.view.layer.cornerRadius = 8
             details.modalPresentationStyle = .fullScreen
             present(details, animated: false)
         }
