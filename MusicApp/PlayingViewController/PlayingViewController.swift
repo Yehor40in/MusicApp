@@ -31,9 +31,10 @@ class PlayingViewController: UIViewController {
     
     
     //MARK: - Constraints
-    @IBOutlet weak var scrollTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var coverLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var coverTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverImageBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverImageTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var coverViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var backgroundTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var backgroundLeadingConstraint: NSLayoutConstraint!
@@ -43,7 +44,8 @@ class PlayingViewController: UIViewController {
     
     //MARK: - Properties
     var prepared: PreparedData!
-    var player: MPMusicPlayerController!
+    var player: MPMusicPlayerController?
+    var delegate: PlayingViewControllerDelegate!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
            return .lightContent
@@ -56,47 +58,61 @@ class PlayingViewController: UIViewController {
         if let temp = prepared {
             fakeBackground.image = temp.image
             player = temp.player
-            coverImageView.image = player.nowPlayingItem?.artwork!.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            coverImageView.image = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
         }
         
-        scrollTopConstraint.constant = self.view.frame.height * 0.9
-        coverLeadingConstraint.constant = 20
-        coverTrailingConstraint.constant = self.view.frame.width * 0.8
+        chevron.isHidden = true
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        delegate.setStartAnimPosition(sender: self)
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         animateCoverIn()
     }
     
     
     //MARK: - Actions
-    @IBAction func cancelTapped(_ sender: Any) {
+    @IBAction func chevronTapped(_ sender: Any) {
+        chevron.isHidden = true
         animateCoverOut()
     }
     
     
     //MARK: - Utilities
     func animateCoverIn() {
-        scrollTopConstraint.constant = 50
-        coverLeadingConstraint.constant = 50
-        coverTrailingConstraint.constant = 50
+        coverViewTopConstraint.constant = 50
         
-        backgroundTopConstraint.constant = 10
-        backgroundLeadingConstraint.constant = 10
-        backgroundBottomConstraint.constant = 10
-        backgroundTrailingConstraint.constant = 10
+        coverImageBottomConstraint.constant = 20
+        coverImageTrailingConstraint.constant = 20
+        
+        let verticalOffset = view.frame.height * 0.05
+        let horizontalOffset = view.frame.width * 0.05
+        
+        backgroundTopConstraint.constant = verticalOffset
+        backgroundLeadingConstraint.constant = horizontalOffset
+        backgroundBottomConstraint.constant = verticalOffset
+        backgroundTrailingConstraint.constant = horizontalOffset
         
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
+        }, completion: {_ in
+            self.chevron.isHidden = false
         })
     }
     
     
     func animateCoverOut() {
-        scrollTopConstraint.constant = self.view.frame.height
-        coverLeadingConstraint.constant = 20
-        coverTrailingConstraint.constant = self.view.frame.width * 0.8
+        coverViewTopConstraint.constant = prepared.outPosition.coverOut
+    
+        coverImageBottomConstraint.constant = (coverView.frame.height - prepared.outPosition.imageOutBottom)
+        coverImageTrailingConstraint.constant = (coverView.frame.width  - prepared.outPosition.imageOutTrailing)
         
         backgroundTopConstraint.constant = 0
         backgroundLeadingConstraint.constant = 0
@@ -105,7 +121,7 @@ class PlayingViewController: UIViewController {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
-        }, completion: { (_) in
+        }, completion: { _ in
             self.dismiss(animated: false, completion: nil)
         })
     }

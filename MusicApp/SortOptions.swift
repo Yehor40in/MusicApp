@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 enum SortOption {
     case artist
     case title

@@ -10,6 +10,7 @@ import AVFoundation
 import MediaPlayer
 import UIKit
 
+
 extension MusicListController {
     
     //MARK: - Utilities
@@ -97,8 +98,19 @@ extension MusicListController {
     
     
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
+        
         if let details = self.storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
-            details.prepared = PreparedData(image: self.view.makeScreenshot()!, player: self.player)
+            
+            let pos = Position(
+                coverOut: self.tableView.frame.height + (self.navigationController?.navigationBar.frame.height)!,
+                imageOutBottom: self.playingCover.frame.height + self.playingCover.frame.origin.y,
+                imageOutTrailing: self.playingCover.frame.width + self.playingCover.frame.origin.x
+            )
+            
+            details.prepared = PreparedData(image: self.view.makeScreenshot()!, player: self.player, outPosition: pos)
+            details.delegate = self
+            
+            details.modalPresentationStyle = .fullScreen
             present(details, animated: false)
         }
     }
