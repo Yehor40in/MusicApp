@@ -17,24 +17,17 @@ class MusicListCell: UITableViewCell {
     @IBOutlet weak var artist: UILabel!
     
     //MARK: - Properties
-    var item: MPMediaItem! {
+    var item: MPMediaItem? {
         didSet {
-            self.songCover!.image = item!.artwork?.image(at: songName.bounds.size) ?? UIImage(named: "defaultmusicicon")
-            self.songName!.text = item!.title!
-            self.artist!.text = item!.artist ?? "Unknown"
+            self.songCover.image = item!.artwork?.image(at: songName.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.songName.text = item!.title!
+            self.artist.text = item!.artist ?? "Unknown"
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.songCover.layer.cornerRadius = 8
+        songCover.layer.cornerRadius = 8
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

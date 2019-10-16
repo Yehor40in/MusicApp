@@ -49,9 +49,9 @@ class PlayingViewController: UIViewController {
         if let temp = prepared {
             self.fakeBackground.image = temp.image
             self.player = temp.player
-            self.coverImageView.image = self.player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.coverImageView.image = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
         }
-        self.chevron.isHidden = true
+        chevron.isHidden = true
         
         NotificationCenter.default.post(
             name: Notification.Name("trackChanged"),
@@ -130,8 +130,8 @@ class PlayingViewController: UIViewController {
     }
     
     
-    func updateCover() {
-        coverImageView.image = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+    func updateCover(with object: MPMediaItem) {
+        coverImageView.image = object.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
     }
     
     

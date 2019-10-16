@@ -51,9 +51,9 @@ class MusicListController: UIViewController {
         playingCover.image = UIImage(named: "defaultmusicicon")
         playingCover.layer.cornerRadius = 8
         
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
         
-        self.playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
+        playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
     }
     
 

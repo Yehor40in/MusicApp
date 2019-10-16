@@ -79,7 +79,16 @@ extension MusicListController {
         if let object = self.player?.nowPlayingItem {
             self.playingCover.image = object.artwork?.image(at: self.playingCover!.bounds.size) ?? UIImage(named: "defaultmusicicon")
             self.playingName.text = object.title!
-            self.playButton.setImage(UIImage(named: "pause"), for: .normal)
+            
+            switch self.player?.playbackState {
+            case .paused:
+                playButton.setImage(UIImage(named: "play"), for: .normal)
+            case .playing:
+                playButton.setImage(UIImage(named: "pause"), for: .normal)
+            default:
+                playButton.setImage(UIImage(named: "play"), for: .normal)
+            }
+            
             self.forwardButton.isEnabled = true
         }
     }
