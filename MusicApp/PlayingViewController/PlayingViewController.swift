@@ -44,7 +44,7 @@ class PlayingViewController: UIViewController {
     
     //MARK: - Properties
     var prepared: PreparedData!
-    var player: MPMusicPlayerController!
+    var player: MPMusicPlayerController?
     var delegate: PlayingViewControllerDelegate!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -56,12 +56,13 @@ class PlayingViewController: UIViewController {
         super.viewDidLoad()
 
         if let temp = prepared {
-            fakeBackground.image = temp.image
-            player = temp.player
-            coverImageView.image = player.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.fakeBackground.image = temp.image
+            self.player = temp.player
+            self.coverImageView.image = self.player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
         }
+        self.chevron.isHidden = true
         
-        chevron.isHidden = true
+        NotificationCenter.default.post(name: Notification.Name("trackChanged"), object: nil, userInfo: ["playingItem" : player!.nowPlayingItem!])
     }
     
     
@@ -132,9 +133,8 @@ class PlayingViewController: UIViewController {
     
     
     func updateCover() {
-        coverImageView.image = player.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+        coverImageView.image = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
     }
-    
     
     
     // MARK: - Navigation

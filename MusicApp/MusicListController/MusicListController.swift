@@ -20,7 +20,6 @@ class MusicListController: UIViewController {
     //var player: AVAudioPlayer!
     var player: MPMusicPlayerController!
     var query: MPMediaQuery!
-    var paused = false
     
     
     //MARK: - Outlets
@@ -65,13 +64,11 @@ class MusicListController: UIViewController {
         if player.isPreparedToPlay && !forwardButton.isEnabled {
             self.playRandomSong()
             
-        } else if paused {
-            self.paused = false
+        } else if player.playbackState == .paused {
             self.player.play()
             self.playButton.setImage(UIImage(named: "pause"), for: .normal)
             
         } else {
-            self.paused = true
             self.player.pause()
             self.playButton.setImage(UIImage(named: "play"), for: .normal)
         }

@@ -10,7 +10,6 @@ import UIKit
 import MediaPlayer
 
 
-
 class ControlsViewController: UIViewController {
     
     @IBOutlet weak var songProgress: UIProgressView!
@@ -21,17 +20,18 @@ class ControlsViewController: UIViewController {
     @IBOutlet weak var artist: UILabel!
     
     var delegate: ControlsControllerDelegate!
-    var player: MPMusicPlayerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //updateDetails()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDetails(_:)), name: Notification.Name("trackChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePlay(_:)), name: Notification.Name("trackPaused"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePaused(_:)), name: Notification.Name("trackResumed"), object: nil)
     }
     
 
     @IBAction func backwardTapped(_ sender: Any) {
         delegate.backward()
-        updateDetails()
     }
     
     
@@ -42,13 +42,32 @@ class ControlsViewController: UIViewController {
     
     @IBAction func forwardTapped(_ sender: Any) {
         delegate.forward()
-        updateDetails()
     }
     
     
-    func updateDetails() {
-        
-        if let item = player.nowPlayingItem {
+    /*@objc func willExpand(_ notification: Notification) {
+        if let item = notification.userInfo!["playingItem"] as? MPMediaItem {
+            songName.text = item.title
+            artist.text = item.artist
+        } else {
+            songName.text = "Not Playing"
+            artist.text = "Not Playing"
+        }
+    }*/
+    
+    
+    @objc func handlePaused(_ notification: Notification) {
+        playButton.setImage(UIImage(named: "pause"), for: .normal)
+    }
+    
+    
+    @objc func handlePlay(_ notification: Notification) {
+        playButton.setImage(UIImage(named: "play"), for: .normal)
+    }
+    
+    
+    @objc func updateDetails(_ notification: Notification) {
+        if let item = notification.userInfo!["playingItem"] as? MPMediaItem {
             songName.text = item.title
             artist.text = item.artist
         } else {

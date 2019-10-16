@@ -75,12 +75,13 @@ extension MusicListController {
     
     
     func updatePlayingView() {
-        let object = self.player.nowPlayingItem!
         
-        self.playingCover.image = object.artwork?.image(at: self.playingCover!.bounds.size) ?? UIImage(named: "defaultmusicicon")
-        self.playingName.text = object.title!
-        self.playButton.setImage(UIImage(named: "pause"), for: .normal)
-        self.forwardButton.isEnabled = true
+        if let object = self.player?.nowPlayingItem {
+            self.playingCover.image = object.artwork?.image(at: self.playingCover!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.playingName.text = object.title!
+            self.playButton.setImage(UIImage(named: "pause"), for: .normal)
+            self.forwardButton.isEnabled = true
+        }
     }
     
     
@@ -109,9 +110,8 @@ extension MusicListController {
             
             details.prepared = PreparedData(image: self.view.makeScreenshot()!, player: self.player, outPosition: pos)
             details.delegate = self
-            
-            details.view.layer.cornerRadius = 8
             details.modalPresentationStyle = .fullScreen
+            
             present(details, animated: false)
         }
     }

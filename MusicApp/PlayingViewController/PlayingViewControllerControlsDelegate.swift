@@ -13,18 +13,30 @@ extension PlayingViewController: ControlsControllerDelegate {
     
     //MARK: - ControlsControllerDelegate
     func backward() {
-        self.player.skipToPreviousItem()
+        self.player!.skipToPreviousItem()
+        NotificationCenter.default.post(name: Notification.Name("trackChanged"), object: nil, userInfo: ["playingItem" : player!.nowPlayingItem!])
         self.updateCover()
     }
     
     
     func playPause() {
-        //TODO
+        
+        switch self.player?.playbackState {
+        case .paused:
+            self.player?.play()
+            NotificationCenter.default.post(name: Notification.Name("trackResumed"), object: nil)
+        case .playing:
+            self.player?.pause()
+            NotificationCenter.default.post(name: Notification.Name("trackPaused"), object: nil)
+        default:
+            return
+        }
     }
     
     
     func forward() {
-        self.player.skipToNextItem()
+        self.player!.skipToNextItem()
+        NotificationCenter.default.post(name: Notification.Name("trackChanged"), object: nil, userInfo: ["playingItem" : player!.nowPlayingItem!])
         self.updateCover()
     }
 }

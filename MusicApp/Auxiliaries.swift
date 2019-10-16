@@ -17,8 +17,16 @@ struct PreparedData {
     var outPosition: Position
 }
 
+
 struct Position {
     var coverOut: CGFloat
     var imageOutBottom: CGFloat
     var imageOutTrailing: CGFloat
+}
+
+
+enum SortOption {
+    case artist
+    case title
+    case date
 }
