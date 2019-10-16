@@ -45,17 +45,6 @@ class ControlsViewController: UIViewController {
     }
     
     
-    /*@objc func willExpand(_ notification: Notification) {
-        if let item = notification.userInfo!["playingItem"] as? MPMediaItem {
-            songName.text = item.title
-            artist.text = item.artist
-        } else {
-            songName.text = "Not Playing"
-            artist.text = "Not Playing"
-        }
-    }*/
-    
-    
     @objc func handlePaused(_ notification: Notification) {
         playButton.setImage(UIImage(named: "pause"), for: .normal)
     }
@@ -67,6 +56,7 @@ class ControlsViewController: UIViewController {
     
     
     @objc func updateDetails(_ notification: Notification) {
+        
         if let item = notification.userInfo!["playingItem"] as? MPMediaItem {
             songName.text = item.title
             artist.text = item.artist
