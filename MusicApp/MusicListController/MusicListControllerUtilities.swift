@@ -108,7 +108,7 @@ extension MusicListController {
                 imageOutTrailing: self.playingCover.frame.width + self.playingCover.frame.origin.x
             )
             
-            details.prepared = PreparedData(image: self.view.makeScreenshot()!, player: self.player, outPosition: pos)
+            details.prepared = PreparedData(image: self.view.makeScreenshot()!, player: nil, outPosition: pos)
             details.delegate = self
             details.modalPresentationStyle = .fullScreen
             

@@ -64,5 +64,16 @@ class ControlsViewController: UIViewController {
             songName.text = "Not Playing"
             artist.text = "Not Playing"
         }
+        
+        if let state = notification.userInfo!["state"] as? MPMusicPlaybackState {
+            switch state {
+            case .paused:
+                playButton.setImage(UIImage(named: "play"), for: .normal)
+            case .playing:
+                playButton.setImage(UIImage(named: "pause"), for: .normal)
+            default:
+                playButton.setImage(UIImage(named: "play"), for: .normal)
+            }
+        }
     }
 }

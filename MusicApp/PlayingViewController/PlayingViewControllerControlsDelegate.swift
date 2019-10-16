@@ -14,7 +14,13 @@ extension PlayingViewController: ControlsControllerDelegate {
     //MARK: - ControlsControllerDelegate
     func backward() {
         self.player!.skipToPreviousItem()
-        NotificationCenter.default.post(name: Notification.Name("trackChanged"), object: nil, userInfo: ["playingItem" : player!.nowPlayingItem!])
+        
+        NotificationCenter.default.post(
+            name: Notification.Name("trackChanged"),
+            object: nil,
+            userInfo: ["playingItem" : player!.nowPlayingItem!]
+        )
+        
         self.updateCover()
     }
     
@@ -36,7 +42,13 @@ extension PlayingViewController: ControlsControllerDelegate {
     
     func forward() {
         self.player!.skipToNextItem()
-        NotificationCenter.default.post(name: Notification.Name("trackChanged"), object: nil, userInfo: ["playingItem" : player!.nowPlayingItem!])
+        
+        NotificationCenter.default.post(
+            name: Notification.Name("trackChanged"),
+            object: nil,
+            userInfo: ["playingItem" : player!.nowPlayingItem!]
+        )
+        
         self.updateCover()
     }
 }

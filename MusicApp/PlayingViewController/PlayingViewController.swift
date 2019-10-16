@@ -53,7 +53,14 @@ class PlayingViewController: UIViewController {
         }
         self.chevron.isHidden = true
         
-        NotificationCenter.default.post(name: Notification.Name("trackChanged"), object: nil, userInfo: ["playingItem" : player!.nowPlayingItem!])
+        NotificationCenter.default.post(
+            name: Notification.Name("trackChanged"),
+            object: nil,
+            userInfo: [
+                "playingItem" : player?.nowPlayingItem! as Any,
+                "state" : player?.playbackState as Any
+            ]
+        )
     }
     
     
