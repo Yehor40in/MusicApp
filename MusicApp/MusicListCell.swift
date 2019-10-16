@@ -16,7 +16,7 @@ class MusicListCell: UITableViewCell {
     @IBOutlet weak var artist: UILabel!
     
     //MARK: - Properties
-    var item: MPMediaItem! {
+    var item: MPMediaItem? {
         didSet {
             self.songCover.image = item!.artwork?.image(at: songName.bounds.size) ?? UIImage(named: "defaultmusicicon")
             self.songName.text = item!.title!
