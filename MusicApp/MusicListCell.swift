@@ -18,9 +18,9 @@ class MusicListCell: UITableViewCell {
     //MARK: - Properties
     var item: MPMediaItem! {
         didSet {
-            self.songCover!.image = item!.artwork?.image(at: songName.bounds.size) ?? UIImage(named: "defaultmusicicon")
-            self.songName!.text = item!.title!
-            self.artist!.text = item!.artist ?? "Unknown"
+            self.songCover.image = item!.artwork?.image(at: songName.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.songName.text = item!.title!
+            self.artist.text = item!.artist ?? "Unknown"
         }
     }
     
