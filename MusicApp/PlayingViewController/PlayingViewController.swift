@@ -9,15 +9,6 @@
 import UIKit
 import MediaPlayer
 
-/// -----------------------------------------
-/// TODO:
-///
-/// - let Controls Controller know about now playing song;
-/// - implement controls functionality
-/// - update music list depending on wether user changed currently playing song
-///
-/// -----------------------------------------
-
 
 class PlayingViewController: UIViewController {
     
