@@ -30,7 +30,7 @@ class MusicListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.songCover.layer.cornerRadius = 8
+        songCover.layer.cornerRadius = 8
     }
 
 }
