@@ -29,8 +29,8 @@ extension MusicListController {
                     prepared[key] = [MPMediaItem]()
                 }
                 prepared[key]!.append($0)
-                if !sectionTitles.contains(String(key)) {
-                    self.sectionTitles.append(String(key))
+                if !sectionTitles!.contains(String(key)) {
+                    self.sectionTitles!.append(String(key))
                 }
             }
         case .title:
@@ -42,14 +42,14 @@ extension MusicListController {
                     prepared[key] = [MPMediaItem]()
                 }
                 prepared[key]!.append($0)
-                if !sectionTitles.contains(String(key)) {
-                    self.sectionTitles.append(String(key))
+                if !sectionTitles!.contains(String(key)) {
+                    self.sectionTitles!.append(String(key))
                 }
             }
         case .date:
             let temp = raw.sorted { $0.dateAdded < $1.dateAdded }
             
-            self.sectionTitles.append(String(" "))
+            self.sectionTitles!.append(String(" "))
             _ = temp.map {
                 if prepared[" "] == nil {
                     prepared[" "] = [MPMediaItem]()
@@ -63,21 +63,21 @@ extension MusicListController {
     
     func preparePlayer() {
         self.player = MPMusicPlayerController.systemMusicPlayer
-        self.player.setQueue(with: self.query)
-        self.player.prepareToPlay()
+        self.player!.setQueue(with: self.query!)
+        self.player!.prepareToPlay()
     }
     
     
     func setPlayingItem(for path: IndexPath) {
-        let key = Character(sectionTitles[path.section])
-        self.player.nowPlayingItem = self.items![key]![path.row]
+        let key = Character(sectionTitles![path.section])
+        self.player!.nowPlayingItem = self.items![key]![path.row]
     }
     
     
     func updatePlayingView() {
         
         if let object = self.player?.nowPlayingItem {
-            self.playingCover.image = object.artwork?.image(at: self.playingCover!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.playingCover.image = object.artwork?.image(at: self.playingCover!.bounds.size) ?? UIImage(named: Constants.musicIconPlaceholderName)
             self.playingName.text = object.title!
             
             switch self.player?.playbackState {
@@ -96,13 +96,13 @@ extension MusicListController {
     
     func playRandomSong() {
 
-        let s = Int.random(in: 0..<self.sectionTitles.count)
-        let key = sectionTitles[s].first!
+        let s = Int.random(in: 0..<self.sectionTitles!.count)
+        let key = sectionTitles![s].first!
         let r = Int.random(in: 0..<self.items![key]!.count)
         
         
         self.setPlayingItem(for: IndexPath(row: r, section: s))
-        self.player.play()
+        self.player!.play()
         self.updatePlayingView()
     }
     

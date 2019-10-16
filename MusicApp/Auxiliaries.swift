@@ -30,3 +30,18 @@ enum SortOption {
     case title
     case date
 }
+
+
+enum Constants {
+    static var musicIconPlaceholderName: String {
+        return "defaultmusicicon"
+    }
+    
+    static var songLabelPlaceholder: String {
+        return "Not Playing"
+    }
+    
+    static var cornerRadiusPlaceholder: CGFloat {
+        return 8
+    }
+}

@@ -14,12 +14,12 @@ import StoreKit
 class MusicListController: UIViewController {
     
     //MARK: - Properties
-    var items: [Character: [MPMediaItem]]!
-    var sectionTitles: [String]!
+    var items: [Character: [MPMediaItem]]?
+    var sectionTitles: [String]?
     
     //var player: AVAudioPlayer!
-    var player: MPMusicPlayerController!
-    var query: MPMediaQuery!
+    var player: MPMusicPlayerController?
+    var query: MPMediaQuery?
     
     
     //MARK: - Outlets
@@ -37,7 +37,7 @@ class MusicListController: UIViewController {
         SKCloudServiceController.requestAuthorization { status in
             if status == .authorized {
                 self.query = MPMediaQuery.songs()
-                self.items = self.preparedItems(from: self.query.items!, by: .title)
+                self.items = self.preparedItems(from: (self.query?.items)!, by: .title)
                 self.preparePlayer()
                 
                 DispatchQueue.main.async {
@@ -47,9 +47,9 @@ class MusicListController: UIViewController {
             }
         }
         
-        playingName.text = "Not Playing"
-        playingCover.image = UIImage(named: "defaultmusicicon")
-        playingCover.layer.cornerRadius = 8
+        playingName.text = Constants.songLabelPlaceholder
+        playingCover.image = UIImage(named: Constants.musicIconPlaceholderName)
+        playingCover.layer.cornerRadius = Constants.cornerRadiusPlaceholder
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -61,15 +61,15 @@ class MusicListController: UIViewController {
     //MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
         
-        if player.isPreparedToPlay && !forwardButton.isEnabled {
+        if player!.isPreparedToPlay && !forwardButton.isEnabled {
             self.playRandomSong()
             
-        } else if player.playbackState == .paused {
-            self.player.play()
+        } else if player?.playbackState == .paused {
+            self.player?.play()
             self.playButton.setImage(UIImage(named: "pause"), for: .normal)
             
         } else {
-            self.player.pause()
+            self.player?.pause()
             self.playButton.setImage(UIImage(named: "play"), for: .normal)
         }
     }
@@ -85,21 +85,21 @@ class MusicListController: UIViewController {
         actionSheet.view.tintColor = UIColor.green
         
         actionSheet.addAction(UIAlertAction(title: "Artist", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.query.items!, by: .artist)
+            self.items = self.preparedItems(from: (self.query?.items)!, by: .artist)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Title", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.query.items!, by: .title)
+            self.items = self.preparedItems(from: (self.query?.items)!, by: .title)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Recently Added", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.query.items!, by: .date)
+            self.items = self.preparedItems(from: (self.query?.items)!, by: .date)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

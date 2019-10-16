@@ -49,7 +49,7 @@ class PlayingViewController: UIViewController {
         if let temp = prepared {
             self.fakeBackground.image = temp.image
             self.player = temp.player
-            self.coverImageView.image = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.coverImageView.image = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: Constants.musicIconPlaceholderName)
         }
         chevron.isHidden = true
         
@@ -131,7 +131,7 @@ class PlayingViewController: UIViewController {
     
     
     func updateCover(with object: MPMediaItem) {
-        coverImageView.image = object.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: "defaultmusicicon")
+        coverImageView.image = object.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: Constants.musicIconPlaceholderName)
     }
     
     

@@ -61,8 +61,8 @@ class ControlsViewController: UIViewController {
             songName.text = item.title
             artist.text = item.artist
         } else {
-            songName.text = "Not Playing"
-            artist.text = "Not Playing"
+            songName.text = Constants.songLabelPlaceholder
+            artist.text = Constants.songLabelPlaceholder
         }
         
         if let state = notification.userInfo!["state"] as? MPMusicPlaybackState {

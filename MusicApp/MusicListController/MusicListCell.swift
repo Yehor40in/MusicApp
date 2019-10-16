@@ -19,7 +19,7 @@ class MusicListCell: UITableViewCell {
     //MARK: - Properties
     var item: MPMediaItem? {
         didSet {
-            self.songCover.image = item!.artwork?.image(at: songName.bounds.size) ?? UIImage(named: "defaultmusicicon")
+            self.songCover.image = item!.artwork?.image(at: songName.bounds.size) ?? UIImage(named: Constants.musicIconPlaceholderName)
             self.songName.text = item!.title!
             self.artist.text = item!.artist ?? "Unknown"
         }
@@ -28,6 +28,6 @@ class MusicListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        songCover.layer.cornerRadius = 8
+        songCover.layer.cornerRadius = Constants.cornerRadiusPlaceholder
     }
 }

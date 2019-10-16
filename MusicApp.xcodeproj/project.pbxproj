@@ -142,7 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				7406518823434E350030A724 /* MusicApp */,
-				740651A223434E360030A724 /* MusicAppTests */,
 				740651AD23434E360030A724 /* MusicAppUITests */,
 				7406518723434E350030A724 /* Products */,
 				5ACB9B17AB99473B0F9FE0C3 /* Pods */,
@@ -175,6 +174,7 @@
 				7406519723434E360030A724 /* LaunchScreen.storyboard */,
 				7406519A23434E360030A724 /* Info.plist */,
 				7406519223434E350030A724 /* MusicApp.xcdatamodeld */,
+				740651A223434E360030A724 /* MusicAppTests */,
 			);
 			path = MusicApp;
 			sourceTree = "<group>";
