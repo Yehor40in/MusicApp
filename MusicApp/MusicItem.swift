@@ -15,15 +15,12 @@ class MusicItem {
     var image: String?
     var artist: String
     var name: String
-    var location: URL!
+    var location: URL?
     var dateAdded: Date
     
     
     init(image: String? = nil, artist: String, name: String) {
-        if let temp = image {
-            self.image = temp
-        }
-        
+        self.image = image ?? nil
         self.image = image
         self.artist = artist
         self.name = name
