@@ -13,13 +13,13 @@ extension MusicListController: UITableViewDataSource {
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitles.count
+        return sectionTitles!.count
     }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let key = Character(sectionTitles[section])
-        if let item = items![key] {
+        let key = Character(sectionTitles![section])
+        if let item = items?[key] {
             return item.count
         } else {
             return 0
@@ -30,9 +30,9 @@ extension MusicListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as! MusicListCell
-        let key = Character(sectionTitles[indexPath.section])
+        let key = Character(sectionTitles![indexPath.section])
         
-        if let item = items![key] {
+        if let item = items?[key] {
             cell.item = item[indexPath.row]
         }
         return cell
@@ -45,6 +45,6 @@ extension MusicListController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitles[section]
+        return sectionTitles?[section]
     }
 }
