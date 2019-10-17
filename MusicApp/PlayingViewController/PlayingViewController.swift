@@ -34,9 +34,9 @@ class PlayingViewController: UIViewController {
     
     
     //MARK: - Properties
-    var prepared: PreparedData!
+    var prepared: PreparedData?
     var player: MPMusicPlayerController?
-    var delegate: PlayingViewControllerDelegate!
+    var delegate: PlayingViewControllerDelegate?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
            return .lightContent
@@ -68,9 +68,9 @@ class PlayingViewController: UIViewController {
         super.viewWillAppear(animated)
         
         view.layoutIfNeeded()
-        coverViewTopConstraint.constant = prepared.outPosition.coverOut
-        coverImageBottomConstraint.constant = (coverView.frame.height - prepared.outPosition.imageOutBottom)
-        coverImageTrailingConstraint.constant = (coverView.frame.width - prepared.outPosition.imageOutTrailing)
+        coverViewTopConstraint.constant = (prepared?.outPosition.coverOut)!
+        coverImageBottomConstraint.constant = (coverView.frame.height - (prepared?.outPosition.imageOutBottom)!)
+        coverImageTrailingConstraint.constant = (coverView.frame.width - (prepared?.outPosition.imageOutTrailing)!)
     }
     
     
@@ -83,7 +83,7 @@ class PlayingViewController: UIViewController {
     //MARK: - Actions
     @IBAction func chevronTapped(_ sender: Any) {
         chevron.isHidden = true
-        delegate.commitChanges()
+        delegate?.commitChanges()
         animateCoverOut()
     }
     
@@ -112,10 +112,10 @@ class PlayingViewController: UIViewController {
     
     
     func animateCoverOut() {
-        coverViewTopConstraint.constant = prepared.outPosition.coverOut
+        coverViewTopConstraint.constant = (prepared?.outPosition.coverOut)!
     
-        coverImageBottomConstraint.constant = (coverView.frame.height - prepared.outPosition.imageOutBottom)
-        coverImageTrailingConstraint.constant = (coverView.frame.width  - prepared.outPosition.imageOutTrailing)
+        coverImageBottomConstraint.constant = (coverView.frame.height - (prepared?.outPosition.imageOutBottom)!)
+        coverImageTrailingConstraint.constant = (coverView.frame.width  - (prepared?.outPosition.imageOutTrailing)!)
         
         backgroundTopConstraint.constant = 0
         backgroundLeadingConstraint.constant = 0

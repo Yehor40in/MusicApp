@@ -19,7 +19,7 @@ class ControlsViewController: UIViewController {
     @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var artist: UILabel!
     
-    var delegate: ControlsControllerDelegate!
+    var delegate: ControlsControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +31,17 @@ class ControlsViewController: UIViewController {
     
 
     @IBAction func backwardTapped(_ sender: Any) {
-        delegate.backward()
+        delegate?.backward()
     }
     
     
     @IBAction func playTapped(_ sender: Any) {
-        delegate.playPause()
+        delegate?.playPause()
     }
     
     
     @IBAction func forwardTapped(_ sender: Any) {
-        delegate.forward()
+        delegate?.forward()
     }
     
     
