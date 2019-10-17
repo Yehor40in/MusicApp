@@ -110,11 +110,7 @@ extension MusicListController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let key = Character(sectionTitles![section])
-        if let item = items![key] {
-            return item.count
-        } else {
-            return 0
-        }
+        return items?[key]!.count ?? 0
     }
 
     
