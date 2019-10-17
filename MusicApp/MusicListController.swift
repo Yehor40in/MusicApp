@@ -12,14 +12,13 @@ import AVFoundation
 class MusicListController: UIViewController {
     
     //MARK: - Properties
-    var items: [Character: [MusicItem]]!
-    var sectionTitles: [String]!
+    var items: [Character: [MusicItem]]?
+    var sectionTitles: [String]?
     
-    var player: AVAudioPlayer!
-    var isPLaying: Bool = false
+    var player: AVAudioPlayer?
     
-    var playingKeyIndex: Int!
-    var playingRow: Int!
+    var playingKeyIndex: Int?
+    var playingRow: Int?
     
     
     //MARK: - Outlets
@@ -35,7 +34,7 @@ class MusicListController: UIViewController {
         super.viewDidLoad()
         
         self.items = preparedItems(from: getItems())
-        self.sectionTitles = items.keys.map { String($0) }
+        self.sectionTitles = items?.keys.map { String($0) }
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -60,16 +59,15 @@ class MusicListController: UIViewController {
     
     func preparedItems(from raw: [MusicItem]) -> [Character: [MusicItem]] {
         
-        let temp = raw.sorted { $0.name < $1.name }
         var prepared = [Character: [MusicItem]]()
         
-        for item in temp {
-            let key = item.name.first!
-            if let _ = prepared[key] {
-                prepared[key]!.append(item)
+        for item in raw {
+            guard let key = item.name.first else { continue }
+            
+            if var existedArray = prepared[key] {
+                existedArray.append(item)
             } else {
-                prepared[key] = [MusicItem]()
-                prepared[key]!.append(item)
+                prepared[key] = [item]
             }
         }
         return prepared
@@ -78,11 +76,11 @@ class MusicListController: UIViewController {
     
     func prepareMusic(for index: Int, at key: Character) {
         
-        let item = items[key]![index]
+        let item = items?[key]![index]
         
-        player = try! AVAudioPlayer(contentsOf: item.location)
-        player.delegate = self
-        player.prepareToPlay()
+        player = try! AVAudioPlayer(contentsOf: item!.location)
+        player?.delegate = self
+        player?.prepareToPlay()
         
         let session = AVAudioSession.sharedInstance()
         do {
@@ -99,4 +97,45 @@ class MusicListController: UIViewController {
         self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
     }
 
+}
+
+
+extension MusicListController: UITableViewDataSource {
+    // MARK: - Table view data source
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionTitles!.count
+    }
+    
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let key = Character(sectionTitles![section])
+        if let item = items![key] {
+            return item.count
+        } else {
+            return 0
+        }
+    }
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as! MusicListCell
+        let key = Character(sectionTitles![indexPath.section])
+        
+        if let item = items![key] {
+            cell.item = item[indexPath.row]
+        }
+        return cell
+    }
+    
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return sectionTitles
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles![section]
+    }
 }
