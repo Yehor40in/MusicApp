@@ -12,14 +12,14 @@ import AVFoundation
 class MusicListController: UIViewController {
     
     //MARK: - Properties
-    var items: [Character: [MusicItem]]!
-    var sectionTitles: [String]!
+    var items: [Character: [MusicItem]]?
+    var sectionTitles: [String]?
     
     var player: AVAudioPlayer!
-    var paused = false
+    var paused = true
     
-    var playingKeyIndex: Int!
-    var playingRow: Int!
+    var playingKeyIndex: Int?
+    var playingRow: Int?
     
     
     //MARK: - Outlets
@@ -35,7 +35,7 @@ class MusicListController: UIViewController {
         super.viewDidLoad()
         
         self.items = preparedItems(from: getItems())
-        self.sectionTitles = items.keys.map { String($0) }
+        self.sectionTitles = items?.keys.map { String($0) }
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -43,12 +43,6 @@ class MusicListController: UIViewController {
         playingName.text = "Not Playing"
         playingCover.image = UIImage(named: "defaultmusicicon")
         playingCover.layer.cornerRadius = 8
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     //sample data for now
@@ -65,17 +59,15 @@ class MusicListController: UIViewController {
     
     //MARK: - Utilities
     func preparedItems(from raw: [MusicItem]) -> [Character: [MusicItem]] {
-        
-        let temp = raw.sorted { $0.name < $1.name }
         var prepared = [Character: [MusicItem]]()
         
-        for item in temp {
-            let key = item.name.first!
-            if let _ = prepared[key] {
-                prepared[key]!.append(item)
+        for item in raw {
+            guard let key = item.name.first else { continue }
+            
+            if var existedArray = prepared[key] {
+                existedArray.append(item)
             } else {
-                prepared[key] = [MusicItem]()
-                prepared[key]!.append(item)
+                prepared[key] = [item]
             }
         }
         return prepared
@@ -84,9 +76,9 @@ class MusicListController: UIViewController {
     
     func prepareMusicAndSession(for index: Int, at key: Character) {
         
-        let item = items[key]![index]
+        let item = items?[key]![index]
         
-        player = try! AVAudioPlayer(contentsOf: item.location)
+        player = try! AVAudioPlayer(contentsOf: item!.location)
         player.delegate = self
         player.prepareToPlay()
         
@@ -110,31 +102,30 @@ class MusicListController: UIViewController {
     
     func playRandomSong() {
         
-        let randomSection = Int.random(in: 0..<sectionTitles.count)
-        let key = Character(sectionTitles[randomSection])
+        let randomSection = Int.random(in: 0..<sectionTitles!.count)
+        let key = Character(sectionTitles![randomSection])
         
-        let row = Int.random(in: 0..<items[key]!.count)
+        let row = Int.random(in: 0..<(items?[key]?.count)!)
         
         prepareMusicAndSession(for: row, at: key)
-        self.isPLaying = true
-        self.player.play()
-        updatePlayingView(with: items[key]![row])
+        self.player?.play()
+        updatePlayingView(with: (items?[key]?[row])!)
     }
 
     
     //MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
-        if !player.isPLaying {
+        if player == nil {
             playRandomSong()
             
         } else if paused {
             self.paused = false
-            self.player.play()
+            self.player?.play()
             self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
             
         } else {
             self.paused = true
-            self.player.pause()
+            self.player?.pause()
             self.playButton.setImage(UIImage(systemName: "play.fill", withConfiguration: .none), for: .normal)
         }
     }
@@ -143,16 +134,43 @@ class MusicListController: UIViewController {
     @IBAction func forwardTapped(_ sender: Any) {
         playRandomSong()
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+
+extension MusicListController: UITableViewDataSource {
+    // MARK: - Table view data source
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionTitles!.count
+    }
+    
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let key = Character(sectionTitles![section])
+        return items?[key]!.count ?? 0
+    }
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as! MusicListCell
+        let key = Character(sectionTitles![indexPath.section])
+        
+        if let item = items![key] {
+            cell.item = item[indexPath.row]
+        }
+        return cell
+    }
+    
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return sectionTitles
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles?[section]
+    }
+}
+
