@@ -13,12 +13,12 @@ import StoreKit
 class MusicListController: UIViewController {
     
     //MARK: - Properties
-    var items: [Character: [MPMediaItem]]!
-    var sectionTitles: [String]!
+    var items: [Character: [MPMediaItem]]?
+    var sectionTitles: [String]?
     
     //var player: AVAudioPlayer!
     var player: MPMusicPlayerController!
-    var query: MPMediaQuery!
+    var query: MPMediaQuery?
     var paused = false
     
     
@@ -37,7 +37,7 @@ class MusicListController: UIViewController {
         SKCloudServiceController.requestAuthorization { status in
             if status == .authorized {
                 self.query = MPMediaQuery.songs()
-                self.items = self.preparedItems(from: self.query.items!, by: .title)
+                self.items = self.preparedItems(from: self.query!.items!, by: .title)
                 self.preparePlayer()
                 
                 DispatchQueue.main.async {
@@ -84,21 +84,21 @@ class MusicListController: UIViewController {
         actionSheet.view.tintColor = UIColor.green
         
         actionSheet.addAction(UIAlertAction(title: "Artist", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.query.items!, by: .artist)
+            self.items = self.preparedItems(from: self.query!.items!, by: .artist)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Title", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.query.items!, by: .title)
+            self.items = self.preparedItems(from: self.query!.items!, by: .title)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
 
         actionSheet.addAction(UIAlertAction(title: "Recently Added", style: .default, handler: { (_) in
-            self.items = self.preparedItems(from: self.query.items!, by: .date)
+            self.items = self.preparedItems(from: self.query!.items!, by: .date)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
