@@ -24,7 +24,7 @@ extension MusicListController {
     
     
     func preparedItems(from raw: [MusicItem], by option: SortOption) -> [MusicItem] {
-        var prepared: [MusicItem]!
+        var prepared = [MusicItem]()
         
         self.sectionTitles = [String]()
         
@@ -32,17 +32,17 @@ extension MusicListController {
         case .artist:
             prepared = raw.sorted { $0.artist < $1.artist }
             _ = prepared.map {
-                sectionTitles.append(String($0.artist.first!))
+                sectionTitles!.append(String($0.artist.first!))
             }
         case .title:
             prepared = raw.sorted { $0.name < $1.name }
             _ = prepared.map {
-                sectionTitles.append(String($0.name.first!))
+                sectionTitles!.append(String($0.name.first!))
             }
         case .date:
             prepared = raw.sorted { $0.dateAdded < $1.dateAdded }
             for (index, _) in prepared.enumerated() {
-                sectionTitles.append("\(index)")
+                sectionTitles!.append("\(index)")
             }
         }
         return prepared
@@ -50,9 +50,9 @@ extension MusicListController {
     
     
     func prepareMusicAndSession(for index: Int) {
-        let item = items[index]
+        let item = items?[index]
         
-        player = try! AVAudioPlayer(contentsOf: item.location)
+        player = try! AVAudioPlayer(contentsOf: item!.location)
         player.delegate = self
         player.prepareToPlay()
         
@@ -74,11 +74,37 @@ extension MusicListController {
     
     
     func playRandomSong() {
-        let row = Int.random(in: 0..<self.items.count)
+        let row = Int.random(in: 0..<(items?.count)!)
         
         prepareMusicAndSession(for: row)
-        self.isPLaying = true
         self.player.play()
-        updatePlayingView(with: items[row])
+        updatePlayingView(with: items![row])
+    }
+}
+
+
+extension MusicListController: UITableViewDataSource {
+    // MARK: - Table view data source
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items!.count
+    }
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as! MusicListCell
+        cell.item = items?[indexPath.row]
+        
+        return cell
+    }
+    
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return sectionTitles
     }
 }
