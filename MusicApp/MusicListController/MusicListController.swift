@@ -17,7 +17,6 @@ class MusicListController: UIViewController {
     var items: [Character: [MPMediaItem]]?
     var sectionTitles: [String]?
     
-    //var player: AVAudioPlayer!
     var player: MPMusicPlayerController?
     var query: MPMediaQuery?
     
