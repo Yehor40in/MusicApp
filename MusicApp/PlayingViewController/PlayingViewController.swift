@@ -57,7 +57,7 @@ class PlayingViewController: UIViewController {
             name: Notification.Name("trackChanged"),
             object: nil,
             userInfo: [
-                "playingItem" : player?.nowPlayingItem! as Any,
+                "playingItem" : player?.nowPlayingItem as Any,
                 "state" : player?.playbackState as Any
             ]
         )

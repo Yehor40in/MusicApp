@@ -70,7 +70,7 @@ extension MusicListController {
     
     func setPlayingItem(for path: IndexPath) {
         let key = Character(sectionTitles![path.section])
-        self.player!.nowPlayingItem = self.items![key]![path.row]
+        self.player!.nowPlayingItem = self.items?[key]![path.row]
     }
     
     
