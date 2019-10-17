@@ -20,10 +20,6 @@ class MusicItem {
     
     
     init(image: String? = nil, artist: String, name: String, path: URL) {
-        if let temp = image {
-            self.image = temp
-        }
-        
         self.image = image ?? "defaultmusicicon"
         self.artist = artist
         self.name = name
