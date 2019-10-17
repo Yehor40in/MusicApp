@@ -78,7 +78,7 @@ class MusicListController: UIViewController {
         
         let item = items?[key]![index]
         
-        player = try! AVAudioPlayer(contentsOf: item!.location)
+        player = try? AVAudioPlayer(contentsOf: item!.location)
         player?.delegate = self
         player?.prepareToPlay()
         
