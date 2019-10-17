@@ -69,8 +69,8 @@ class PlayingViewController: UIViewController {
         
         view.layoutIfNeeded()
         coverViewTopConstraint.constant = (prepared?.outPosition.coverOut)!
-        coverImageBottomConstraint.constant = (coverView.frame.height - (prepared?.outPosition.imageOutBottom)!)
-        coverImageTrailingConstraint.constant = (coverView.frame.width - (prepared?.outPosition.imageOutTrailing)!)
+        coverImageBottomConstraint.constant = coverView.frame.height - (prepared?.outPosition.imageOutBottom)!
+        coverImageTrailingConstraint.constant = coverView.frame.width - (prepared?.outPosition.imageOutTrailing)!
     }
     
     
