@@ -15,9 +15,9 @@ class MusicListCell: UITableViewCell {
     @IBOutlet weak var artist: UILabel!
     
     //MARK: - Properties
-    var item: MusicItem! {
+    var item: MusicItem? {
         didSet {
-            self.songCover.image = UIImage(named: item?.image!) ?? UIImage(named: "defaultmusicicon")
+            self.songCover.image = UIImage(named: item?.image ?? "defaultmusicicon")
             self.songName.text = item?.name
             self.artist.text = item?.artist
         }
