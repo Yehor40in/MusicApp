@@ -10,8 +10,8 @@ import UIKit
 
 class MusicListController: UIViewController {
     //MARK: - Properties
-    var items: [Character: [MusicItem]]!
-    var sectionTitles: [String]!
+    var items: [Character: [MusicItem]]?
+    var sectionTitles: [String]?
     
     
     //MARK: - Outlets
@@ -27,7 +27,7 @@ class MusicListController: UIViewController {
         super.viewDidLoad()
         
         self.items = preparedItems(from: getItems())
-        self.sectionTitles = items.keys.map { String($0) }
+        self.sectionTitles = items?.keys.map { String($0) }
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -53,17 +53,15 @@ class MusicListController: UIViewController {
     
     
     func preparedItems(from raw: [MusicItem]) -> [Character: [MusicItem]] {
-        
-        let temp = raw.sorted { $0.name < $1.name }
         var prepared = [Character: [MusicItem]]()
         
-        for item in temp {
-            let key = item.name.first!
-            if let _ = prepared[key] {
-                prepared[key]!.append(item)
+        for item in raw {
+            guard let key = item.name.first else { continue }
+            
+            if var existedArray = prepared[key] {
+                existedArray.append(item)
             } else {
-                prepared[key] = [MusicItem]()
-                prepared[key]!.append(item)
+                prepared[key] = [item]
             }
         }
         return prepared
