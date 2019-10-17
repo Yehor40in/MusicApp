@@ -13,12 +13,15 @@ import UIKit
 extension UIView {
     
     func makeScreenshot() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
-        drawHierarchy(in: bounds, afterScreenUpdates: true)
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let layer = UIApplication.shared.keyWindow!.layer
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
+
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return screenshot
     }
     
 }
