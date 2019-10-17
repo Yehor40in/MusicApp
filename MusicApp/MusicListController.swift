@@ -43,12 +43,6 @@ class MusicListController: UIViewController {
         playingName.text = "Not Playing"
         playingCover.image = UIImage(named: "defaultmusicicon")
         playingCover.layer.cornerRadius = 8
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     //sample data for now
@@ -101,19 +95,8 @@ class MusicListController: UIViewController {
     
     func updatePlayingView(with object: MusicItem) {
         
-        //self.playingCover.image = UIImage(named: object.image!)
         self.playingName.text = object.name
         self.playButton.setImage(UIImage(systemName: "pause.fill", withConfiguration: .none), for: .normal)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
