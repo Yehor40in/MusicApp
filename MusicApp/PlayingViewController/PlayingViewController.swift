@@ -130,8 +130,8 @@ class PlayingViewController: UIViewController {
     }
     
     
-    func updateCover(with object: MPMediaItem) {
-        coverImageView.image = object.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: Constants.musicIconPlaceholderName)
+    func updateCover(with object: MPMediaItem?) {
+        coverImageView.image = object?.artwork?.image(at: self.coverImageView!.bounds.size) ?? UIImage(named: Constants.musicIconPlaceholderName)
     }
     
     

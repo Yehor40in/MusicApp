@@ -60,7 +60,7 @@ class MusicListController: UIViewController {
     //MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
         
-        if player!.isPreparedToPlay && !forwardButton.isEnabled {
+        if (player?.isPreparedToPlay)! && !forwardButton.isEnabled {
             self.playRandomSong()
             
         } else if player?.playbackState == .paused {
@@ -118,13 +118,13 @@ extension MusicListController: UITableViewDataSource {
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.sectionTitles!.count
+        return (sectionTitles?.count)!
     }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let key = Character(sectionTitles![section])
-        return self.items![key]!.count
+        return (items?[key]?.count)!
     }
 
     
@@ -132,18 +132,18 @@ extension MusicListController: UITableViewDataSource {
         let key = Character(sectionTitles![indexPath.section])
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as! MusicListCell
-        cell.item = self.items![key]![indexPath.row]
+        cell.item = items?[key]?[indexPath.row]
         
         return cell
     }
     
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.sectionTitles
+        return sectionTitles
     }
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sectionTitles![section]
+        return sectionTitles?[section]
     }
 }

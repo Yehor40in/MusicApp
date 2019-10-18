@@ -63,14 +63,14 @@ extension MusicListController {
     
     func preparePlayer() {
         self.player = MPMusicPlayerController.systemMusicPlayer
-        self.player!.setQueue(with: self.query!)
-        self.player!.prepareToPlay()
+        self.player?.setQueue(with: self.query!)
+        self.player?.prepareToPlay()
     }
     
     
     func setPlayingItem(for path: IndexPath) {
         let key = Character(sectionTitles![path.section])
-        self.player!.nowPlayingItem = self.items?[key]![path.row]
+        self.player?.nowPlayingItem = self.items?[key]?[path.row]
     }
     
     

@@ -40,7 +40,7 @@ extension PlayingViewController: ControlsControllerDelegate {
     
     
     func forward() {
-        self.updateCover(with: (self.player?.nowPlayingItem)!)
+        self.updateCover(with: self.player?.nowPlayingItem)
         self.player?.skipToNextItem()
         
         NotificationCenter.default.post(
