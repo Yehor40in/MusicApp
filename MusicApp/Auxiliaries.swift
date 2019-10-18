@@ -10,13 +10,11 @@ import Foundation
 import UIKit
 import MediaPlayer
 
-
 struct PreparedData {
     var image: UIImage
     var player: MPMusicPlayerController?
     var outPosition: Position
 }
-
 
 struct Position {
     var coverOut: CGFloat
@@ -24,24 +22,29 @@ struct Position {
     var imageOutTrailing: CGFloat
 }
 
-
 enum SortOption {
     case artist
     case title
     case date
 }
 
-
 enum Constants {
     static var musicIconPlaceholderName: String {
         return "defaultmusicicon"
     }
-    
     static var songLabelPlaceholder: String {
         return "Not Playing"
     }
-    
     static var cornerRadiusPlaceholder: CGFloat {
         return 8
+    }
+    static var trackChangedNotification: Notification.Name {
+        return Notification.Name("trackChanged")
+    }
+    static var trackResumedNotification: Notification.Name {
+        return Notification.Name("trackResumed")
+    }
+    static var trackPausedNotification: Notification.Name {
+        return Notification.Name("trackPaused")
     }
 }

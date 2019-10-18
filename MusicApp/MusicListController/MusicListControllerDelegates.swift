@@ -12,15 +12,15 @@ import UIKit
 extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.setPlayingItem(for: indexPath)
-        self.player?.play()
-        self.updatePlayingView()
+        setPlayingItem(for: indexPath)
+        player?.play()
+        updatePlayingView()
     }
 }
 
 extension MusicListController: PlayingViewControllerDelegate {
     // MARK: - PlayingViewControllerDelegate
     func commitChanges() {
-        self.updatePlayingView()
+        updatePlayingView()
     }
 }

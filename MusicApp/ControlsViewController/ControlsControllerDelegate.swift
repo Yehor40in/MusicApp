@@ -9,9 +9,8 @@
 import Foundation
 import MediaPlayer
 
-
 protocol ControlsControllerDelegate: class {
-    func forward() -> Void
-    func playPause() -> Void
-    func backward() -> Void
+    func forward()
+    func playPause()
+    func backward()
 }

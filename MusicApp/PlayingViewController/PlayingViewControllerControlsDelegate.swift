@@ -8,45 +8,36 @@
 
 import Foundation
 
-
 extension PlayingViewController: ControlsControllerDelegate {
-    
-    //MARK: - ControlsControllerDelegate
+    // MARK: - ControlsControllerDelegate
     func backward() {
-        self.updateCover(with: (self.player?.nowPlayingItem)!)
-        self.player?.skipToPreviousItem()
-        
+        updateCover(with: self.player?.nowPlayingItem)
+        player?.skipToPreviousItem()
         NotificationCenter.default.post(
-            name: Notification.Name("trackChanged"),
+            name: Constants.trackChangedNotification,
             object: nil,
-            userInfo: ["playingItem" : (self.player?.nowPlayingItem)!]
+            userInfo: ["playingItem": (self.player?.nowPlayingItem)!]
         )
     }
-    
-    
     func playPause() {
-        
         switch self.player?.playbackState {
         case .paused:
-            self.player?.play()
-            NotificationCenter.default.post(name: Notification.Name("trackResumed"), object: nil)
+            player?.play()
+            NotificationCenter.default.post(name: Constants.trackResumedNotification, object: nil)
         case .playing:
-            self.player?.pause()
-            NotificationCenter.default.post(name: Notification.Name("trackPaused"), object: nil)
+            player?.pause()
+            NotificationCenter.default.post(name: Constants.trackPausedNotification, object: nil)
         default:
             return
         }
     }
-    
-    
     func forward() {
-        self.updateCover(with: self.player?.nowPlayingItem)
-        self.player?.skipToNextItem()
-        
+        updateCover(with: self.player?.nowPlayingItem)
+        player?.skipToNextItem()
         NotificationCenter.default.post(
-            name: Notification.Name("trackChanged"),
+            name: Constants.trackChangedNotification,
             object: nil,
-            userInfo: ["playingItem" : (self.player?.nowPlayingItem)!]
+            userInfo: ["playingItem": (self.player?.nowPlayingItem)!]
         )
     }
 }

@@ -9,19 +9,15 @@
 import Foundation
 import UIKit
 
-
 extension UIView {
-    
     func makeScreenshot() -> UIImage? {
-        
         let layer = UIApplication.shared.keyWindow!.layer
         let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
 
         layer.render(in: UIGraphicsGetCurrentContext()!)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return screenshot
     }
-    
 }

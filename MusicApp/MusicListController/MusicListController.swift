@@ -46,17 +46,17 @@ class MusicListController: UIViewController {
     // MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
         if (player?.isPreparedToPlay)! && !forwardButton.isEnabled {
-            self.playRandomSong()
+            playRandomSong()
         } else if player?.playbackState == .paused {
-            self.player?.play()
-            self.playButton.setImage(UIImage(named: "pause"), for: .normal)
+            player?.play()
+            playButton.setImage(UIImage(named: "pause"), for: .normal)
         } else {
-            self.player?.pause()
-            self.playButton.setImage(UIImage(named: "play"), for: .normal)
+            player?.pause()
+            playButton.setImage(UIImage(named: "play"), for: .normal)
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        self.playRandomSong()
+        playRandomSong()
     }
     @IBAction func sortTapped(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: "Sort by", preferredStyle: .actionSheet)

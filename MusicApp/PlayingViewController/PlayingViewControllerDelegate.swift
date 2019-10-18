@@ -9,5 +9,5 @@
 import Foundation
 
 protocol PlayingViewControllerDelegate: class {
-    func commitChanges() -> Void
+    func commitChanges()
 }
