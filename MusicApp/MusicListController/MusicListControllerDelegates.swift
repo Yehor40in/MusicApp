@@ -9,22 +9,17 @@
 import Foundation
 import UIKit
 
-
 extension MusicListController: UITableViewDelegate {
-    //MARK: - TableViewDelegate
-     
+    // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         self.setPlayingItem(for: indexPath)
         self.player?.play()
         self.updatePlayingView()
     }
 }
 
-
 extension MusicListController: PlayingViewControllerDelegate {
-    //MARK: - PlayingViewControllerDelegate
-    
+    // MARK: - PlayingViewControllerDelegate
     func commitChanges() {
         self.updatePlayingView()
     }
