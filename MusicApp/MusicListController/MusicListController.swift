@@ -23,6 +23,7 @@ class MusicListController: UIViewController {
     @IBOutlet weak var playingName: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var forwardButton: UIButton!
+    // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         SKCloudServiceController.requestAuthorization { status in
@@ -92,7 +93,6 @@ class MusicListController: UIViewController {
 
 extension MusicListController: UITableViewDataSource {
     // MARK: - Table view data source
-
     func numberOfSections(in tableView: UITableView) -> Int {
         return (sectionTitles?.count)!
     }
@@ -100,7 +100,6 @@ extension MusicListController: UITableViewDataSource {
         let key = Character(sectionTitles![section])
         return (items?[key]?.count)!
     }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let key = Character(sectionTitles![indexPath.section])
         let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as? MusicListCell
