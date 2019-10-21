@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MediaPlayer
 
 protocol ControlsControllerDelegate: class {
     func forward()

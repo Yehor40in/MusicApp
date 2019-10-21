@@ -39,19 +39,11 @@ class PlayingViewController: UIViewController {
         if let temp = prepared {
             fakeBackground.image = temp.image
             player = temp.player
-            let img = player?.nowPlayingItem?.artwork?.image(at: self.coverImageView!.bounds.size)
+            let img = player?.nowPlayingItem?.artwork?.image(at: coverImageView!.bounds.size)
             coverImageView.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
         }
         chevron.isHidden = true
-        NotificationCenter.default.post(
-            name: Constants.trackChangedNotification,
-            object: nil,
-            userInfo: [
-                "playingItem": player?.nowPlayingItem as Any,
-                "state": player?.playbackState as Any,
-                "progress": player?.currentPlaybackTime as Any
-            ]
-        )
+        update(with: player?.nowPlayingItem)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,6 +63,19 @@ class PlayingViewController: UIViewController {
         animateCoverOut()
     }
     // MARK: - Utilities
+    func update(with item: MPMediaItem?) {
+        let img = item?.artwork?.image(at: self.coverImageView.bounds.size)
+        coverImageView.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
+        NotificationCenter.default.post(
+            name: Constants.trackChangedNotification,
+            object: nil,
+            userInfo: [
+                "playingItem": item as Any,
+                "state": player?.playbackState as Any,
+                "progress": player?.currentPlaybackTime as Any
+            ]
+        )
+    }
     func animateCoverIn() {
         coverViewTopConstraint.constant = 50
         coverImageBottomConstraint.constant = 20
@@ -100,18 +105,6 @@ class PlayingViewController: UIViewController {
         }, completion: { _ in
             self.dismiss(animated: false, completion: nil)
         })
-    }
-    func update(with obj: MPMediaItem?) {
-        let img = obj?.artwork?.image(at: self.coverImageView.bounds.size)
-        coverImageView.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
-        NotificationCenter.default.post(
-            name: Constants.trackChangedNotification,
-            object: nil,
-            userInfo: [
-                "playingItem": obj as Any,
-                "progress": player?.currentPlaybackTime as Any
-            ]
-        )
     }
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
