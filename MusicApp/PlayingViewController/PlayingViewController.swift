@@ -48,7 +48,8 @@ class PlayingViewController: UIViewController {
             object: nil,
             userInfo: [
                 "playingItem": player?.nowPlayingItem as Any,
-                "state": player?.playbackState as Any
+                "state": player?.playbackState as Any,
+                "progress": player?.currentPlaybackTime as Any
             ]
         )
     }
@@ -100,9 +101,17 @@ class PlayingViewController: UIViewController {
             self.dismiss(animated: false, completion: nil)
         })
     }
-    func updateCover(with object: MPMediaItem?) {
-        let img = object?.artwork?.image(at: self.coverImageView.bounds.size)
+    func update(with obj: MPMediaItem?) {
+        let img = obj?.artwork?.image(at: self.coverImageView.bounds.size)
         coverImageView.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
+        NotificationCenter.default.post(
+            name: Constants.trackChangedNotification,
+            object: nil,
+            userInfo: [
+                "playingItem": obj as Any,
+                "progress": player?.currentPlaybackTime as Any
+            ]
+        )
     }
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

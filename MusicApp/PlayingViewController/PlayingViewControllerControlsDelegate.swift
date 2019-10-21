@@ -11,16 +11,11 @@ import Foundation
 extension PlayingViewController: ControlsControllerDelegate {
     // MARK: - ControlsControllerDelegate
     func backward() {
-        updateCover(with: self.player?.nowPlayingItem)
         player?.skipToPreviousItem()
-        NotificationCenter.default.post(
-            name: Constants.trackChangedNotification,
-            object: nil,
-            userInfo: ["playingItem": (self.player?.nowPlayingItem)!]
-        )
+        update(with: player?.nowPlayingItem)
     }
     func playPause() {
-        switch self.player?.playbackState {
+        switch player?.playbackState {
         case .paused:
             player?.play()
             NotificationCenter.default.post(name: Constants.trackResumedNotification, object: nil)
@@ -32,12 +27,7 @@ extension PlayingViewController: ControlsControllerDelegate {
         }
     }
     func forward() {
-        updateCover(with: self.player?.nowPlayingItem)
         player?.skipToNextItem()
-        NotificationCenter.default.post(
-            name: Constants.trackChangedNotification,
-            object: nil,
-            userInfo: ["playingItem": (self.player?.nowPlayingItem)!]
-        )
+        update(with: player?.nowPlayingItem)
     }
 }
