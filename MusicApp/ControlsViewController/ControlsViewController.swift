@@ -98,6 +98,10 @@ class ControlsViewController: UIViewController {
         }
     }
     @objc func trackAudio() {
+        guard songProgress.progress < 1 else {
+            delegate?.forward()
+            return
+        }
         songProgress.progress += vps!
     }
 }

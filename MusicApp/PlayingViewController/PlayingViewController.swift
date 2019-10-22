@@ -39,7 +39,7 @@ class PlayingViewController: UIViewController {
         if let temp = prepared {
             fakeBackground.image = temp.image
             player = temp.player
-            let img = player?.nowPlayingItem?.artwork?.image(at: coverImageView!.bounds.size)
+            let img = player?.nowPlayingItem?.artwork?.image(at: coverImageView.bounds.size)
             coverImageView.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
         }
         chevron.isHidden = true
@@ -48,9 +48,7 @@ class PlayingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.layoutIfNeeded()
-        coverViewTopConstraint.constant = (prepared?.outPosition.coverOut)!
-        coverImageBottomConstraint.constant = coverView.frame.height - (prepared?.outPosition.imageOutBottom)!
-        coverImageTrailingConstraint.constant = coverView.frame.width - (prepared?.outPosition.imageOutTrailing)!
+        setupCover()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -63,8 +61,13 @@ class PlayingViewController: UIViewController {
         animateCoverOut()
     }
     // MARK: - Utilities
+    func setupCover() {
+        coverViewTopConstraint.constant = (prepared?.outPosition.coverOut)!
+        coverImageBottomConstraint.constant = coverView.frame.height - (prepared?.outPosition.imageOutBottom)!
+        coverImageTrailingConstraint.constant = coverView.frame.width - (prepared?.outPosition.imageOutTrailing)!
+    }
     func update(with item: MPMediaItem?) {
-        let img = item?.artwork?.image(at: self.coverImageView.bounds.size)
+        let img = item?.artwork?.image(at: coverImageView.bounds.size)
         coverImageView.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
         NotificationCenter.default.post(
             name: Constants.trackChangedNotification,
@@ -77,7 +80,7 @@ class PlayingViewController: UIViewController {
         )
     }
     func animateCoverIn() {
-        coverViewTopConstraint.constant = 50
+        coverViewTopConstraint.constant = 30
         coverImageBottomConstraint.constant = 20
         coverImageTrailingConstraint.constant = 20
         let verticalOffset = view.frame.height * 0.05
@@ -94,8 +97,8 @@ class PlayingViewController: UIViewController {
     }
     func animateCoverOut() {
         coverViewTopConstraint.constant = (prepared?.outPosition.coverOut)!
-        coverImageBottomConstraint.constant = (coverView.frame.height - (prepared?.outPosition.imageOutBottom)!)
-        coverImageTrailingConstraint.constant = (coverView.frame.width  - (prepared?.outPosition.imageOutTrailing)!)
+        coverImageBottomConstraint.constant = coverView.frame.height - (prepared?.outPosition.imageOutBottom)!
+        coverImageTrailingConstraint.constant = coverView.frame.width  - (prepared?.outPosition.imageOutTrailing)!
         backgroundTopConstraint.constant = 0
         backgroundLeadingConstraint.constant = 0
         backgroundBottomConstraint.constant = 0

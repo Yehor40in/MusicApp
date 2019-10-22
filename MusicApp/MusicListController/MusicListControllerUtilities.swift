@@ -25,7 +25,7 @@ extension MusicListController {
                 }
                 prepared[key]!.append($0)
                 if !sectionTitles!.contains(String(key)) {
-                    sectionTitles!.append(String(key))
+                    sectionTitles?.append(String(key))
                 }
             }
         case .title:
@@ -37,12 +37,12 @@ extension MusicListController {
                 }
                 prepared[key]!.append($0)
                 if !sectionTitles!.contains(String(key)) {
-                    sectionTitles!.append(String(key))
+                    sectionTitles?.append(String(key))
                 }
             }
         case .date:
             let temp = raw.sorted { $0.dateAdded < $1.dateAdded }
-            sectionTitles!.append(String(" "))
+            sectionTitles?.append(String(" "))
             _ = temp.map {
                 if prepared[" "] == nil {
                     prepared[" "] = [MPMediaItem]()
@@ -62,8 +62,8 @@ extension MusicListController {
         player?.nowPlayingItem = self.items?[key]?[path.row]
     }
     func updatePlayingView() {
-        if let object = self.player?.nowPlayingItem {
-            let img = object.artwork?.image(at: self.playingCover!.bounds.size)
+        if let object = player?.nowPlayingItem {
+            let img = object.artwork?.image(at: playingCover.bounds.size)
             playingCover.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
             playingName.text = object.title!
             switch self.player?.playbackState {
@@ -78,10 +78,9 @@ extension MusicListController {
         }
     }
     func playRandomSong() {
-
-        let sec = Int.random(in: 0..<self.sectionTitles!.count)
+        let sec = Int.random(in: 0..<sectionTitles!.count)
         let key = sectionTitles![sec].first!
-        let row = Int.random(in: 0..<self.items![key]!.count)
+        let row = Int.random(in: 0..<items![key]!.count)
         setPlayingItem(for: IndexPath(row: row, section: sec))
         player?.play()
         updatePlayingView()
