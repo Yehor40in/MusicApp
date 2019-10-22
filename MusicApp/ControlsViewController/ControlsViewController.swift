@@ -9,14 +9,14 @@
 import UIKit
 import MediaPlayer
 
-class ControlsViewController: UIViewController {
+final class ControlsViewController: UIViewController {
     // MARK: - Outlets
-    @IBOutlet weak var songProgress: UIProgressView!
-    @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var forwardButton: UIButton!
-    @IBOutlet weak var backwardButton: UIButton!
-    @IBOutlet weak var songName: UILabel!
-    @IBOutlet weak var artist: UILabel!
+    @IBOutlet private weak var songProgress: UIProgressView!
+    @IBOutlet private weak var playButton: UIButton!
+    @IBOutlet private weak var forwardButton: UIButton!
+    @IBOutlet private weak var backwardButton: UIButton!
+    @IBOutlet private weak var songName: UILabel!
+    @IBOutlet private weak var artist: UILabel!
     // MARK: - Delegate
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
@@ -25,25 +25,7 @@ class ControlsViewController: UIViewController {
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateDetails(_:)),
-            name: Constants.trackChangedNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handlePlay(_:)),
-            name: Constants.trackPausedNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handlePaused(_:)),
-            name: Constants.trackResumedNotification,
-            object: nil
-        )
+        setupControlsNotifications()
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         if let item = audio {
@@ -53,6 +35,26 @@ class ControlsViewController: UIViewController {
             updater?.preferredFramesPerSecond = 1
             updater?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
         }
+    }
+    func setupControlsNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateDetails(_:)),
+            name: Notification.Name.trackChanged,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handlePlay(_:)),
+            name: Notification.Name.trackPaused,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handlePaused(_:)),
+            name: Notification.Name.trackResumed,
+            object: nil
+        )
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
@@ -65,35 +67,35 @@ class ControlsViewController: UIViewController {
         delegate?.forward()
     }
     @objc func handlePaused(_ notification: Notification) {
-        playButton.setImage(UIImage(named: "pause"), for: .normal)
+        playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
         updater?.isPaused = false
     }
     @objc func handlePlay(_ notification: Notification) {
-        playButton.setImage(UIImage(named: "play"), for: .normal)
+        playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         updater?.isPaused = true
     }
     @objc func updateDetails(_ notification: Notification) {
         updater?.invalidate()
-        if let item = notification.userInfo?["playingItem"] as? MPMediaItem {
+        if let item = notification.userInfo?[Config.playingItemKey] as? MPMediaItem {
             songName.text = item.title
             artist.text = item.artist
-            if let progress = notification.userInfo?["progress"] as? Double {
+            if let progress = notification.userInfo?[Config.progressKey] as? Double {
                 handleProgress(for: item, value: progress)
             }
         } else {
-            songName.text = Constants.songLabelPlaceholder
-            artist.text = Constants.songLabelPlaceholder
+            songName.text = Config.songLabelPlaceholder
+            artist.text = Config.songLabelPlaceholder
         }
-        if let state = notification.userInfo?["state"] as? MPMusicPlaybackState {
+        if let state = notification.userInfo?[Config.stateKey] as? MPMusicPlaybackState {
             switch state {
             case .paused:
-                playButton.setImage(UIImage(named: "play"), for: .normal)
+                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
                 updater?.isPaused = true
             case .playing:
-                playButton.setImage(UIImage(named: "pause"), for: .normal)
+                playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
                 updater?.isPaused = false
             default:
-                playButton.setImage(UIImage(named: "play"), for: .normal)
+                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             }
         }
     }
@@ -102,6 +104,8 @@ class ControlsViewController: UIViewController {
             delegate?.forward()
             return
         }
-        songProgress.progress += vps!
+        if let value = vps {
+            songProgress.progress += value
+        }
     }
 }

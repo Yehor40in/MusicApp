@@ -9,23 +9,22 @@
 import UIKit
 import MediaPlayer
 
-class MusicListCell: UITableViewCell {
+final class MusicListCell: UITableViewCell {
     // MARK: - Outlets
-    @IBOutlet weak var songCover: UIImageView!
-    @IBOutlet weak var songName: UILabel!
-    @IBOutlet weak var artist: UILabel!
+    @IBOutlet private weak var songCover: UIImageView!
+    @IBOutlet private weak var songName: UILabel!
+    @IBOutlet private weak var artist: UILabel!
     // MARK: - Properties
     var item: MPMediaItem? {
         didSet {
             let img = item?.artwork?.image(at: songName.bounds.size)
-            self.songCover.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
-            self.songName.text = item?.title
-            self.artist.text = item?.artist ?? "Unknown"
+            songCover.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
+            songName.text = item?.title
+            artist.text = item?.artist ?? Config.unknownPlaceholder
         }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        songCover.layer.cornerRadius = Constants.cornerRadiusPlaceholder
+        songCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
     }
 }

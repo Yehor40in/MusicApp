@@ -13,7 +13,7 @@ extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         setPlayingItem(for: indexPath)
-        player?.play()
+        self.player?.play()
         updatePlayingView()
     }
 }

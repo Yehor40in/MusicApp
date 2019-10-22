@@ -54,27 +54,27 @@ extension MusicListController {
     }
     func preparePlayer() {
         player = MPMusicPlayerController.systemMusicPlayer
-        player?.setQueue(with: self.query!)
+        player?.setQueue(with: query!)
         player?.prepareToPlay()
     }
     func setPlayingItem(for path: IndexPath) {
         let key = Character(sectionTitles![path.section])
-        player?.nowPlayingItem = self.items?[key]?[path.row]
+        player?.nowPlayingItem = items?[key]?[path.row]
     }
     func updatePlayingView() {
         if let object = player?.nowPlayingItem {
             let img = object.artwork?.image(at: playingCover.bounds.size)
-            playingCover.image = img ?? UIImage(named: Constants.musicIconPlaceholderName)
+            playingCover.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
             playingName.text = object.title!
             switch self.player?.playbackState {
             case .paused:
-                playButton.setImage(UIImage(named: "play"), for: .normal)
+                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             case .playing:
-                playButton.setImage(UIImage(named: "pause"), for: .normal)
+                playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
             default:
-                playButton.setImage(UIImage(named: "play"), for: .normal)
+                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             }
-            self.forwardButton.isEnabled = true
+            forwardButton.isEnabled = true
         }
     }
     func playRandomSong() {

@@ -28,23 +28,47 @@ enum SortOption {
     case date
 }
 
-enum Constants {
+enum Config {
     static var musicIconPlaceholderName: String {
         return "defaultmusicicon"
     }
     static var songLabelPlaceholder: String {
         return "Not Playing"
     }
+    static var unknownPlaceholder: String {
+        return "Unknown"
+    }
+    static var pauseImagePlaceholder: String {
+        return "pause"
+    }
+    static var playImagePlaceholder: String {
+        return "play"
+    }
+    static var forwardImagePlaceholder: String {
+        return "forward"
+    }
+    static var backwardImagePlaceholder: String {
+        return "backward"
+    }
+    static var playingItemKey: String {
+        return "playingItem"
+    }
+    static var stateKey: String {
+        return "state"
+    }
+    static var progressKey: String {
+        return "progress"
+    }
     static var cornerRadiusPlaceholder: CGFloat {
         return 8
     }
-    static var trackChangedNotification: Notification.Name {
-        return Notification.Name("trackChanged")
+    static var topConstant: CGFloat {
+        return 30
     }
-    static var trackResumedNotification: Notification.Name {
-        return Notification.Name("trackResumed")
+    static var sideConstant: CGFloat {
+        return 20
     }
-    static var trackPausedNotification: Notification.Name {
-        return Notification.Name("trackPaused")
+    static var sideMultiplier: CGFloat {
+        return 0.05
     }
 }

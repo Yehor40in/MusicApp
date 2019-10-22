@@ -67,6 +67,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="38y-Xj-qmE" id="3hI-0r-c6n"/>
+                                    <outlet property="delegate" destination="38y-Xj-qmE" id="6oa-jc-ngR"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pLq-hv-UeO">
                                 <rect key="frame" x="0.0" y="458" width="320" height="110"/>

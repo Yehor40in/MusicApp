@@ -18,10 +18,10 @@ extension PlayingViewController: ControlsControllerDelegate {
         switch player?.playbackState {
         case .paused:
             player?.play()
-            NotificationCenter.default.post(name: Constants.trackResumedNotification, object: nil)
+            NotificationCenter.default.post(name: Notification.Name.trackResumed, object: nil)
         case .playing:
             player?.pause()
-            NotificationCenter.default.post(name: Constants.trackPausedNotification, object: nil)
+            NotificationCenter.default.post(name: Notification.Name.trackPaused, object: nil)
         default:
             return
         }
