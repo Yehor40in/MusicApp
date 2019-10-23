@@ -27,7 +27,7 @@ final class PlayingViewController: UIViewController {
     @IBOutlet private weak var backgroundTrailingConstraint: NSLayoutConstraint!
     // MARK: - Properties
     var prepared: PreparedData?
-    private var player: MusicPlayer?
+    private var player: MusicPlayer? = MusicPlayer.shared
     weak var delegate: PlayingViewControllerDelegate?
     // MARK: - Methods
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -35,10 +35,8 @@ final class PlayingViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         if let temp = prepared {
             fakeBackground.image = temp.image
-            player = MusicPlayer.shared
             let img = player?.nowPlayingItem?.artwork?.image(at: coverImageView.bounds.size)
             coverImageView.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
         }

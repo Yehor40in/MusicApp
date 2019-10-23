@@ -27,7 +27,6 @@ final class ControlsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateDetails()
-        //setupControlsNotifications()
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         if let item = audio {
@@ -40,9 +39,9 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        player?.backward()
         updateDetails()
         delegate?.updateCover(with: player?.nowPlayingItem)
+        player?.backward()
     }
     @IBAction func playTapped(_ sender: Any) {
         switch player?.playbackState {
@@ -59,21 +58,21 @@ final class ControlsViewController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        player?.forward()
         updateDetails()
         delegate?.updateCover(with: player?.nowPlayingItem)
+        player?.forward()
     }
     func updateDetails() {
         updater?.invalidate()
-        if let item = player?.nowPlayingItem {
-            songName.text = item.title
-            artist.text = item.artist
-            guard let progress = player?.playbackTime else { return }
-            handleProgress(for: item, value: progress)
-        } else {
+        guard let item = player?.nowPlayingItem else {
             songName.text = Config.songLabelPlaceholder
             artist.text = Config.songLabelPlaceholder
+            return
         }
+        songName.text = item.title
+        artist.text = item.artist
+        guard let progress = player?.playbackTime else { return }
+        handleProgress(for: item, value: progress)
         switch player?.playbackState {
         case .paused:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
