@@ -30,6 +30,7 @@ final class ControlsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         nextInQueue.dataSource = self
+        nextInQueue.delegate = self
         addToPlaylistButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         updateDetails()
@@ -90,6 +91,16 @@ final class ControlsViewController: UIViewController {
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
     }
+    func getUpNext() {
+        //
+        //
+        // TODO:
+        // + Implement this method:
+        //   - Store result in local property (use this property as 'Up Next' data source)
+        //   - call this method every time when track changed
+        //
+        //
+    }
     @objc func trackAudio() {
         guard songProgress.progress < 1 else {
             player?.forward()
@@ -118,5 +129,18 @@ extension ControlsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let data = player?.query.items else { return 0 }
         return data.count
+    }
+}
+
+extension ControlsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //
+        // TODO
+        // + Make this method pretty
+        //
+        guard let items = player?.query.items else { return }
+        player?.nowPlayingItem = items[indexPath.row]
+        updateDetails()
+        delegate?.updateCover(with: items[indexPath.row])
     }
 }
