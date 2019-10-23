@@ -21,11 +21,13 @@ final class ControlsViewController: UIViewController {
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
     var vps: Float?
+    var player: MusicPlayer? = MusicPlayer.shared
     var updater: CADisplayLink?
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupControlsNotifications()
+        updateDetails()
+        //setupControlsNotifications()
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         if let item = audio {
@@ -36,72 +38,57 @@ final class ControlsViewController: UIViewController {
             updater?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
         }
     }
-    func setupControlsNotifications() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateDetails(_:)),
-            name: Notification.Name.trackChanged,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handlePlay(_:)),
-            name: Notification.Name.trackPaused,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handlePaused(_:)),
-            name: Notification.Name.trackResumed,
-            object: nil
-        )
-    }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        delegate?.backward()
+        player?.backward()
+        updateDetails()
+        delegate?.updateCover(with: player?.nowPlayingItem)
     }
     @IBAction func playTapped(_ sender: Any) {
-        delegate?.playPause()
+        switch player?.playbackState {
+        case .paused:
+            player?.play()
+            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
+            updater?.isPaused = false
+        case .playing:
+            player?.pause()
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
+            updater?.isPaused = true
+        default:
+            return
+        }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        delegate?.forward()
+        player?.forward()
+        updateDetails()
+        delegate?.updateCover(with: player?.nowPlayingItem)
     }
-    @objc func handlePaused(_ notification: Notification) {
-        playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
-        updater?.isPaused = false
-    }
-    @objc func handlePlay(_ notification: Notification) {
-        playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-        updater?.isPaused = true
-    }
-    @objc func updateDetails(_ notification: Notification) {
+    func updateDetails() {
         updater?.invalidate()
-        if let item = notification.userInfo?[Config.playingItemKey] as? MPMediaItem {
+        if let item = player?.nowPlayingItem {
             songName.text = item.title
             artist.text = item.artist
-            if let progress = notification.userInfo?[Config.progressKey] as? Double {
-                handleProgress(for: item, value: progress)
-            }
+            guard let progress = player?.playbackTime else { return }
+            handleProgress(for: item, value: progress)
         } else {
             songName.text = Config.songLabelPlaceholder
             artist.text = Config.songLabelPlaceholder
         }
-        if let state = notification.userInfo?[Config.stateKey] as? MPMusicPlaybackState {
-            switch state {
-            case .paused:
-                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-                updater?.isPaused = true
-            case .playing:
-                playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
-                updater?.isPaused = false
-            default:
-                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-            }
+        switch player?.playbackState {
+        case .paused:
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
+            updater?.isPaused = true
+        case .playing:
+            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
+            updater?.isPaused = false
+        default:
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
     }
     @objc func trackAudio() {
         guard songProgress.progress < 1 else {
-            delegate?.forward()
+            player?.forward()
+            delegate?.updateCover(with: player?.nowPlayingItem)
             return
         }
         if let value = vps {

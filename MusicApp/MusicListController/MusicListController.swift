@@ -15,7 +15,10 @@ final class MusicListController: UIViewController {
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
     private var query: MPMediaQuery?
+    private var player: MusicPlayer?
+    /*
     private var player: MPMusicPlayerController?
+    */
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var playingView: UIView!
@@ -39,7 +42,8 @@ final class MusicListController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
-        if (player?.isPreparedToPlay)! && !forwardButton.isEnabled {
+        guard let playerPrepared = player?.isPrepared else { return }
+        if playerPrepared && !forwardButton.isEnabled {
             playRandomSong()
         } else if player?.playbackState == .paused {
             player?.play()
@@ -53,30 +57,37 @@ final class MusicListController: UIViewController {
         playRandomSong()
     }
     @IBAction func sortTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(title: nil, message: "Sort by", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: Config.sortMessagePlaceholder,
+            preferredStyle: .actionSheet
+        )
         actionSheet.view.tintColor = UIColor.green
-        actionSheet.addAction(UIAlertAction(title: "Artist", style: .default, handler: {[weak self] (_) in
+        actionSheet.addAction(
+            UIAlertAction(title: Config.sortArtistPlaceholder, style: .default, handler: { [weak self] (_) in
             self?.items = self?.preparedItems(from: self?.query?.items, by: .artist)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
 
-        actionSheet.addAction(UIAlertAction(title: "Title", style: .default, handler: {[weak self] (_) in
+        actionSheet.addAction(
+            UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: {[weak self] (_) in
             self?.items = self?.preparedItems(from: self?.query?.items, by: .title)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
 
-        actionSheet.addAction(UIAlertAction(title: "Recently Added", style: .default, handler: {[weak self] (_) in
+        actionSheet.addAction(
+            UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: {[weak self] (_) in
             self?.items = self?.preparedItems(from: self?.query?.items, by: .date)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
 
-        actionSheet.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: {[weak self] (_) in
+        actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: {[weak self] (_) in
             self?.dismiss(animated: true, completion: nil)
         }))
 
@@ -92,58 +103,47 @@ extension MusicListController {
         sectionTitles = [String]()
         switch option {
         case .artist:
-            if let temp = raw?.sorted(by: { $0.artist! < $1.artist! }) {
-                _ = temp.map {
-                    let key = $0.artist!.first!
-                    if prepared[key] == nil {
-                        prepared[key] = [MPMediaItem]()
-                    }
-                    prepared[key]!.append($0)
-                    if !sectionTitles!.contains(String(key)) {
-                        sectionTitles?.append(String(key))
-                    }
+            sectionTitles = raw?.map {
+                guard let char = $0.artist?.first else { return "" }
+                return String(char)
+            }
+            if let sectionTitles = sectionTitles?.sorted() {
+                for char in sectionTitles {
+                    prepared[Character(char)] = raw?.filter { return $0.artist?.first == Character(char) }
                 }
             }
         case .title:
-            if let temp = raw?.sorted(by: { $0.title! < $1.title! }) {
-                _ = temp.map {
-                    let key = $0.title!.first!
-                    if prepared[key] == nil {
-                        prepared[key] = [MPMediaItem]()
-                    }
-                    prepared[key]!.append($0)
-                    if !sectionTitles!.contains(String(key)) {
-                        sectionTitles?.append(String(key))
-                    }
+            sectionTitles = raw?.map {
+                guard let char = $0.title?.first else { return "" }
+                return String(char)
+            }
+            if let sectionTitles = sectionTitles?.sorted() {
+                for char in sectionTitles {
+                    prepared[Character(char)] = raw?.filter { return $0.title?.first == Character(char) }
                 }
             }
         case .date:
             if let temp = raw?.sorted(by: { $0.dateAdded < $1.dateAdded }) {
                 sectionTitles?.append(String(" "))
-                _ = temp.map {
-                    if prepared[" "] == nil {
-                        prepared[" "] = [MPMediaItem]()
-                    }
-                    prepared[" "]!.append($0)
-                }
+                prepared[" "] = temp
             }
         }
         return prepared
     }
     func preparePlayer() {
-        player = MPMusicPlayerController.systemMusicPlayer
-        player?.setQueue(with: query!)
-        player?.prepareToPlay()
+        player = MusicPlayer.shared
     }
     func setPlayingItem(for path: IndexPath) {
-        let key = Character(sectionTitles![path.section])
+        guard let sectionTitles = self.sectionTitles else { return }
+        let key = Character(sectionTitles[path.section])
         player?.nowPlayingItem = items?[key]?[path.row]
     }
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization {[weak self] status in
             if status == .authorized {
                 self?.query = MPMediaQuery.songs()
-                self?.items = self?.preparedItems(from: (self?.query?.items)!, by: .title)
+                guard let data = self?.query?.items else { return }
+                self?.items = self?.preparedItems(from: data, by: .title)
                 self?.preparePlayer()
             }
         }
@@ -182,7 +182,7 @@ extension MusicListController {
                 imageOutTrailing: playingCover.frame.width + playingCover.frame.origin.x
             )
             if let img = self.view.makeScreenshot() {
-                details.prepared = PreparedData(image: img, player: player, outPosition: pos)
+                details.prepared = PreparedData(image: img, outPosition: pos)
                 details.delegate = self
                 details.modalPresentationStyle = .fullScreen
                 present(details, animated: false)
@@ -202,9 +202,11 @@ extension MusicListController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let key = Character(sectionTitles![indexPath.section])
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as? MusicListCell
-        cell?.item = items?[key]?[indexPath.row]
-        return cell!
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as? MusicListCell {
+            cell.item = items?[key]?[indexPath.row]
+            return cell
+        }
+        return UITableViewCell()
     }
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return sectionTitles

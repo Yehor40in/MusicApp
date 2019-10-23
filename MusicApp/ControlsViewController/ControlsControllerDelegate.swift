@@ -7,9 +7,8 @@
 //
 
 import Foundation
+import MediaPlayer
 
 protocol ControlsControllerDelegate: class {
-    func forward()
-    func playPause()
-    func backward()
+    func updateCover(with item: MPMediaItem?)
 }

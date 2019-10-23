@@ -27,7 +27,7 @@ final class PlayingViewController: UIViewController {
     @IBOutlet private weak var backgroundTrailingConstraint: NSLayoutConstraint!
     // MARK: - Properties
     var prepared: PreparedData?
-    private var player: MPMusicPlayerController?
+    private var player: MusicPlayer?
     weak var delegate: PlayingViewControllerDelegate?
     // MARK: - Methods
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -38,7 +38,7 @@ final class PlayingViewController: UIViewController {
 
         if let temp = prepared {
             fakeBackground.image = temp.image
-            player = temp.player
+            player = MusicPlayer.shared
             let img = player?.nowPlayingItem?.artwork?.image(at: coverImageView.bounds.size)
             coverImageView.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
         }
@@ -73,15 +73,6 @@ final class PlayingViewController: UIViewController {
     func update(with item: MPMediaItem?) {
         let img = item?.artwork?.image(at: coverImageView.bounds.size)
         coverImageView.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
-        NotificationCenter.default.post(
-            name: Notification.Name.trackChanged,
-            object: nil,
-            userInfo: [
-                Config.playingItemKey: item as Any,
-                Config.stateKey: player?.playbackState as Any,
-                Config.progressKey: player?.currentPlaybackTime as Any
-            ]
-        )
     }
     func animateCoverIn() {
         coverViewTopConstraint.constant = Config.topConstant
@@ -93,8 +84,8 @@ final class PlayingViewController: UIViewController {
         backgroundLeadingConstraint.constant = horizontalOffset
         backgroundBottomConstraint.constant = verticalOffset
         backgroundTrailingConstraint.constant = horizontalOffset
-        UIView.animate(withDuration: 0.3, animations: {[weak self] in
-            self?.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
         }, completion: {[weak self] _ in
             self?.chevron.isHidden = false
         })
@@ -107,8 +98,8 @@ final class PlayingViewController: UIViewController {
         backgroundLeadingConstraint.constant = 0
         backgroundBottomConstraint.constant = 0
         backgroundTrailingConstraint.constant = 0
-        UIView.animate(withDuration: 0.3, animations: {[weak self] in
-            self?.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
         }, completion: { [weak self] _ in
             self?.dismiss(animated: false, completion: nil)
         })
@@ -123,24 +114,8 @@ final class PlayingViewController: UIViewController {
 
 extension PlayingViewController: ControlsControllerDelegate {
     // MARK: - ControlsControllerDelegate
-    func backward() {
-        player?.skipToPreviousItem()
-        update(with: player?.nowPlayingItem)
-    }
-    func playPause() {
-        switch player?.playbackState {
-        case .paused:
-            player?.play()
-            NotificationCenter.default.post(name: Notification.Name.trackResumed, object: nil)
-        case .playing:
-            player?.pause()
-            NotificationCenter.default.post(name: Notification.Name.trackPaused, object: nil)
-        default:
-            return
-        }
-    }
-    func forward() {
-        player?.skipToNextItem()
-        update(with: player?.nowPlayingItem)
+    func updateCover(with item: MPMediaItem?) {
+        guard let unwrapped = item else { return }
+        update(with: unwrapped)
     }
 }

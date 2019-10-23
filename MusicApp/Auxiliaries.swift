@@ -12,7 +12,7 @@ import MediaPlayer
 
 struct PreparedData {
     var image: UIImage
-    var player: MPMusicPlayerController?
+    //var player: MPMusicPlayerController?
     var outPosition: Position
 }
 
@@ -50,14 +50,20 @@ enum Config {
     static var backwardImagePlaceholder: String {
         return "backward"
     }
-    static var playingItemKey: String {
-        return "playingItem"
+    static var sortMessagePlaceholder: String {
+        return "Sort by"
     }
-    static var stateKey: String {
-        return "state"
+    static var sortArtistPlaceholder: String {
+        return "Artist"
     }
-    static var progressKey: String {
-        return "progress"
+    static var sortTitlePlaceholder: String {
+        return "Title"
+    }
+    static var recentlyAddedPlaceholder: String {
+        return "Recently added"
+    }
+    static var dismissMessage: String {
+        return "Dismiss"
     }
     static var cornerRadiusPlaceholder: CGFloat {
         return 8
