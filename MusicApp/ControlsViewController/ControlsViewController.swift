@@ -17,6 +17,9 @@ final class ControlsViewController: UIViewController {
     @IBOutlet private weak var backwardButton: UIButton!
     @IBOutlet private weak var songName: UILabel!
     @IBOutlet private weak var artist: UILabel!
+    @IBOutlet private weak var nextInQueue: UITableView!
+    @IBOutlet private weak var addToPlaylistButton: UIButton!
+    @IBOutlet private weak var shuffleButton: UIButton!
     // MARK: - Delegate
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
@@ -26,6 +29,9 @@ final class ControlsViewController: UIViewController {
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        nextInQueue.dataSource = self
+        addToPlaylistButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
+        shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         updateDetails()
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
@@ -93,5 +99,24 @@ final class ControlsViewController: UIViewController {
         if let value = vps {
             songProgress.progress += value
         }
+    }
+}
+
+extension ControlsViewController: UITableViewDataSource {
+    // MARK: - QueueList DataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let data = player?.query.items else { return UITableViewCell() }
+        if let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell {
+            cell.item = data[indexPath.row]
+            return cell
+        }
+        return UITableViewCell()
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let data = player?.query.items else { return 0 }
+        return data.count
     }
 }

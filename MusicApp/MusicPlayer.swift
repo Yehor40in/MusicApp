@@ -13,7 +13,7 @@ final class MusicPlayer {
     static var shared: MusicPlayer = MusicPlayer()
     // MARK: - Properties
     private var player: MPMusicPlayerController
-    private var query: MPMediaQuery = MPMediaQuery.songs()
+    var query: MPMediaQuery = MPMediaQuery.songs()
     var isPlaying: Bool = false
     var nowPlayingItem: MPMediaItem? {
         get { return player.nowPlayingItem }

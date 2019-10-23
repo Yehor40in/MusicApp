@@ -22,6 +22,7 @@
 		7445A0D12355AB1A00FF1292 /* PlayingViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */; };
 		7445A0D7235603C000FF1292 /* ControlsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */; };
 		7453D4262343578E007E022F /* MusicListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7453D4252343578E007E022F /* MusicListCell.swift */; };
+		745B3ECF236071440038B0A3 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B3ECE236071440038B0A3 /* QueueCell.swift */; };
 		7460BEAB234F53E400CFFDCB /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7460BEAA234F53E400CFFDCB /* Helpers.swift */; };
 		7460BEAD234F55E200CFFDCB /* Auxiliaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7460BEAC234F55E200CFFDCB /* Auxiliaries.swift */; };
 		74846CF3234F16DF008EC89F /* PlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74846CF2234F16DF008EC89F /* PlayingViewController.swift */; };
@@ -70,6 +71,7 @@
 		7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewControllerDelegate.swift; sourceTree = "<group>"; };
 		7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsControllerDelegate.swift; sourceTree = "<group>"; };
 		7453D4252343578E007E022F /* MusicListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListCell.swift; sourceTree = "<group>"; };
+		745B3ECE236071440038B0A3 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; };
 		7460BEAA234F53E400CFFDCB /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		7460BEAC234F55E200CFFDCB /* Auxiliaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auxiliaries.swift; sourceTree = "<group>"; };
 		74846CF2234F16DF008EC89F /* PlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			children = (
 				74846CF6234F1788008EC89F /* ControlsViewController.swift */,
 				7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */,
+				745B3ECE236071440038B0A3 /* QueueCell.swift */,
 			);
 			path = ControlsViewController;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 			files = (
 				7460BEAB234F53E400CFFDCB /* Helpers.swift in Sources */,
 				7445A0D12355AB1A00FF1292 /* PlayingViewControllerDelegate.swift in Sources */,
+				745B3ECF236071440038B0A3 /* QueueCell.swift in Sources */,
 				74C4E218235F468D00390CB0 /* MusicPlayer.swift in Sources */,
 				7445A0D7235603C000FF1292 /* ControlsControllerDelegate.swift in Sources */,
 				74846CF3234F16DF008EC89F /* PlayingViewController.swift in Sources */,
