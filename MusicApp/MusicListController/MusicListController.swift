@@ -177,8 +177,9 @@ extension MusicListController {
     }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
         if let details = storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
+            guard let navHeight = navigationController?.navigationBar.frame.height else { return }
             let pos = Position(
-                coverOut: tableView.frame.height + (navigationController?.navigationBar.frame.height)!,
+                coverOut: tableView.frame.height + navHeight,
                 imageOutBottom: playingCover.frame.height + playingCover.frame.origin.y,
                 imageOutTrailing: playingCover.frame.width + playingCover.frame.origin.x
             )
