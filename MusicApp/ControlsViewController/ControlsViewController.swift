@@ -39,9 +39,9 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        updateDetails()
-        delegate?.updateCover(with: player?.nowPlayingItem)
         player?.backward()
+        delegate?.updateCover(with: player?.nowPlayingItem)
+        updateDetails()
     }
     @IBAction func playTapped(_ sender: Any) {
         switch player?.playbackState {
@@ -58,9 +58,9 @@ final class ControlsViewController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        updateDetails()
-        delegate?.updateCover(with: player?.nowPlayingItem)
         player?.forward()
+        delegate?.updateCover(with: player?.nowPlayingItem)
+        updateDetails()
     }
     func updateDetails() {
         updater?.invalidate()

@@ -168,7 +168,8 @@ extension MusicListController {
         if let titles = sectionTitles, let values = items {
             let sec = Int.random(in: 0..<titles.count)
             let key = titles[sec].first!
-            let row = Int.random(in: 0..<values[key]!.count)
+            guard let set = values[key] else { return }
+            let row = Int.random(in: 0..<set.count)
             setPlayingItem(for: IndexPath(row: row, section: sec))
             player?.play()
             updatePlayingView()
