@@ -33,8 +33,8 @@ final class MusicListController: UIViewController {
         playingName.text = Config.songLabelPlaceholder
         playingCover.image = UIImage(named: Config.musicIconPlaceholderName)
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
-        navigationController?.navigationBar.prefersLargeTitles = true
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -203,7 +203,8 @@ extension MusicListController: UITableViewDataSource {
         return items?[key]?.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let key = Character(sectionTitles![indexPath.section])
+        guard let sectionTitles = sectionTitles else { return UITableViewCell() }
+        let key = Character(sectionTitles[indexPath.section])
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as? MusicListCell {
             cell.item = items?[key]?[indexPath.row]
             return cell
