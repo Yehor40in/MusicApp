@@ -47,8 +47,7 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        player?.updateUpNext(forward: false)
-        player?.goToNextInQueue()
+        player?.backward()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
     }
