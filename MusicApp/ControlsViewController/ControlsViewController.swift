@@ -47,8 +47,8 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        player?.updateUpNext()
-        player?.backward()
+        player?.updateUpNext(forward: false)
+        player?.goToNextInQueue()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
     }
@@ -67,7 +67,7 @@ final class ControlsViewController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        player?.updateUpNext()
+        player?.updateUpNext(forward: true)
         player?.goToNextInQueue()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
@@ -96,15 +96,14 @@ final class ControlsViewController: UIViewController {
         nextInQueue.reloadData()
     }
     func setPlayingItem(_ item: MPMediaItem) {
-        player?.updateUpNext()
+        player?.updateUpNext(forward: true)
         player?.nowPlayingItem = item
         updateDetails()
         delegate?.updateCover(with: item)
     }
-    
     @objc func trackAudio() {
         guard songProgress.progress < 1 else {
-            player?.updateUpNext()
+            player?.updateUpNext(forward: true)
             player?.goToNextInQueue()
             delegate?.updateCover(with: player?.nowPlayingItem)
             updateDetails()

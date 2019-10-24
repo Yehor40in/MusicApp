@@ -51,7 +51,7 @@ final class MusicListController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        player?.updateUpNext()
+        player?.updateUpNext(forward: true)
         playRandomSong()
     }
     @IBAction func sortTapped(_ sender: Any) {
@@ -227,7 +227,7 @@ extension MusicListController: UITableViewDataSource {
 extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        player?.updateUpNext()
+        player?.updateUpNext(forward: true)
         setPlayingItem(for: indexPath)
         player?.play()
         updatePlayingView()
