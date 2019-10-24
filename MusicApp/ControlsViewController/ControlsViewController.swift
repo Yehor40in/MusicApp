@@ -46,6 +46,7 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
+        player?.updateUpNext()
         player?.backward()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
@@ -65,6 +66,7 @@ final class ControlsViewController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
+        player?.updateUpNext()
         player?.forward()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
@@ -90,21 +92,20 @@ final class ControlsViewController: UIViewController {
         default:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
+        nextInQueue.reloadData()
     }
-    func getUpNext() {
-        //
-        //
-        // TODO:
-        // + Implement this method:
-        //   - Store result in local property (use this property as 'Up Next' data source)
-        //   - call this method every time when track changed
-        //
-        //
+    func setPlayingItem(_ item: MPMediaItem) {
+        player?.updateUpNext()
+        player?.nowPlayingItem = item
+        updateDetails()
+        delegate?.updateCover(with: item)
     }
     @objc func trackAudio() {
         guard songProgress.progress < 1 else {
+            player?.updateUpNext()
             player?.forward()
             delegate?.updateCover(with: player?.nowPlayingItem)
+            updateDetails()
             return
         }
         if let value = vps {
@@ -119,28 +120,24 @@ extension ControlsViewController: UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let data = player?.query.items else { return UITableViewCell() }
-        if let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell {
-            cell.item = data[indexPath.row]
-            return cell
+        if let data = player?.upNext {
+            if let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell {
+                guard indexPath.row < data.count else { return UITableViewCell() }
+                cell.item = data[indexPath.row]
+                return cell
+            }
         }
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let data = player?.query.items else { return 0 }
+        guard let data = player?.upNext else { return 0 }
         return data.count
     }
 }
 
 extension ControlsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
-        // TODO
-        // + Make this method pretty
-        //
-        guard let items = player?.query.items else { return }
-        player?.nowPlayingItem = items[indexPath.row]
-        updateDetails()
-        delegate?.updateCover(with: items[indexPath.row])
+        guard let items = player?.upNext else { return }
+        setPlayingItem(items[indexPath.row])
     }
 }

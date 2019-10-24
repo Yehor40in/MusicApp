@@ -13,7 +13,6 @@ class QueueCell: UITableViewCell {
     @IBOutlet private weak var songCover: UIImageView!
     @IBOutlet private weak var songName: UILabel!
     @IBOutlet private weak var artist: UILabel!
-    
     var item: MPMediaItem? {
         didSet {
             let img = item?.artwork?.image(at: songName.bounds.size)

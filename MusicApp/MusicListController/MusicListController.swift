@@ -16,9 +16,6 @@ final class MusicListController: UIViewController {
     private var sectionTitles: [String]?
     private var query: MPMediaQuery?
     private var player: MusicPlayer?
-    /*
-    private var player: MPMusicPlayerController?
-    */
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var playingView: UIView!
@@ -54,6 +51,7 @@ final class MusicListController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
+        player?.updateUpNext()
         playRandomSong()
     }
     @IBAction func sortTapped(_ sender: Any) {
@@ -103,9 +101,12 @@ extension MusicListController {
         sectionTitles = [String]()
         switch option {
         case .artist:
-            sectionTitles = raw?.map {
-                guard let char = $0.artist?.first else { return "" }
-                return String(char)
+            guard let temp = raw else { return [:] }
+            for item in temp {
+                guard let char = item.artist?.first else { return [:] }
+                if let titles = sectionTitles {
+                    if !titles.contains(String(char)) { sectionTitles?.append(String(char)) }
+                }
             }
             if let sectionTitles = sectionTitles?.sorted() {
                 for char in sectionTitles {
@@ -113,12 +114,16 @@ extension MusicListController {
                 }
             }
         case .title:
-            sectionTitles = raw?.map {
-                guard let char = $0.title?.first else { return "" }
-                return String(char)
+            guard let temp = raw else { return [:] }
+            for item in temp {
+                guard let char = item.title?.first else { return [:] }
+                if let titles = sectionTitles {
+                    if !titles.contains(String(char)) { sectionTitles?.append(String(char)) }
+                }
             }
             if let sectionTitles = sectionTitles?.sorted() {
-                for char in sectionTitles {
+                let temp = Set(sectionTitles)
+                for char in temp {
                     prepared[Character(char)] = raw?.filter { return $0.title?.first == Character(char) }
                 }
             }
@@ -222,6 +227,7 @@ extension MusicListController: UITableViewDataSource {
 extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        player?.updateUpNext()
         setPlayingItem(for: indexPath)
         player?.play()
         updatePlayingView()
