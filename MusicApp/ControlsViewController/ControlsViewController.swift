@@ -31,6 +31,7 @@ final class ControlsViewController: UIViewController {
         super.viewDidLoad()
         nextInQueue.dataSource = self
         nextInQueue.delegate = self
+        nextInQueue.isEditing = true
         addToPlaylistButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         updateDetails()
@@ -67,7 +68,7 @@ final class ControlsViewController: UIViewController {
     }
     @IBAction func forwardTapped(_ sender: Any) {
         player?.updateUpNext()
-        player?.forward()
+        player?.goToNextInQueue()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
     }
@@ -100,10 +101,11 @@ final class ControlsViewController: UIViewController {
         updateDetails()
         delegate?.updateCover(with: item)
     }
+    
     @objc func trackAudio() {
         guard songProgress.progress < 1 else {
             player?.updateUpNext()
-            player?.forward()
+            player?.goToNextInQueue()
             delegate?.updateCover(with: player?.nowPlayingItem)
             updateDetails()
             return
@@ -139,5 +141,21 @@ extension ControlsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let items = player?.upNext else { return }
         setPlayingItem(items[indexPath.row])
+    }
+    func tableView(_ tableView: UITableView,
+                   editingStyleForRowAt indexPath: IndexPath
+    ) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if var queue = player?.upNext {
+            let temp = queue.remove(at: sourceIndexPath.row)
+            queue.insert(temp, at: destinationIndexPath.row)
+            player?.upNext = queue
+        }
+        nextInQueue.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+    }
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }

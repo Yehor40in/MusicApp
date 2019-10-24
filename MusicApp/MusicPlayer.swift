@@ -64,4 +64,11 @@ final class MusicPlayer {
     func updateUpNext() {
         upNext = upNext?.filter { $0 != nowPlayingItem }
     }
+    func goToNextInQueue() {
+        updateUpNext()
+        if let queue = upNext {
+            nowPlayingItem = queue.first
+            play()
+        }
+    }
 }
