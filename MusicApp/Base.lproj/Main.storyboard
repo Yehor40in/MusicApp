@@ -417,9 +417,18 @@
                                     <action selector="backwardTapped:" destination="nyQ-aP-JOz" eventType="touchUpInside" id="fzH-XU-Ond"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pn2-Dh-tnY">
+                                <rect key="frame" x="171.5" y="189" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="0do-a4-t5C"/>
+                                    <constraint firstAttribute="width" constant="32" id="7la-GV-3dZ"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="more"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="pn2-Dh-tnY" firstAttribute="top" secondItem="BGN-TY-rEv" secondAttribute="bottom" constant="30" id="7cl-da-8nk"/>
                             <constraint firstItem="Hw6-bS-Xq6" firstAttribute="top" secondItem="cYg-BH-Nr4" secondAttribute="bottom" constant="20" id="94b-La-1q5"/>
                             <constraint firstItem="3Ow-mf-6LD" firstAttribute="leading" secondItem="Vzs-Sr-gZY" secondAttribute="leading" constant="15" id="AWM-xO-PSn"/>
                             <constraint firstItem="CTk-zL-n2z" firstAttribute="leading" secondItem="Evk-1d-f4g" secondAttribute="trailing" constant="50" id="AuD-DQ-XTq"/>
@@ -440,6 +449,7 @@
                             <constraint firstItem="BGN-TY-rEv" firstAttribute="centerX" secondItem="IxC-ZQ-Ahj" secondAttribute="centerX" id="kXu-vu-cfn"/>
                             <constraint firstItem="Yfr-GQ-WVd" firstAttribute="top" secondItem="IxC-ZQ-Ahj" secondAttribute="topMargin" constant="250" id="mjm-eW-seC"/>
                             <constraint firstItem="A71-4H-bdh" firstAttribute="leading" secondItem="Vzs-Sr-gZY" secondAttribute="leading" id="pyz-oR-o1L"/>
+                            <constraint firstItem="pn2-Dh-tnY" firstAttribute="centerX" secondItem="IxC-ZQ-Ahj" secondAttribute="centerX" id="qcb-Nj-mNg"/>
                             <constraint firstItem="O8A-0x-k1f" firstAttribute="top" secondItem="Evk-1d-f4g" secondAttribute="bottom" constant="15" id="u8M-k3-qxN"/>
                             <constraint firstItem="Yfr-GQ-WVd" firstAttribute="leading" secondItem="Vzs-Sr-gZY" secondAttribute="leading" constant="20" id="uVh-iN-yi3"/>
                             <constraint firstItem="Evk-1d-f4g" firstAttribute="top" secondItem="cYg-BH-Nr4" secondAttribute="bottom" constant="20" id="y7C-Mp-OWB"/>
@@ -468,6 +478,7 @@
         <image name="chevron" width="24" height="24"/>
         <image name="defaultmusicicon" width="64" height="64"/>
         <image name="forward" width="32" height="32"/>
+        <image name="more" width="35" height="35"/>
         <image name="play" width="32" height="32"/>
         <image name="rewind" width="32" height="32"/>
     </resources>
