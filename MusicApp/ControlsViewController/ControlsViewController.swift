@@ -18,8 +18,9 @@ final class ControlsViewController: UIViewController {
     @IBOutlet private weak var songName: UILabel!
     @IBOutlet private weak var artist: UILabel!
     @IBOutlet private weak var nextInQueue: UITableView!
-    @IBOutlet private weak var addToPlaylistButton: UIButton!
+    @IBOutlet private weak var repeatButton: UIButton!
     @IBOutlet private weak var shuffleButton: UIButton!
+    @IBOutlet private weak var moreButton: UIButton!
     // MARK: - Delegate
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
@@ -32,9 +33,12 @@ final class ControlsViewController: UIViewController {
         nextInQueue.dataSource = self
         nextInQueue.delegate = self
         nextInQueue.isEditing = true
-        addToPlaylistButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
+        repeatButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         updateDetails()
+        repeatButton.layer.backgroundColor = checkRepeating() ?
+                                            UIColor.systemGreen.cgColor :
+                                            UIColor.lightGray.cgColor
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         if let item = audio {
@@ -47,7 +51,6 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        //player?.updateUpNext(forward: false)
         player?.goToPreviousInQueue()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
@@ -67,10 +70,19 @@ final class ControlsViewController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        //player?.updateUpNext(forward: true)
         player?.goToNextInQueue()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
+    }
+    @IBAction func repeatTapped(_ sender: Any) {
+        let repeating = checkRepeating()
+        player?.setRepeating(!repeating)
+        repeatButton.layer.backgroundColor = !repeating ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+    }
+    // MARK: - Utilities
+    func checkRepeating() -> Bool {
+        guard let repeating = player?.isRepeating else { return false }
+        return repeating
     }
     func updateDetails() {
         updater?.invalidate()
@@ -103,10 +115,15 @@ final class ControlsViewController: UIViewController {
     }
     @objc func trackAudio() {
         guard songProgress.progress < 1 else {
-            player?.updateUpNext(forward: true)
-            player?.goToNextInQueue()
-            delegate?.updateCover(with: player?.nowPlayingItem)
-            updateDetails()
+            guard let repeating = player?.isRepeating else { return }
+            if !repeating {
+                player?.updateUpNext(forward: true)
+                player?.goToNextInQueue()
+                delegate?.updateCover(with: player?.nowPlayingItem)
+                updateDetails()
+            } else {
+                songProgress.progress = 0
+            }
             return
         }
         if let value = vps {

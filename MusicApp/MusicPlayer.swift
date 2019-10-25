@@ -25,6 +25,14 @@ final class MusicPlayer {
         guard player.isPreparedToPlay else { return false }
         return true
     }
+    var isRepeating: Bool {
+        switch player.repeatMode {
+        case .one:
+            return true
+        default:
+            return false
+        }
+    }
     var playbackDuration: TimeInterval {
         return nowPlayingItem?.playbackDuration ?? 0
     }
@@ -85,5 +93,14 @@ final class MusicPlayer {
         currentIndex -= 1
         nowPlayingItem = items[currentIndex]
         play()
+    }
+    func setRepeating(_ flag: Bool) {
+        player.repeatMode = flag ? .one : .none
+        switch player.repeatMode {
+        case .one:
+            print("\n\n\n\n\nREPEATING\n\n\n\n\n")
+        default:
+            print("\n\n\n\nEAT A DICK\n\n\n\n\n")
+        }
     }
 }

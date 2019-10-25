@@ -370,7 +370,7 @@
                             </label>
                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ow-mf-6LD">
                                 <rect key="frame" x="15" y="184" width="120" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.35192505940000002" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="NRO-aa-fbI"/>
                                     <constraint firstAttribute="height" constant="40" id="iBv-Y2-Dq6"/>
@@ -379,10 +379,13 @@
                                 <state key="normal" title="Repeat">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="repeatTapped:" destination="nyQ-aP-JOz" eventType="touchUpInside" id="7d9-o1-lFE"/>
+                                </connections>
                             </button>
                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNk-Dc-pFZ">
                                 <rect key="frame" x="240" y="184" width="120" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.35192505940000002" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="JmB-TE-Gzo"/>
                                     <constraint firstAttribute="height" constant="40" id="bDZ-3w-SmQ"/>
@@ -458,13 +461,14 @@
                         <viewLayoutGuide key="safeArea" id="Vzs-Sr-gZY"/>
                     </view>
                     <connections>
-                        <outlet property="addToPlaylistButton" destination="3Ow-mf-6LD" id="Mcv-sC-uKN"/>
                         <outlet property="artist" destination="BGN-TY-rEv" id="59I-Oc-WRX"/>
                         <outlet property="backwardButton" destination="Hw6-bS-Xq6" id="WyL-TJ-Hnx"/>
                         <outlet property="forwardButton" destination="CTk-zL-n2z" id="rTs-1k-qRV"/>
+                        <outlet property="moreButton" destination="pn2-Dh-tnY" id="T3i-uT-1jZ"/>
                         <outlet property="nextInQueue" destination="A71-4H-bdh" id="G6V-yc-nsA"/>
                         <outlet property="playButton" destination="Evk-1d-f4g" id="OxV-hY-5x6"/>
-                        <outlet property="shuffleButton" destination="mNk-Dc-pFZ" id="wKg-Zc-s6a"/>
+                        <outlet property="repeatButton" destination="3Ow-mf-6LD" id="4Z7-7f-Zf4"/>
+                        <outlet property="shuffleButton" destination="mNk-Dc-pFZ" id="L93-cz-J15"/>
                         <outlet property="songName" destination="O8A-0x-k1f" id="Oob-x5-2Jr"/>
                         <outlet property="songProgress" destination="cYg-BH-Nr4" id="7Gb-Gy-bcS"/>
                     </connections>

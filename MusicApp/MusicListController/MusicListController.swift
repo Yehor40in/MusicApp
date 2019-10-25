@@ -33,10 +33,6 @@ final class MusicListController: UIViewController {
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
     // MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
         guard let playerPrepared = player?.isPrepared else { return }
@@ -70,7 +66,7 @@ final class MusicListController: UIViewController {
         }))
 
         actionSheet.addAction(
-            UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: {[weak self] (_) in
+            UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: { [weak self] (_) in
             self?.items = self?.preparedItems(from: self?.query?.items, by: .title)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -78,7 +74,7 @@ final class MusicListController: UIViewController {
         }))
 
         actionSheet.addAction(
-            UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: {[weak self] (_) in
+            UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: { [weak self] (_) in
             self?.items = self?.preparedItems(from: self?.query?.items, by: .date)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
