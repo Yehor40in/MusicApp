@@ -10,12 +10,12 @@ import Foundation
 import MediaPlayer
 
 class Playlist {
-    var artwork: URL?
+    var artwork: UIImage?
     var name: String
     var items: [MPMediaItem]?
     
-    init(imgPath: URL?, name: String) {
-        self.artwork = imgPath
+    init(image: UIImage?, name: String) {
+        self.artwork = image
         self.name = name
     }
 }

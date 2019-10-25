@@ -13,8 +13,8 @@ class PlaylistCell: UITableViewCell {
     @IBOutlet private weak var playlistCover: UIImageView!
     @IBOutlet private weak var playlistName: UILabel!
     var item: Playlist? {
-        didSet{
-            playlistCover.image = UIImage(named: item?.artwork ?? Config.playlistIconPlaceholder)
+        didSet {
+            playlistCover.image = item?.artwork ?? UIImage(named: Config.playlistIconPlaceholder)
         }
     }
     // MARK: - Methods
