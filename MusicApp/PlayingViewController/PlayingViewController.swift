@@ -117,4 +117,3 @@ extension PlayingViewController: ControlsControllerDelegate {
         update(with: unwrapped)
     }
 }
-

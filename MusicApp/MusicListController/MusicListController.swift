@@ -32,6 +32,8 @@ final class MusicListController: UIViewController {
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
+        //navigationController?.tabBarItem.image = UIImage(named: "library")
+        //navigationController?.tabBarItem.selectedImage = UIImage(named: "library_selected")
     }
     // MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {

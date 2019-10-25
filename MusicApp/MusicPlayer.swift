@@ -96,11 +96,5 @@ final class MusicPlayer {
     }
     func setRepeating(_ flag: Bool) {
         player.repeatMode = flag ? .one : .none
-        switch player.repeatMode {
-        case .one:
-            print("\n\n\n\n\nREPEATING\n\n\n\n\n")
-        default:
-            print("\n\n\n\nEAT A DICK\n\n\n\n\n")
-        }
     }
 }
