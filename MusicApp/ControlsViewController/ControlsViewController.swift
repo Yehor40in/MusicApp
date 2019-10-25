@@ -47,7 +47,8 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        player?.backward()
+        //player?.updateUpNext(forward: false)
+        player?.goToPreviousInQueue()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
     }
@@ -66,7 +67,7 @@ final class ControlsViewController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        player?.updateUpNext(forward: true)
+        //player?.updateUpNext(forward: true)
         player?.goToNextInQueue()
         delegate?.updateCover(with: player?.nowPlayingItem)
         updateDetails()
