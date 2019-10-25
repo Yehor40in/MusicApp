@@ -10,10 +10,11 @@ import Foundation
 import MediaPlayer
 
 class Playlist {
+    // MARK: - Properties
     var artwork: UIImage?
     var name: String
     var items: [MPMediaItem]?
-    
+    // MARK: - Initialization
     init(image: UIImage?, name: String) {
         self.artwork = image
         self.name = name

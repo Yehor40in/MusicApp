@@ -15,6 +15,7 @@ class PlaylistCell: UITableViewCell {
     var item: Playlist? {
         didSet {
             playlistCover.image = item?.artwork ?? UIImage(named: Config.playlistIconPlaceholder)
+            playlistName.text = item?.name
         }
     }
     // MARK: - Methods

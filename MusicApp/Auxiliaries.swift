@@ -12,7 +12,6 @@ import MediaPlayer
 
 struct PreparedData {
     var image: UIImage
-    //var player: MPMusicPlayerController?
     var outPosition: Position
 }
 
