@@ -32,6 +32,9 @@ enum Config {
     static var musicIconPlaceholderName: String {
         return "defaultmusicicon"
     }
+    static var playlistIconPlaceholder: String {
+        return "defaultplaylisticon"
+    }
     static var songLabelPlaceholder: String {
         return "Not Playing"
     }

@@ -165,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1so-pW-CyM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7437.6000000000004" y="85.007496251874073"/>
+            <point key="canvasLocation" x="7438" y="242"/>
         </scene>
         <!--Playing View Controller-->
         <scene sceneID="XuH-a7-jZ5">
@@ -268,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7M2-BJ-wxb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8170.3999999999996" y="85.907046476761622"/>
+            <point key="canvasLocation" x="8190" y="-199"/>
         </scene>
         <!--Library-->
         <scene sceneID="aMW-zp-A1C">
@@ -287,7 +287,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gDG-iZ-JJ7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6701.6000000000004" y="85.907046476761622"/>
+            <point key="canvasLocation" x="6702" y="243"/>
         </scene>
         <!--Controls View Controller-->
         <scene sceneID="le5-ZP-qrY">
@@ -476,7 +476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Jf-R3-RLK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8954.3999999999996" y="234.78260869565219"/>
+            <point key="canvasLocation" x="8191" y="391"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ie5-xE-hkK">
@@ -491,7 +491,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="pOI-dL-Ytr" kind="relationship" relationship="viewControllers" id="BId-kE-2Sc"/>
-                        <segue destination="UdB-xj-Qxq" kind="relationship" relationship="viewControllers" id="y3m-4J-nwF"/>
+                        <segue destination="rha-qj-ker" kind="relationship" relationship="viewControllers" id="y3m-4J-nwF"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBU-4f-MAU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -501,18 +501,90 @@
         <!--Playlists-->
         <scene sceneID="oaQ-0B-tqL">
             <objects>
-                <viewController id="UdB-xj-Qxq" sceneMemberID="viewController">
+                <viewController id="UdB-xj-Qxq" customClass="PlaylistViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BZd-DW-eCT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jog-Wd-tFe">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaylistCell" id="uRK-Xo-zdg" customClass="PlaylistCell" customModule="MusicApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="90.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uRK-Xo-zdg" id="SYd-83-cWK">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6x7-mb-UAh">
+                                                    <rect key="frame" x="10" y="10" width="70" height="70.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="gTZ-23-2lB"/>
+                                                        <constraint firstAttribute="height" constant="70" id="sbc-Jw-79b"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9v1-fs-QwZ">
+                                                    <rect key="frame" x="100" y="35.5" width="150" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="CQG-Bl-Tap"/>
+                                                        <constraint firstAttribute="height" constant="20" id="u5x-az-GUg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6x7-mb-UAh" firstAttribute="top" secondItem="SYd-83-cWK" secondAttribute="top" constant="10" id="5gf-ck-APH"/>
+                                                <constraint firstItem="9v1-fs-QwZ" firstAttribute="centerY" secondItem="SYd-83-cWK" secondAttribute="centerY" id="6Se-Ev-ntp"/>
+                                                <constraint firstItem="6x7-mb-UAh" firstAttribute="leading" secondItem="SYd-83-cWK" secondAttribute="leading" constant="10" id="9qQ-nn-ejZ"/>
+                                                <constraint firstItem="9v1-fs-QwZ" firstAttribute="leading" secondItem="6x7-mb-UAh" secondAttribute="trailing" constant="20" id="NmO-cR-hHg"/>
+                                                <constraint firstAttribute="bottom" secondItem="6x7-mb-UAh" secondAttribute="bottom" constant="10" id="ckr-lU-xXB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="playlistCover" destination="6x7-mb-UAh" id="vMy-lb-azq"/>
+                                            <outlet property="playlistName" destination="9v1-fs-QwZ" id="iod-gC-Ids"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Jog-Wd-tFe" firstAttribute="leading" secondItem="jSf-Lg-oAz" secondAttribute="leading" id="Nzi-9N-djs"/>
+                            <constraint firstItem="Jog-Wd-tFe" firstAttribute="centerX" secondItem="BZd-DW-eCT" secondAttribute="centerX" id="QrX-yI-lPh"/>
+                            <constraint firstItem="jSf-Lg-oAz" firstAttribute="bottom" secondItem="Jog-Wd-tFe" secondAttribute="bottom" id="fas-l8-kKn"/>
+                            <constraint firstItem="Jog-Wd-tFe" firstAttribute="top" secondItem="jSf-Lg-oAz" secondAttribute="top" id="lDJ-f5-5Bw"/>
+                            <constraint firstItem="jSf-Lg-oAz" firstAttribute="trailing" secondItem="Jog-Wd-tFe" secondAttribute="trailing" id="qdD-tf-Ngr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jSf-Lg-oAz"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Playlists" image="playlists" id="8bE-dj-qhx"/>
+                    <navigationItem key="navigationItem" title="Playlists" id="iGu-rN-b5K"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgJ-4l-9so" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6702" y="954"/>
+            <point key="canvasLocation" x="7438" y="954"/>
+        </scene>
+        <!--Playlists-->
+        <scene sceneID="pOF-WM-NIw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rha-qj-ker" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Playlists" image="playlists" id="8bE-dj-qhx"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rJv-XZ-JHx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="UdB-xj-Qxq" kind="relationship" relationship="rootViewController" id="UBQ-XD-NWX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FKz-2P-reo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6701.6000000000004" y="953.97301349325346"/>
         </scene>
     </scenes>
     <resources>
