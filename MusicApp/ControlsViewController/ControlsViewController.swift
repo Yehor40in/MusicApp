@@ -125,7 +125,7 @@ final class ControlsViewController: UIViewController {
         }))
 
         actionSheet.addAction(
-            UIAlertAction(title: Config.actionsDeletePlaceholder, style: .default, handler: { [weak self] (_) in
+            UIAlertAction(title: Config.actionsDeletePlaceholder, style: .destructive, handler: { [weak self] (_) in
             //
             // Implementation
             //
