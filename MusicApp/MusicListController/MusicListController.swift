@@ -26,8 +26,6 @@ final class MusicListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkAuthorization()
-        playingName.text = Config.songLabelPlaceholder
-        playingCover.image = UIImage(named: Config.musicIconPlaceholderName)
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -130,6 +128,7 @@ extension MusicListController {
     }
     func preparePlayer() {
         player = MusicPlayer.shared
+        player?.setUpNext()
     }
     func setPlayingItem(for path: IndexPath) {
         guard let sectionTitles = self.sectionTitles else { return }
@@ -159,6 +158,10 @@ extension MusicListController {
                 playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             }
             forwardButton.isEnabled = true
+        } else {
+            playingCover.image = UIImage(named: Config.musicIconPlaceholderName)
+            playingName.text = Config.songLabelPlaceholder
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
     }
     func playRandomSong() {

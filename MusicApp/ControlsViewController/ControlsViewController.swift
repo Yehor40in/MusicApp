@@ -35,10 +35,9 @@ final class ControlsViewController: UIViewController {
         nextInQueue.isEditing = true
         repeatButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
+        repeatButton.layer.backgroundColor = checkRepeating() ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+        shuffleButton.layer.backgroundColor = checkShuffled() ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
         updateDetails()
-        repeatButton.layer.backgroundColor = checkRepeating() ?
-                                            UIColor.systemGreen.cgColor :
-                                            UIColor.lightGray.cgColor
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         if let item = audio {
@@ -78,6 +77,12 @@ final class ControlsViewController: UIViewController {
         let repeating = checkRepeating()
         player?.setRepeating(!repeating)
         repeatButton.layer.backgroundColor = !repeating ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+    }
+    @IBAction func shuffleTapped(_ sender: Any) {
+        let shuffled = checkShuffled()
+        player?.shuffleQueue(!shuffled)
+        shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+        nextInQueue.reloadData()
     }
     @IBAction func moreTapped(_ sender: Any) {
         let actionSheet = UIAlertController(
@@ -130,6 +135,10 @@ final class ControlsViewController: UIViewController {
     func checkRepeating() -> Bool {
         guard let repeating = player?.isRepeating else { return false }
         return repeating
+    }
+    func checkShuffled() -> Bool {
+        guard let shuffled = player?.isShuffled else { return false }
+        return shuffled
     }
     func updateDetails() {
         updater?.invalidate()

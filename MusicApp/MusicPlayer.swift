@@ -13,9 +13,10 @@ final class MusicPlayer {
     static var shared: MusicPlayer = MusicPlayer()
     // MARK: - Properties
     private var player: MPMusicPlayerController
+    private var tempUpNext: [MPMediaItem]?
+    private var currentIndex: Int = 0
     var query: MPMediaQuery = MPMediaQuery.songs()
     var upNext: [MPMediaItem]?
-    var currentIndex: Int = 0
     var isPlaying: Bool = false
     var nowPlayingItem: MPMediaItem? {
         get { return player.nowPlayingItem }
@@ -24,6 +25,14 @@ final class MusicPlayer {
     var isPrepared: Bool {
         guard player.isPreparedToPlay else { return false }
         return true
+    }
+    var isShuffled: Bool {
+        switch player.shuffleMode {
+        case .songs:
+            return true
+        default:
+            return false
+        }
     }
     var isRepeating: Bool {
         switch player.repeatMode {
@@ -47,7 +56,6 @@ final class MusicPlayer {
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player.setQueue(with: query)
         self.player.prepareToPlay()
-        setUpNext()
     }
     // MARK: - Methods
     func play() {
@@ -78,6 +86,16 @@ final class MusicPlayer {
         } else {
             guard let items = query.items else { return }
             upNext?.insert(items[currentIndex], at: 0)
+        }
+    }
+    func shuffleQueue(_ flag: Bool) {
+        if flag {
+            tempUpNext = upNext
+            upNext?.shuffle()
+            player.shuffleMode = .songs
+        } else {
+            upNext = tempUpNext
+            player.shuffleMode = .off
         }
     }
     func goToNextInQueue() {

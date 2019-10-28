@@ -22,27 +22,27 @@
                                 <color key="sectionIndexColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MusicListCell" id="gCd-N6-hSI" customClass="MusicListCell" customModule="MusicApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="100.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gCd-N6-hSI" id="m9Q-Po-Ly7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d63-VC-mAQ">
-                                                    <rect key="frame" x="20" y="15" width="70" height="70.5"/>
+                                                    <rect key="frame" x="20" y="15" width="50" height="50.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="kdS-cn-lAM"/>
-                                                        <constraint firstAttribute="height" constant="70" id="wZe-E3-iAN"/>
+                                                        <constraint firstAttribute="width" constant="50" id="kdS-cn-lAM"/>
+                                                        <constraint firstAttribute="height" constant="50" id="wZe-E3-iAN"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fa0-ix-GlN">
-                                                    <rect key="frame" x="110" y="15" width="48" height="24"/>
+                                                    <rect key="frame" x="90" y="15" width="48" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4y-ZI-TLu">
-                                                    <rect key="frame" x="110" y="59" width="42" height="21"/>
+                                                    <rect key="frame" x="90" y="44" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="d63-VC-mAQ" secondAttribute="bottom" constant="15" id="5mR-mi-uTm"/>
-                                                <constraint firstItem="a4y-ZI-TLu" firstAttribute="top" secondItem="fa0-ix-GlN" secondAttribute="bottom" constant="20" id="6YR-OY-ebb"/>
+                                                <constraint firstItem="a4y-ZI-TLu" firstAttribute="top" secondItem="fa0-ix-GlN" secondAttribute="bottom" constant="5" id="6YR-OY-ebb"/>
                                                 <constraint firstItem="fa0-ix-GlN" firstAttribute="top" secondItem="m9Q-Po-Ly7" secondAttribute="top" constant="15" id="93W-yw-lyB"/>
                                                 <constraint firstItem="d63-VC-mAQ" firstAttribute="top" secondItem="m9Q-Po-Ly7" secondAttribute="top" constant="15" id="LLA-5i-x3I"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="a4y-ZI-TLu" secondAttribute="trailing" constant="20" symbolic="YES" id="Pl2-mb-chd"/>
@@ -395,6 +395,9 @@
                                 <state key="normal" title="Shuffle">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="shuffleTapped:" destination="nyQ-aP-JOz" eventType="touchUpInside" id="Ykz-cu-NUi"/>
+                                </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cYg-BH-Nr4">
                                 <rect key="frame" x="15" y="30" width="345" height="2"/>
@@ -534,7 +537,7 @@
                                                         <constraint firstAttribute="width" constant="150" id="CQG-Bl-Tap"/>
                                                         <constraint firstAttribute="height" constant="20" id="u5x-az-GUg"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
