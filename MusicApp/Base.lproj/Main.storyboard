@@ -110,7 +110,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="hg8-jY-lkn" firstAttribute="centerY" secondItem="pLq-hv-UeO" secondAttribute="centerY" id="7mn-WW-W8o"/>
                                     <constraint firstItem="HYR-xc-Olg" firstAttribute="leading" secondItem="HpF-b6-gix" secondAttribute="trailing" constant="15" id="CFe-rl-bft"/>
@@ -197,7 +196,7 @@
                                                 <rect key="frame" x="20" y="20" width="335" height="293.5"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="EmS-2f-n8t" firstAttribute="centerY" secondItem="vEa-dg-zTx" secondAttribute="centerY" id="2Fx-DZ-UvF"/>
                                             <constraint firstItem="EmS-2f-n8t" firstAttribute="centerX" secondItem="vEa-dg-zTx" secondAttribute="centerX" id="5W3-i0-RSL"/>
@@ -434,7 +433,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pn2-Dh-tnY" firstAttribute="top" secondItem="BGN-TY-rEv" secondAttribute="bottom" constant="30" id="7cl-da-8nk"/>
                             <constraint firstItem="Hw6-bS-Xq6" firstAttribute="top" secondItem="cYg-BH-Nr4" secondAttribute="bottom" constant="20" id="94b-La-1q5"/>
@@ -610,7 +609,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="97f-rW-6gz"/>
                                     <constraint firstAttribute="trailing" secondItem="dAO-S7-bZl" secondAttribute="trailing" constant="20" id="WSN-te-Sis"/>

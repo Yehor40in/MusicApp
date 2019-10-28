@@ -67,7 +67,6 @@ final class MusicListController: UIViewController {
                 self?.tableView.reloadData()
             }
         }))
-
         actionSheet.addAction(
             UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: { [weak self] (_) in
                 self?.items = self?.preparedItems(from: self?.player?.query.items, by: .title)
@@ -75,7 +74,6 @@ final class MusicListController: UIViewController {
                 self?.tableView.reloadData()
             }
         }))
-
         actionSheet.addAction(
             UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: { [weak self] (_) in
                 self?.items = self?.preparedItems(from: self?.player?.query.items, by: .date)
@@ -83,9 +81,7 @@ final class MusicListController: UIViewController {
                 self?.tableView.reloadData()
             }
         }))
-
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
-
         self.present(actionSheet, animated: true, completion: nil)
     }
 

@@ -88,7 +88,28 @@ final class ControlsViewController: UIViewController {
         actionSheet.view.tintColor = UIColor.green
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsLikePlaceholder, style: .default, handler: { [weak self] (_) in
-            //...
+                let favs = PlaylistManager.getFavorites()
+                guard let item = self?.player?.nowPlayingItem else { return }
+                favs.items?.append(item)
+                if PlaylistManager.storeFavorites(item: favs) {
+                    let successAlert = UIAlertController(
+                        title: "Success",
+                        message: "Added to favorites",
+                        preferredStyle: .alert
+                    )
+                    successAlert.view.tintColor = UIColor.green
+                    successAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    self?.present(successAlert, animated: true)
+                } else {
+                    let failAlert = UIAlertController(
+                        title: "Fail",
+                        message: "Failed to add to favorites",
+                        preferredStyle: .alert
+                    )
+                    failAlert.view.tintColor = UIColor.green
+                    failAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    self?.present(failAlert, animated: true)
+                }
         }))
 
         actionSheet.addAction(

@@ -27,8 +27,8 @@ final class PlayingViewController: UIViewController {
     @IBOutlet private weak var backgroundTrailingConstraint: NSLayoutConstraint!
     // MARK: - Properties
     var prepared: PreparedData?
-    private var player: MusicPlayer? = MusicPlayer.shared
     weak var delegate: PlayingViewControllerDelegate?
+    private var player: MusicPlayer? = MusicPlayer.shared
     // MARK: - Methods
     override var preferredStatusBarStyle: UIStatusBarStyle {
            return .lightContent
