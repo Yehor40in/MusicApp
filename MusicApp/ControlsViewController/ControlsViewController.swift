@@ -119,12 +119,16 @@ final class ControlsViewController: UIViewController {
 
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
-            //...
+            //
+            // Implementation
+            //
         }))
 
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsDeletePlaceholder, style: .default, handler: { [weak self] (_) in
-            //...
+            //
+            // Implementation
+            //
         }))
 
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))

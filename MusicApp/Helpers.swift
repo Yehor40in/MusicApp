@@ -21,15 +21,3 @@ extension UIView {
         return screenshot
     }
 }
-
-extension Notification.Name {
-    static var trackChanged: Notification.Name {
-        return Notification.Name("trackChanged")
-    }
-    static var trackResumed: Notification.Name {
-        return Notification.Name("trackResumed")
-    }
-    static var trackPaused: Notification.Name {
-        return Notification.Name("trackPaused")
-    }
-}

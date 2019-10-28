@@ -167,12 +167,13 @@ extension MusicListController {
     func playRandomSong() {
         if let titles = sectionTitles, let values = items {
             let sec = Int.random(in: 0..<titles.count)
-            let key = titles[sec].first!
-            guard let set = values[key] else { return }
-            let row = Int.random(in: 0..<set.count)
-            setPlayingItem(for: IndexPath(row: row, section: sec))
-            player?.play()
-            updatePlayingView()
+            if let key = titles[sec].first {
+                guard let set = values[key] else { return }
+                let row = Int.random(in: 0..<set.count)
+                setPlayingItem(for: IndexPath(row: row, section: sec))
+                player?.play()
+                updatePlayingView()
+            }
         }
     }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {

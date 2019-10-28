@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import MediaPlayer
 
 struct PreparedData {
     var image: UIImage
