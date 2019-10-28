@@ -12,10 +12,14 @@ class PlaylistCell: UITableViewCell {
     // MARK: - Properties
     @IBOutlet private weak var playlistCover: UIImageView!
     @IBOutlet private weak var playlistName: UILabel!
+    @IBOutlet private weak var trackCount: UILabel!
     var item: Playlist? {
         didSet {
             playlistCover.image = item?.artwork ?? UIImage(named: Config.playlistIconPlaceholder)
             playlistName.text = item?.name
+            if let temp = item?.items {
+                trackCount.text = String(temp.count)
+            }
         }
     }
     // MARK: - Methods

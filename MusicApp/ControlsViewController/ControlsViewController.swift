@@ -79,6 +79,32 @@ final class ControlsViewController: UIViewController {
         player?.setRepeating(!repeating)
         repeatButton.layer.backgroundColor = !repeating ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
     }
+    @IBAction func moreTapped(_ sender: Any) {
+        let actionSheet = UIAlertController(
+            title: nil,
+            message: Config.actionsMessagePlaceholder,
+            preferredStyle: .actionSheet
+        )
+        actionSheet.view.tintColor = UIColor.green
+        actionSheet.addAction(
+            UIAlertAction(title: Config.actionsLikePlaceholder, style: .default, handler: { [weak self] (_) in
+            //...
+        }))
+
+        actionSheet.addAction(
+            UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
+            //...
+        }))
+
+        actionSheet.addAction(
+            UIAlertAction(title: Config.actionsDeletePlaceholder, style: .default, handler: { [weak self] (_) in
+            //...
+        }))
+
+        actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
+
+        self.present(actionSheet, animated: true, completion: nil)
+    }
     // MARK: - Utilities
     func checkRepeating() -> Bool {
         guard let repeating = player?.isRepeating else { return false }

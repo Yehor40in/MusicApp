@@ -39,6 +39,7 @@ final class PlayingViewController: UIViewController {
             fakeBackground.image = temp.image
             let img = player?.nowPlayingItem?.artwork?.image(at: coverImageView.bounds.size)
             coverImageView.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
+            coverImageView.layer.cornerRadius = Config.cornerRadiusPlaceholder
         }
         chevron.isHidden = true
         update(with: player?.nowPlayingItem)

@@ -14,7 +14,6 @@ final class MusicListController: UIViewController {
     // MARK: - Properties
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
-    private var query: MPMediaQuery?
     private var player: MusicPlayer?
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
@@ -32,6 +31,10 @@ final class MusicListController: UIViewController {
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updatePlayingView()
     }
     // MARK: - Actions
     @IBAction func playButtonTapped(_ sender: Any) {
@@ -59,7 +62,7 @@ final class MusicListController: UIViewController {
         actionSheet.view.tintColor = UIColor.green
         actionSheet.addAction(
             UIAlertAction(title: Config.sortArtistPlaceholder, style: .default, handler: { [weak self] (_) in
-            self?.items = self?.preparedItems(from: self?.query?.items, by: .artist)
+                self?.items = self?.preparedItems(from: self?.player?.query.items, by: .artist)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -67,7 +70,7 @@ final class MusicListController: UIViewController {
 
         actionSheet.addAction(
             UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: { [weak self] (_) in
-            self?.items = self?.preparedItems(from: self?.query?.items, by: .title)
+                self?.items = self?.preparedItems(from: self?.player?.query.items, by: .title)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -75,15 +78,13 @@ final class MusicListController: UIViewController {
 
         actionSheet.addAction(
             UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: { [weak self] (_) in
-            self?.items = self?.preparedItems(from: self?.query?.items, by: .date)
+                self?.items = self?.preparedItems(from: self?.player?.query.items, by: .date)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
 
-        actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: {[weak self] (_) in
-            self?.dismiss(animated: true, completion: nil)
-        }))
+        actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
 
         self.present(actionSheet, animated: true, completion: nil)
     }
@@ -142,10 +143,9 @@ extension MusicListController {
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization {[weak self] status in
             if status == .authorized {
-                self?.query = MPMediaQuery.songs()
-                guard let data = self?.query?.items else { return }
-                self?.items = self?.preparedItems(from: data, by: .title)
                 self?.preparePlayer()
+                guard let data = self?.player?.query.items else { return }
+                self?.items = self?.preparedItems(from: data, by: .title)
             }
         }
     }

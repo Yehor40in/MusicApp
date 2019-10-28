@@ -55,14 +55,32 @@ enum Config {
     static var sortMessagePlaceholder: String {
         return "Sort by"
     }
+    static var actionsMessagePlaceholder: String {
+        return "Options"
+    }
     static var sortArtistPlaceholder: String {
         return "Artist"
+    }
+    static var favoritesImagePlaceholder: String {
+        return "favorites"
+    }
+    static var favoritesName: String {
+        return "Favorites"
+    }
+    static var actionsLikePlaceholder: String {
+        return "Like ❤️"
     }
     static var sortTitlePlaceholder: String {
         return "Title"
     }
     static var recentlyAddedPlaceholder: String {
         return "Recently added"
+    }
+    static var actionsAddToPlaceholder: String {
+        return "Add to playlist.."
+    }
+    static var actionsDeletePlaceholder: String {
+        return "Delete from library"
     }
     static var dismissMessage: String {
         return "Dismiss"
