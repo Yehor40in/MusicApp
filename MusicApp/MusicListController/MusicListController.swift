@@ -14,7 +14,7 @@ final class MusicListController: ViewManager {
     // MARK: - Properties
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
-    private var player: MusicPlayer?
+//    private var player: MusicPlayer?
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,22 +28,6 @@ final class MusicListController: ViewManager {
         updatePlayingView()
     }
     // MARK: - Actions
-    @IBAction func playButtonTapped(_ sender: Any) {
-        guard let playerPrepared = player?.isPrepared else { return }
-        if playerPrepared && !forwardButton.isEnabled {
-            playRandomSong()
-        } else if player?.playbackState == .paused {
-            player?.play()
-            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
-        } else {
-            player?.pause()
-            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-        }
-    }
-    @IBAction func forwardTapped(_ sender: Any) {
-        player?.updateUpNext(forward: true)
-        playRandomSong()
-    }
     @IBAction func sortTapped(_ sender: Any) {
         let actionSheet = UIAlertController(
             title: nil,
@@ -75,10 +59,6 @@ final class MusicListController: ViewManager {
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
-
-}
-
-extension MusicListController {
     // MARK: - Utilities
     func preparedItems(from raw: [MPMediaItem]?, by option: SortOption) -> [Character: [MPMediaItem]] {
         var prepared = [Character: [MPMediaItem]]()
@@ -137,7 +117,7 @@ extension MusicListController {
             }
         }
     }
-    func playRandomSong() {
+    override func playRandomSong() {
         if let titles = sectionTitles, let values = items {
             let sec = Int.random(in: 0..<titles.count)
             if let key = titles[sec].first {

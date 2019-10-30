@@ -101,12 +101,16 @@ final class MusicPlayer {
     func goToNextInQueue() {
         guard let queue = upNext else { return }
         nowPlayingItem = queue.first
+        if let length = upNext?.count {
+            guard currentIndex < length - 1 else { return }
+        }
         currentIndex += 1
         updateUpNext(forward: true)
         play()
     }
     func goToPreviousInQueue() {
         guard let items = query.items else { return }
+        guard currentIndex > 0 else { return }
         updateUpNext(forward: false)
         currentIndex -= 1
         nowPlayingItem = items[currentIndex]

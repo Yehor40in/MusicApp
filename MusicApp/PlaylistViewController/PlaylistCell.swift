@@ -26,11 +26,3 @@ final class PlaylistCell: UITableViewCell {
         playlistCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
     }
 }
-
-//
-//
-//
-//  Add localization
-//
-//
-//

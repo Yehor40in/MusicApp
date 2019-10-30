@@ -48,16 +48,28 @@ final class PlaylistManager {
     }
     static func getPlaylists() -> [Playlist]? {
         var playlists: [Playlist] = []
-        //
-        // Implementation
-        //
-        playlists.append(PlaylistManager.getFavorites())
+        let path = PlaylistManager.makePath(for: Config.playlistsFilename)
+        let decoder = PropertyListDecoder()
+        guard let data = try? Data(contentsOf: path) else { return [] }
+        do {
+            playlists = try decoder.decode([Playlist].self, from: data)
+        } catch let error {
+            print(error)
+        }
+        playlists.insert(PlaylistManager.getFavorites(), at: 0)
         return playlists
     }
     static func storePlaylists(items: [Playlist]) -> Bool {
-        //
-        // Implementation
-        //
+        let path = PlaylistManager.makePath(for: Config.playlistsFilename)
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+        do {
+            let data = try encoder.encode(items)
+            try data.write(to: path)
+            return true
+        } catch let error {
+            print(error)
+        }
         return false
     }
     static func makePath(for resource: String) -> URL {

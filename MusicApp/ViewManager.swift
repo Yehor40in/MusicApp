@@ -17,6 +17,7 @@ class ViewManager: UIViewController {
     @IBOutlet internal var playingName: UILabel!
     @IBOutlet internal var playButton: UIButton!
     @IBOutlet internal var forwardButton: UIButton!
+    internal var player: MusicPlayer?
     // MARK: - Methods
     func updatePlayingView() {
         if let object = MusicPlayer.shared.nowPlayingItem {
@@ -38,6 +39,12 @@ class ViewManager: UIViewController {
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
     }
+    func playRandomSong() {
+        guard let items = player?.query.items else { return }
+        let index = Int.random(in: 0...items.count)
+        player?.nowPlayingItem = items[index]
+        updatePlayingView()
+    }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
         if let details = storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
             guard let navHeight = navigationController?.navigationBar.frame.height else { return }
@@ -53,6 +60,22 @@ class ViewManager: UIViewController {
                 present(details, animated: false)
             }
         }
+    }
+    @IBAction func playButtonTapped(_ sender: Any) {
+        guard let playerPrepared = player?.isPrepared else { return }
+        if playerPrepared && !forwardButton.isEnabled {
+            playRandomSong()
+        } else if player?.playbackState == .paused {
+            player?.play()
+            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
+        } else {
+            player?.pause()
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
+        }
+    }
+    @IBAction func forwardTapped(_ sender: Any) {
+        player?.updateUpNext(forward: true)
+        playRandomSong()
     }
 }
 
