@@ -42,6 +42,10 @@ final class PlaylistManager {
         }
         return false
     }
+    static func isFavorite(item: MPMediaItem) -> Bool {
+        let favs = PlaylistManager.getFavorites()
+        return favs.items.contains(where: { $0.storeID == item.playbackStoreID })
+    }
     static func getPlaylists() -> [Playlist]? {
         var playlists: [Playlist] = []
         //

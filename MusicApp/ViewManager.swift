@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 
 class ViewManager: UIViewController {
+    // MARK: - Outlets
     @IBOutlet internal var tableView: UITableView!
     @IBOutlet internal var playingView: UIView!
     @IBOutlet internal var playingCover: UIImageView!
     @IBOutlet internal var playingName: UILabel!
     @IBOutlet internal var playButton: UIButton!
     @IBOutlet internal var forwardButton: UIButton!
+    // MARK: - Methods
     func updatePlayingView() {
         if let object = MusicPlayer.shared.nowPlayingItem {
             let img = object.artwork?.image(at: playingCover.bounds.size)

@@ -175,17 +175,18 @@
 			children = (
 				7406518923434E350030A724 /* AppDelegate.swift */,
 				7406518B23434E350030A724 /* SceneDelegate.swift */,
+				7460BEAC234F55E200CFFDCB /* Auxiliaries.swift */,
 				7460BEAA234F53E400CFFDCB /* Helpers.swift */,
 				74C4E217235F468D00390CB0 /* MusicPlayer.swift */,
-				74F449842367039E00C73510 /* PlaylistManager.swift */,
 				741C2C1F23697DE600BE59EC /* ViewManager.swift */,
+				74F449842367039E00C73510 /* PlaylistManager.swift */,
+				7430EB2C23632CC0005829E4 /* Playlist.swift */,
+				7453F96E2369A0F4008551E7 /* PlaylistViewController */,
 				74A85F27236843890044B03C /* SearchViewController */,
 				74A85F26236830560044B03C /* CreatePlaylistController */,
 				7445A0CC2355A8EA00FF1292 /* MusicListController */,
 				7445A0CD2355A96100FF1292 /* PlayingViewController */,
 				7445A0CF2355AA9300FF1292 /* ControlsViewController */,
-				7430EB29236325BF005829E4 /* PlaylistViewController */,
-				7460BEAC234F55E200CFFDCB /* Auxiliaries.swift */,
 				7406518F23434E350030A724 /* Main.storyboard */,
 				7406519523434E360030A724 /* Assets.xcassets */,
 				7406519723434E360030A724 /* LaunchScreen.storyboard */,
@@ -211,17 +212,6 @@
 				740651B023434E360030A724 /* Info.plist */,
 			);
 			path = MusicAppUITests;
-			sourceTree = "<group>";
-		};
-		7430EB29236325BF005829E4 /* PlaylistViewController */ = {
-			isa = PBXGroup;
-			children = (
-				7430EB27236325AC005829E4 /* PlaylistViewController.swift */,
-				7430EB2A23632B81005829E4 /* PlaylistCell.swift */,
-				7430EB2C23632CC0005829E4 /* Playlist.swift */,
-			);
-			name = PlaylistViewController;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		7445A0CC2355A8EA00FF1292 /* MusicListController */ = {
@@ -250,6 +240,15 @@
 				745B3ECE236071440038B0A3 /* QueueCell.swift */,
 			);
 			path = ControlsViewController;
+			sourceTree = "<group>";
+		};
+		7453F96E2369A0F4008551E7 /* PlaylistViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7430EB27236325AC005829E4 /* PlaylistViewController.swift */,
+				7430EB2A23632B81005829E4 /* PlaylistCell.swift */,
+			);
+			path = PlaylistViewController;
 			sourceTree = "<group>";
 		};
 		74A85F26236830560044B03C /* CreatePlaylistController */ = {

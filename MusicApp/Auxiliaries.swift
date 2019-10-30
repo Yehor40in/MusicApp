@@ -72,6 +72,9 @@ enum Config {
     static var actionsLikePlaceholder: String {
         return "Like ❤️"
     }
+    static var actionsUnlikePlaceholder: String {
+        return "Unlike 💔"
+    }
     static var sortTitlePlaceholder: String {
         return "Title"
     }

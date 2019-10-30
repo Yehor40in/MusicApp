@@ -90,16 +90,26 @@ final class ControlsViewController: UIViewController {
             message: Config.actionsMessagePlaceholder,
             preferredStyle: .actionSheet
         )
+        var message: String
+        var title: String
+        let favs = PlaylistManager.getFavorites()
+        guard let item = MusicPlayer.shared.nowPlayingItem else { return }
+        if PlaylistManager.isFavorite(item: item) {
+            favs.items = favs.items.filter { item.playbackStoreID != $0.storeID }
+            message = "Removed from favorites"
+            title = Config.actionsUnlikePlaceholder
+        } else {
+            favs.items.append(MediaItem(with: item))
+            message = "Added to favorites"
+            title = Config.actionsLikePlaceholder
+        }
         actionSheet.view.tintColor = UIColor.systemPink
         actionSheet.addAction(
-            UIAlertAction(title: Config.actionsLikePlaceholder, style: .default, handler: { [weak self] (_) in
-                let favs = PlaylistManager.getFavorites()
-                guard let item = MusicPlayer.shared.nowPlayingItem else { return }
-                favs.items.append(MediaItem(with: item))
+            UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
                 if PlaylistManager.storeFavorites(item: favs) {
                     let successAlert = UIAlertController(
                         title: "Success",
-                        message: "Added to favorites",
+                        message: message,
                         preferredStyle: .alert
                     )
                     successAlert.view.tintColor = UIColor.green
