@@ -19,6 +19,7 @@ final class PlaylistViewController: ViewManager {
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
+        setupActions()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

@@ -22,6 +22,7 @@ final class MusicListController: ViewManager {
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
+        setupActions()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,21 +38,21 @@ final class MusicListController: ViewManager {
         actionSheet.view.tintColor = UIColor.systemPink
         actionSheet.addAction(
             UIAlertAction(title: Config.sortArtistPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player?.query.items, by: .artist)
+                self?.items = self?.preparedItems(from: self?.player.query.items, by: .artist)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player?.query.items, by: .title)
+                self?.items = self?.preparedItems(from: self?.player.query.items, by: .title)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player?.query.items, by: .date)
+                self?.items = self?.preparedItems(from: self?.player.query.items, by: .date)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -100,19 +101,18 @@ final class MusicListController: ViewManager {
         return prepared
     }
     func preparePlayer() {
-        player = MusicPlayer.shared
-        player?.setUpNext()
+        player.setUpNext()
     }
     func setPlayingItem(for path: IndexPath) {
         guard let sectionTitles = self.sectionTitles else { return }
         let key = Character(sectionTitles[path.section])
-        player?.nowPlayingItem = items?[key]?[path.row]
+        player.nowPlayingItem = items?[key]?[path.row]
     }
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization {[weak self] status in
             if status == .authorized {
                 self?.preparePlayer()
-                guard let data = self?.player?.query.items else { return }
+                guard let data = self?.player.query.items else { return }
                 self?.items = self?.preparedItems(from: data, by: .title)
             }
         }
@@ -124,7 +124,7 @@ final class MusicListController: ViewManager {
                 guard let set = values[key] else { return }
                 let row = Int.random(in: 0..<set.count)
                 setPlayingItem(for: IndexPath(row: row, section: sec))
-                player?.play()
+                player.play()
                 updatePlayingView()
             }
         }
@@ -160,9 +160,9 @@ extension MusicListController: UITableViewDataSource {
 extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        player?.updateUpNext(forward: true)
+        player.updateUpNext(forward: true)
         setPlayingItem(for: indexPath)
-        player?.play()
+        player.play()
         updatePlayingView()
     }
 }

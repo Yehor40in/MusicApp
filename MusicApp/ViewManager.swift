@@ -17,8 +17,12 @@ class ViewManager: UIViewController {
     @IBOutlet internal var playingName: UILabel!
     @IBOutlet internal var playButton: UIButton!
     @IBOutlet internal var forwardButton: UIButton!
-    internal var player: MusicPlayer?
+    internal var player: MusicPlayer = MusicPlayer.shared
     // MARK: - Methods
+    func setupActions() {
+        playButton.addTarget(self, action: #selector(playButtonTapped(_:)), for: .touchUpInside)
+        forwardButton.addTarget(self, action: #selector(forwardTapped(_:)), for: .touchUpInside)
+    }
     func updatePlayingView() {
         if let object = MusicPlayer.shared.nowPlayingItem {
             let img = object.artwork?.image(at: playingCover.bounds.size)
@@ -40,9 +44,9 @@ class ViewManager: UIViewController {
         }
     }
     func playRandomSong() {
-        guard let items = player?.query.items else { return }
-        let index = Int.random(in: 0...items.count)
-        player?.nowPlayingItem = items[index]
+        guard let items = player.query.items else { return }
+        let index = Int.random(in: 0..<items.count)
+        player.nowPlayingItem = items[index]
         updatePlayingView()
     }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
@@ -61,20 +65,19 @@ class ViewManager: UIViewController {
             }
         }
     }
-    @IBAction func playButtonTapped(_ sender: Any) {
-        guard let playerPrepared = player?.isPrepared else { return }
-        if playerPrepared && !forwardButton.isEnabled {
+    @objc func playButtonTapped(_ sender: Any) {
+        if player.isPrepared && !forwardButton.isEnabled {
             playRandomSong()
-        } else if player?.playbackState == .paused {
-            player?.play()
+        } else if player.playbackState == .paused {
+            player.play()
             playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
         } else {
-            player?.pause()
+            player.pause()
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
     }
-    @IBAction func forwardTapped(_ sender: Any) {
-        player?.updateUpNext(forward: true)
+    @objc func forwardTapped(_ sender: Any) {
+        player.updateUpNext(forward: true)
         playRandomSong()
     }
 }

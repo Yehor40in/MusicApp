@@ -84,6 +84,7 @@ final class ControlsViewController: UIViewController {
         shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         nextInQueue.reloadData()
     }
+    // swiftlint:disable function_body_length
     @IBAction func moreTapped(_ sender: Any) {
         let actionSheet = UIAlertController(
             title: nil,
@@ -141,6 +142,7 @@ final class ControlsViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
+    // swiftlint:enable <rule1>
     // MARK: - Utilities
     func checkRepeating() -> Bool {
         guard let repeating = player?.isRepeating else { return false }

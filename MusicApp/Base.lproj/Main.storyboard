@@ -72,17 +72,17 @@
                                     <outlet property="delegate" destination="38y-Xj-qmE" id="6oa-jc-ngR"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pLq-hv-UeO">
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pLq-hv-UeO">
                                 <rect key="frame" x="0.0" y="508" width="375" height="110"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HpF-b6-gix">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HpF-b6-gix">
                                         <rect key="frame" x="20" y="20" width="70" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="dAj-qh-jAx"/>
                                             <constraint firstAttribute="height" constant="70" id="mGA-Hn-xRd"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="HYR-xc-Olg">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="HYR-xc-Olg">
                                         <rect key="frame" x="105" y="43" width="100" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="SIU-n2-4T7"/>
@@ -91,23 +91,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGt-Mq-INm">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGt-Mq-INm">
                                         <rect key="frame" x="280" y="40" width="30" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="play"/>
-                                        <connections>
-                                            <action selector="playButtonTapped:" destination="38y-Xj-qmE" eventType="touchUpInside" id="bsd-wy-LPR"/>
-                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hg8-jY-lkn">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hg8-jY-lkn">
                                         <rect key="frame" x="325" y="40" width="30" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="forward"/>
-                                        <connections>
-                                            <action selector="forwardTapped:" destination="38y-Xj-qmE" eventType="touchUpInside" id="bDB-EI-LzP"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -153,12 +147,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="forwardButton" destination="hg8-jY-lkn" id="Urk-mD-96a"/>
-                        <outlet property="playButton" destination="EGt-Mq-INm" id="Jw9-6B-oIx"/>
-                        <outlet property="playingCover" destination="HpF-b6-gix" id="lGi-ma-lAL"/>
-                        <outlet property="playingName" destination="HYR-xc-Olg" id="2oy-aJ-EOX"/>
-                        <outlet property="playingView" destination="pLq-hv-UeO" id="aeH-y4-0h8"/>
-                        <outlet property="tableView" destination="bSe-PL-Q2P" id="4Gw-Qp-Fxj"/>
+                        <outlet property="forwardButton" destination="hg8-jY-lkn" id="15c-MD-98A"/>
+                        <outlet property="playButton" destination="EGt-Mq-INm" id="mpK-CT-oW4"/>
+                        <outlet property="playingCover" destination="HpF-b6-gix" id="6fj-Z1-9mJ"/>
+                        <outlet property="playingName" destination="HYR-xc-Olg" id="gO9-RX-Rf9"/>
+                        <outlet property="playingView" destination="pLq-hv-UeO" id="LdT-aw-y49"/>
+                        <outlet property="tableView" destination="bSe-PL-Q2P" id="dnN-xB-6Sw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1so-pW-CyM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -572,17 +566,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDJ-Iw-2Hl">
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDJ-Iw-2Hl">
                                 <rect key="frame" x="0.0" y="508" width="375" height="110"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-ri-oum">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-ri-oum">
                                         <rect key="frame" x="20" y="20" width="70" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="86c-FL-AH3"/>
                                             <constraint firstAttribute="height" constant="70" id="wjb-XR-ZUb"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="P4H-OF-1IX">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="P4H-OF-1IX">
                                         <rect key="frame" x="105" y="43" width="100" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="LJZ-8x-m6K"/>
@@ -591,23 +585,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KjN-sw-gjt">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KjN-sw-gjt">
                                         <rect key="frame" x="280" y="40" width="30" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="play"/>
-                                        <connections>
-                                            <action selector="playButtonTapped:" destination="UdB-xj-Qxq" eventType="touchUpInside" id="4Ku-ve-A1P"/>
-                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAO-S7-bZl">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAO-S7-bZl">
                                         <rect key="frame" x="325" y="40" width="30" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="forward"/>
-                                        <connections>
-                                            <action selector="forwardTapped:" destination="UdB-xj-Qxq" eventType="touchUpInside" id="EYh-L7-5ru"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -646,12 +634,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="forwardButton" destination="dAO-S7-bZl" id="6eG-Dd-c2B"/>
-                        <outlet property="playButton" destination="KjN-sw-gjt" id="bDA-90-ibD"/>
-                        <outlet property="playingCover" destination="NBK-ri-oum" id="VRE-T9-7bg"/>
-                        <outlet property="playingName" destination="P4H-OF-1IX" id="AEB-ay-fZ7"/>
-                        <outlet property="playingView" destination="MDJ-Iw-2Hl" id="yto-Lr-CL8"/>
-                        <outlet property="tableView" destination="Jog-Wd-tFe" id="zWS-J8-8Qu"/>
+                        <outlet property="forwardButton" destination="dAO-S7-bZl" id="uUM-AQ-GNs"/>
+                        <outlet property="playButton" destination="KjN-sw-gjt" id="JAE-Li-rxB"/>
+                        <outlet property="playingCover" destination="NBK-ri-oum" id="uzR-S5-HAx"/>
+                        <outlet property="playingName" destination="P4H-OF-1IX" id="zfF-RL-Z3P"/>
+                        <outlet property="playingView" destination="MDJ-Iw-2Hl" id="jaU-y8-hm9"/>
+                        <outlet property="tableView" destination="Jog-Wd-tFe" id="X1D-kQ-dTc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgJ-4l-9so" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -72,6 +72,9 @@ enum Config {
     static var playlistsFilename: String {
         return "Playlists.plist"
     }
+    static var defaultPlaylistName: String {
+        return "Unnamed playlist"
+    }
     static var actionsLikePlaceholder: String {
         return "Like ❤️"
     }
