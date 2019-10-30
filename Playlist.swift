@@ -7,16 +7,21 @@
 //
 
 import Foundation
-import MediaPlayer
+import UIKit
 
-class Playlist {
+final class Playlist: Codable {
     // MARK: - Properties
-    var artwork: UIImage?
+    var artwork: Artwork
     var name: String
-    var items: [MPMediaItem]?
+    var items: [MediaItem] = []
     // MARK: - Initialization
     init(image: UIImage?, name: String) {
-        self.artwork = image
+        self.artwork = Artwork(with: image)
         self.name = name
+    }
+    func getStoreIDs() -> [String] {
+        return items.map {
+            $0.storeID
+        }
     }
 }

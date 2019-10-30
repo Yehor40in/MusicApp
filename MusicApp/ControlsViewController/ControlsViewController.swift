@@ -35,8 +35,8 @@ final class ControlsViewController: UIViewController {
         nextInQueue.isEditing = true
         repeatButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
-        repeatButton.layer.backgroundColor = checkRepeating() ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
-        shuffleButton.layer.backgroundColor = checkShuffled() ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+        repeatButton.layer.backgroundColor = checkRepeating() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+        shuffleButton.layer.backgroundColor = checkShuffled() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         updateDetails()
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
@@ -76,12 +76,12 @@ final class ControlsViewController: UIViewController {
     @IBAction func repeatTapped(_ sender: Any) {
         let repeating = checkRepeating()
         player?.setRepeating(!repeating)
-        repeatButton.layer.backgroundColor = !repeating ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+        repeatButton.layer.backgroundColor = !repeating ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
     }
     @IBAction func shuffleTapped(_ sender: Any) {
         let shuffled = checkShuffled()
         player?.shuffleQueue(!shuffled)
-        shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+        shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         nextInQueue.reloadData()
     }
     @IBAction func moreTapped(_ sender: Any) {
@@ -90,12 +90,12 @@ final class ControlsViewController: UIViewController {
             message: Config.actionsMessagePlaceholder,
             preferredStyle: .actionSheet
         )
-        actionSheet.view.tintColor = UIColor.green
+        actionSheet.view.tintColor = UIColor.systemPink
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsLikePlaceholder, style: .default, handler: { [weak self] (_) in
                 let favs = PlaylistManager.getFavorites()
-                guard let item = self?.player?.nowPlayingItem else { return }
-                favs.items?.append(item)
+                guard let item = MusicPlayer.shared.nowPlayingItem else { return }
+                favs.items.append(MediaItem(with: item))
                 if PlaylistManager.storeFavorites(item: favs) {
                     let successAlert = UIAlertController(
                         title: "Success",
@@ -111,28 +111,24 @@ final class ControlsViewController: UIViewController {
                         message: "Failed to add to favorites",
                         preferredStyle: .alert
                     )
-                    failAlert.view.tintColor = UIColor.green
+                    failAlert.view.tintColor = UIColor.systemPink
                     failAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
                     self?.present(failAlert, animated: true)
                 }
         }))
-
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
             //
             // Implementation
             //
         }))
-
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsDeletePlaceholder, style: .destructive, handler: { [weak self] (_) in
             //
             // Implementation
             //
         }))
-
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
-
         self.present(actionSheet, animated: true, completion: nil)
     }
     // MARK: - Utilities

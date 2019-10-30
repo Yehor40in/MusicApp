@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class QueueCell: UITableViewCell {
+final class QueueCell: UITableViewCell {
     @IBOutlet private weak var songCover: UIImageView!
     @IBOutlet private weak var songName: UILabel!
     @IBOutlet private weak var artist: UILabel!

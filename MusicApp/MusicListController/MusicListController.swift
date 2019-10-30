@@ -10,18 +10,11 @@ import UIKit
 import MediaPlayer
 import StoreKit
 
-final class MusicListController: UIViewController {
+final class MusicListController: ViewManager {
     // MARK: - Properties
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
     private var player: MusicPlayer?
-    // MARK: - Outlets
-    @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var playingView: UIView!
-    @IBOutlet private weak var playingCover: UIImageView!
-    @IBOutlet private weak var playingName: UILabel!
-    @IBOutlet private weak var playButton: UIButton!
-    @IBOutlet private weak var forwardButton: UIButton!
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +50,7 @@ final class MusicListController: UIViewController {
             message: Config.sortMessagePlaceholder,
             preferredStyle: .actionSheet
         )
-        actionSheet.view.tintColor = UIColor.green
+        actionSheet.view.tintColor = UIColor.systemPink
         actionSheet.addAction(
             UIAlertAction(title: Config.sortArtistPlaceholder, style: .default, handler: { [weak self] (_) in
                 self?.items = self?.preparedItems(from: self?.player?.query.items, by: .artist)
@@ -144,26 +137,6 @@ extension MusicListController {
             }
         }
     }
-    func updatePlayingView() {
-        if let object = player?.nowPlayingItem {
-            let img = object.artwork?.image(at: playingCover.bounds.size)
-            playingCover.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
-            playingName.text = object.title
-            switch self.player?.playbackState {
-            case .paused:
-                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-            case .playing:
-                playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
-            default:
-                playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-            }
-            forwardButton.isEnabled = true
-        } else {
-            playingCover.image = UIImage(named: Config.musicIconPlaceholderName)
-            playingName.text = Config.songLabelPlaceholder
-            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-        }
-    }
     func playRandomSong() {
         if let titles = sectionTitles, let values = items {
             let sec = Int.random(in: 0..<titles.count)
@@ -173,22 +146,6 @@ extension MusicListController {
                 setPlayingItem(for: IndexPath(row: row, section: sec))
                 player?.play()
                 updatePlayingView()
-            }
-        }
-    }
-    @objc func showDetails(_ sender: UITapGestureRecognizer!) {
-        if let details = storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
-            guard let navHeight = navigationController?.navigationBar.frame.height else { return }
-            let pos = Position(
-                coverOut: tableView.frame.height + navHeight,
-                imageOutBottom: playingCover.frame.height + playingCover.frame.origin.y,
-                imageOutTrailing: playingCover.frame.width + playingCover.frame.origin.x
-            )
-            if let img = self.view.makeScreenshot() {
-                details.prepared = PreparedData(image: img, outPosition: pos)
-                details.delegate = self
-                details.modalPresentationStyle = .fullScreen
-                present(details, animated: false)
             }
         }
     }
@@ -226,13 +183,6 @@ extension MusicListController: UITableViewDelegate {
         player?.updateUpNext(forward: true)
         setPlayingItem(for: indexPath)
         player?.play()
-        updatePlayingView()
-    }
-}
-
-extension MusicListController: PlayingViewControllerDelegate {
-    // MARK: - PlayingViewControllerDelegate
-    func commitChanges() {
         updatePlayingView()
     }
 }

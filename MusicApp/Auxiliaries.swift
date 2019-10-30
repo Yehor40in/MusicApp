@@ -66,6 +66,9 @@ enum Config {
     static var favoritesName: String {
         return "Favorites"
     }
+    static var favoritesFilename: String {
+        return "Favorites.plist"
+    }
     static var actionsLikePlaceholder: String {
         return "Like ❤️"
     }
