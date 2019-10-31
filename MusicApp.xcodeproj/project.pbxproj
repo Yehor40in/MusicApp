@@ -13,7 +13,6 @@
 		7406518A23434E350030A724 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7406518923434E350030A724 /* AppDelegate.swift */; };
 		7406518C23434E350030A724 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7406518B23434E350030A724 /* SceneDelegate.swift */; };
 		7406519123434E350030A724 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7406518F23434E350030A724 /* Main.storyboard */; };
-		7406519423434E350030A724 /* MusicApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7406519223434E350030A724 /* MusicApp.xcdatamodeld */; };
 		7406519623434E360030A724 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7406519523434E360030A724 /* Assets.xcassets */; };
 		7406519923434E360030A724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7406519723434E360030A724 /* LaunchScreen.storyboard */; };
 		740651A423434E360030A724 /* MusicAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740651A323434E360030A724 /* MusicAppTests.swift */; };
@@ -32,6 +31,7 @@
 		74846CF3234F16DF008EC89F /* PlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74846CF2234F16DF008EC89F /* PlayingViewController.swift */; };
 		74846CF7234F1788008EC89F /* ControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74846CF6234F1788008EC89F /* ControlsViewController.swift */; };
 		748C8EFB236AF32400C371A8 /* SearchControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748C8EFA236AF32400C371A8 /* SearchControllerDelegate.swift */; };
+		748C8F04236B199000C371A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 748C8F06236B199000C371A8 /* Localizable.strings */; };
 		74A85F2423682FCA0044B03C /* CreatePlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A85F2323682FCA0044B03C /* CreatePlaylistController.swift */; };
 		74A85F29236843AB0044B03C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A85F28236843AB0044B03C /* SearchViewController.swift */; };
 		74C4E218235F468D00390CB0 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C4E217235F468D00390CB0 /* MusicPlayer.swift */; };
@@ -65,7 +65,6 @@
 		7406518923434E350030A724 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7406518B23434E350030A724 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7406519023434E350030A724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7406519323434E350030A724 /* MusicApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MusicApp.xcdatamodel; sourceTree = "<group>"; };
 		7406519523434E360030A724 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7406519823434E360030A724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7406519A23434E360030A724 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,6 +88,10 @@
 		74846CF2234F16DF008EC89F /* PlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewController.swift; sourceTree = "<group>"; };
 		74846CF6234F1788008EC89F /* ControlsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsViewController.swift; sourceTree = "<group>"; };
 		748C8EFA236AF32400C371A8 /* SearchControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerDelegate.swift; sourceTree = "<group>"; };
+		748C8F02236B193100C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
+		748C8F03236B193200C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		748C8F05236B199000C371A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		748C8F07236B19B600C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74A85F2323682FCA0044B03C /* CreatePlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaylistController.swift; sourceTree = "<group>"; };
 		74A85F28236843AB0044B03C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		74C4E217235F468D00390CB0 /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
@@ -193,7 +196,7 @@
 				7406519523434E360030A724 /* Assets.xcassets */,
 				7406519723434E360030A724 /* LaunchScreen.storyboard */,
 				7406519A23434E360030A724 /* Info.plist */,
-				7406519223434E350030A724 /* MusicApp.xcdatamodeld */,
+				748C8F06236B199000C371A8 /* Localizable.strings */,
 			);
 			path = MusicApp;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
 			);
 			mainGroup = 7406517D23434E350030A724;
 			productRefGroup = 7406518723434E350030A724 /* Products */;
@@ -379,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7406519923434E360030A724 /* LaunchScreen.storyboard in Resources */,
+				748C8F04236B199000C371A8 /* Localizable.strings in Resources */,
 				7406519623434E360030A724 /* Assets.xcassets in Resources */,
 				7406519123434E350030A724 /* Main.storyboard in Resources */,
 			);
@@ -510,7 +515,6 @@
 				7453D4262343578E007E022F /* MusicListCell.swift in Sources */,
 				74A85F2423682FCA0044B03C /* CreatePlaylistController.swift in Sources */,
 				7413787A2344840C0046387C /* MusicListController.swift in Sources */,
-				7406519423434E350030A724 /* MusicApp.xcdatamodeld in Sources */,
 				748C8EFB236AF32400C371A8 /* SearchControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,6 +555,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				7406519023434E350030A724 /* Base */,
+				748C8F02236B193100C371A8 /* uk */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -559,8 +564,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				7406519823434E360030A724 /* Base */,
+				748C8F03236B193200C371A8 /* uk */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		748C8F06236B199000C371A8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				748C8F05236B199000C371A8 /* en */,
+				748C8F07236B19B600C371A8 /* uk */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -570,6 +585,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -630,6 +646,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -848,19 +865,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		7406519223434E350030A724 /* MusicApp.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7406519323434E350030A724 /* MusicApp.xcdatamodel */,
-			);
-			currentVersion = 7406519323434E350030A724 /* MusicApp.xcdatamodel */;
-			path = MusicApp.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 7406517E23434E350030A724 /* Project object */;
 }

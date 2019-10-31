@@ -13,6 +13,7 @@ final class PlaylistCell: UITableViewCell {
     @IBOutlet private weak var playlistCover: UIImageView!
     @IBOutlet private weak var playlistName: UILabel!
     @IBOutlet private weak var trackCount: UILabel!
+    @IBOutlet private weak var tracksLabel: UILabel!
     var item: Playlist? {
         didSet {
             playlistCover.image = item?.artwork.getImage()
@@ -24,5 +25,6 @@ final class PlaylistCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         playlistCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
+        tracksLabel.text = NSLocalizedString("Tracks", comment: "Amount of tracks in playlist label")
     }
 }

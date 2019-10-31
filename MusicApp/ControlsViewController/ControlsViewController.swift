@@ -21,6 +21,7 @@ final class ControlsViewController: UIViewController {
     @IBOutlet private weak var repeatButton: UIButton!
     @IBOutlet private weak var shuffleButton: UIButton!
     @IBOutlet private weak var moreButton: UIButton!
+    @IBOutlet private weak var upNextLabel: UILabel!
     // MARK: - Delegate
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
@@ -37,6 +38,9 @@ final class ControlsViewController: UIViewController {
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         repeatButton.layer.backgroundColor = checkRepeating() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         shuffleButton.layer.backgroundColor = checkShuffled() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+        upNextLabel.text = NSLocalizedString("Next in queue", comment: "Up Next label")
+        repeatButton.setTitle(NSLocalizedString("Repeat", comment: "Repeat"), for: .normal)
+        shuffleButton.setTitle(NSLocalizedString("Shuffle", comment: "Shuffle"), for: .normal)
         updateDetails()
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
@@ -133,16 +137,10 @@ final class ControlsViewController: UIViewController {
             // Implementation
             //
         }))
-        actionSheet.addAction(
-            UIAlertAction(title: Config.actionsDeletePlaceholder, style: .destructive, handler: { [weak self] (_) in
-            //
-            // Implementation
-            //
-        }))
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
-    // swiftlint:enable <rule1>
+    // swiftlint:enable function_body_length
     // MARK: - Utilities
     func checkRepeating() -> Bool {
         guard let repeating = player?.isRepeating else { return false }

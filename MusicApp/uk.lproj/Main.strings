@@ -1,0 +1,87 @@
+
+/* Class = "UIButton"; normalTitle = "Sort"; ObjectID = "09M-oL-t6h"; */
+"09M-oL-t6h.normalTitle" = "Sort";
+
+/* Class = "UIButton"; normalTitle = "Repeat"; ObjectID = "3Ow-mf-6LD"; */
+"3Ow-mf-6LD.normalTitle" = "Repeat";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3Z9-5p-4EF"; */
+"3Z9-5p-4EF.text" = "Label";
+
+/* Class = "UILabel"; text = "tracks"; ObjectID = "3vf-SM-phf"; */
+"3vf-SM-phf.text" = "tracks";
+
+/* Class = "UINavigationItem"; title = "Select Songs"; ObjectID = "4D8-bY-eev"; */
+"4D8-bY-eev.title" = "Select Songs";
+
+/* Class = "UITabBarItem"; title = "Playlists"; ObjectID = "8bE-dj-qhx"; */
+"8bE-dj-qhx.title" = "Playlists";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9v1-fs-QwZ"; */
+"9v1-fs-QwZ.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Your Music"; ObjectID = "BAp-Ia-s69"; */
+"BAp-Ia-s69.title" = "Your Music";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "BGN-TY-rEv"; */
+"BGN-TY-rEv.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "HYR-xc-Olg"; */
+"HYR-xc-Olg.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Library"; ObjectID = "I2r-V9-Lnf"; */
+"I2r-V9-Lnf.title" = "Library";
+
+/* Class = "UITextField"; placeholder = "Playlist Name"; ObjectID = "KHQ-Jk-9So"; */
+"KHQ-Jk-9So.placeholder" = "Playlist Name";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "O8A-0x-k1f"; */
+"O8A-0x-k1f.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "OtY-Ua-pwT"; */
+"OtY-Ua-pwT.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "P4H-OF-1IX"; */
+"P4H-OF-1IX.text" = "Label";
+
+/* Class = "UILabel"; text = "Next in queue"; ObjectID = "Yfr-GQ-WVd"; */
+"Yfr-GQ-WVd.text" = "Next in queue";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "a4y-ZI-TLu"; */
+"a4y-ZI-TLu.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fa0-ix-GlN"; */
+"fa0-ix-GlN.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fsF-IM-C0a"; */
+"fsF-IM-C0a.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Playlists"; ObjectID = "iGu-rN-b5K"; */
+"iGu-rN-b5K.title" = "Playlists";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "lga-3i-QTv"; */
+"lga-3i-QTv.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "Shuffle"; ObjectID = "mNk-Dc-pFZ"; */
+"mNk-Dc-pFZ.normalTitle" = "Shuffle";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pZN-VP-eXm"; */
+"pZN-VP-eXm.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "pn2-Dh-tnY"; */
+"pn2-Dh-tnY.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Search in library"; ObjectID = "qsH-KZ-rnr"; */
+"qsH-KZ-rnr.placeholder" = "Search in library";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "sQo-CF-3Q5"; */
+"sQo-CF-3Q5.text" = "Label";
+
+/* Class = "UILabel"; text = "Add Music"; ObjectID = "sch-V2-Ojo"; */
+"sch-V2-Ojo.text" = "Add Music";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "wuF-9L-VhM"; */
+"wuF-9L-VhM.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Create Playlist"; ObjectID = "zuF-se-78f"; */
+"zuF-se-78f.title" = "Create Playlist";

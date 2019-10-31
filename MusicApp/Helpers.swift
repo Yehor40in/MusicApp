@@ -28,8 +28,8 @@ class Artwork: Codable {
         self.imageData = image?.pngData()
     }
     func getImage() -> UIImage? {
-        if let imageData = self.imageData {
-            let image = UIImage(data: imageData)
+        if let imgData = imageData {
+            let image = UIImage(data: imgData)
             return image
         } else {
             return UIImage(named: Config.playlistIconPlaceholder)

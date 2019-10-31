@@ -152,6 +152,7 @@
                         <outlet property="playingCover" destination="HpF-b6-gix" id="6fj-Z1-9mJ"/>
                         <outlet property="playingName" destination="HYR-xc-Olg" id="gO9-RX-Rf9"/>
                         <outlet property="playingView" destination="pLq-hv-UeO" id="LdT-aw-y49"/>
+                        <outlet property="sortButton" destination="8hQ-Xx-g3g" id="KAg-tk-kLi"/>
                         <outlet property="tableView" destination="bSe-PL-Q2P" id="dnN-xB-6Sw"/>
                     </connections>
                 </viewController>
@@ -470,6 +471,7 @@
                         <outlet property="shuffleButton" destination="mNk-Dc-pFZ" id="L93-cz-J15"/>
                         <outlet property="songName" destination="O8A-0x-k1f" id="Oob-x5-2Jr"/>
                         <outlet property="songProgress" destination="cYg-BH-Nr4" id="7Gb-Gy-bcS"/>
+                        <outlet property="upNextLabel" destination="Yfr-GQ-WVd" id="Aqx-uK-vVy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Jf-R3-RLK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -561,6 +563,7 @@
                                             <outlet property="playlistCover" destination="6x7-mb-UAh" id="vMy-lb-azq"/>
                                             <outlet property="playlistName" destination="9v1-fs-QwZ" id="iod-gC-Ids"/>
                                             <outlet property="trackCount" destination="lga-3i-QTv" id="EVh-kh-MsG"/>
+                                            <outlet property="tracksLabel" destination="3vf-SM-phf" id="zYw-qe-RHa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

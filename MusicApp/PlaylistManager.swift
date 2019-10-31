@@ -22,8 +22,7 @@ final class PlaylistManager {
             return empty
         }
         do {
-            let favorites = try decoder.decode(Playlist.self, from: data)
-            return favorites
+            return try decoder.decode(Playlist.self, from: data)
         } catch let error {
             print(error)
         }
@@ -54,17 +53,15 @@ final class PlaylistManager {
         return playlists
     }
     static func getPlaylists() -> [Playlist]? {
-        var playlists: [Playlist] = []
         let path = PlaylistManager.makePath(for: Config.playlistsFilename)
         let decoder = PropertyListDecoder()
         guard let data = try? Data(contentsOf: path) else { return [] }
         do {
-            let recieved = try decoder.decode(Array<Playlist>.self, from: data)
-            playlists.append(contentsOf: recieved)
+            return try decoder.decode(Array<Playlist>.self, from: data)
         } catch let error {
             print(error)
         }
-        return playlists
+        return nil
     }
     static func storePlaylists(items: [Playlist]) -> Bool {
         let path = PlaylistManager.makePath(for: Config.playlistsFilename)

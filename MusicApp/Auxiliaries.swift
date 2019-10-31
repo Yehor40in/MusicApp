@@ -33,11 +33,8 @@ enum Config {
     static var playlistIconPlaceholder: String {
         return "defaultplaylisticon"
     }
-    static var songLabelPlaceholder: String {
-        return "Not Playing"
-    }
-    static var unknownPlaceholder: String {
-        return "Unknown"
+    static var favoritesImagePlaceholder: String {
+        return "favorites"
     }
     static var pauseImagePlaceholder: String {
         return "pause"
@@ -51,56 +48,56 @@ enum Config {
     static var backwardImagePlaceholder: String {
         return "backward"
     }
-    static var sortMessagePlaceholder: String {
-        return "Sort by"
-    }
-    static var actionsMessagePlaceholder: String {
-        return "Options"
-    }
-    static var sortArtistPlaceholder: String {
-        return "Artist"
-    }
-    static var favoritesImagePlaceholder: String {
-        return "favorites"
-    }
-    static var favoritesName: String {
-        return "Favorites"
-    }
     static var favoritesFilename: String {
         return "Favorites.plist"
     }
     static var playlistsFilename: String {
         return "Playlists.plist"
     }
+    static var unknownPlaceholder: String {
+        return NSLocalizedString("Unknown", comment: "Unknown artist")
+    }
+    static var songLabelPlaceholder: String {
+        return NSLocalizedString("Not playing", comment: "No song is playing")
+    }
+    static var sortMessagePlaceholder: String {
+        return NSLocalizedString("Sort by", comment: "Soring actionsheet title")
+    }
+    static var actionsMessagePlaceholder: String {
+        return NSLocalizedString("Options", comment: "Options action sheet title")
+    }
+    static var sortArtistPlaceholder: String {
+        return NSLocalizedString("Artist", comment: "Sort by artist action placeholder")
+    }
+    static var favoritesName: String {
+        return NSLocalizedString("Favorites", comment: "Favorites playlist title")
+    }
     static var takePicturePlaceholder: String {
-        return "Take picture"
+        return NSLocalizedString("Take picture", comment: "Take picture action plceholder")
     }
     static var choosePicturePlaceholder: String {
-        return "Choose photo"
+        return NSLocalizedString("Choose photo", comment: "Choose photo action placeholder")
     }
     static var defaultPlaylistName: String {
-        return "Unnamed playlist"
+        return NSLocalizedString("Unnamed playlist", comment: "Unnamed playlist placeholder")
     }
     static var actionsLikePlaceholder: String {
-        return "Like ❤️"
+        return NSLocalizedString("Like", comment: "Add to favotites action placeholder")
     }
     static var actionsUnlikePlaceholder: String {
-        return "Unlike 💔"
+        return NSLocalizedString("Unlike", comment: "Remove from favorites action placeholder")
     }
     static var sortTitlePlaceholder: String {
-        return "Title"
+        return NSLocalizedString("Title", comment: "Sort by title action placeholder")
     }
     static var recentlyAddedPlaceholder: String {
-        return "Recently added"
+        return NSLocalizedString("Recently added", comment: "Sort by date action placeholer")
     }
     static var actionsAddToPlaceholder: String {
-        return "Add to playlist.."
-    }
-    static var actionsDeletePlaceholder: String {
-        return "Delete from library"
+        return NSLocalizedString("Add to playlist", comment: "Add to playlist action placeholder")
     }
     static var dismissMessage: String {
-        return "Dismiss"
+        return NSLocalizedString("Dismiss", comment: "Dismiss action placeholder")
     }
     static var cornerRadiusPlaceholder: CGFloat {
         return 8

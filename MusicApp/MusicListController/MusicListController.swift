@@ -11,10 +11,11 @@ import MediaPlayer
 import StoreKit
 
 final class MusicListController: ViewManager {
+    // MARK: - Outlets
+    @IBOutlet private weak var sortButton: UIBarButtonItem!
     // MARK: - Properties
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
-//    private var player: MusicPlayer?
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,8 @@ final class MusicListController: ViewManager {
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = NSLocalizedString("Your Music", comment: "Navigation item title")
+        sortButton.title = NSLocalizedString("Sort", comment: "Sort placeholder")
         setupActions()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +64,7 @@ final class MusicListController: ViewManager {
         self.present(actionSheet, animated: true, completion: nil)
     }
     // MARK: - Utilities
+    // swiftlint:disable cyclomatic_complexity
     func preparedItems(from raw: [MPMediaItem]?, by option: SortOption) -> [Character: [MPMediaItem]] {
         var prepared = [Character: [MPMediaItem]]()
         sectionTitles = [String]()

@@ -29,6 +29,7 @@ final class CreatePlaylistController: UIViewController {
         tableView.delegate = self
         playlistNameField.delegate = self
         picker.delegate = self
+        navigationItem.title = NSLocalizedString("Create Playlist", comment: "Navigation item title")
     }
     // MARK: - Methods
     func savePlaylist(withTitle title: String, image: UIImage?, songs: [MediaItem]?) -> Bool {
