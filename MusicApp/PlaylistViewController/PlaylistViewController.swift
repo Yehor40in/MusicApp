@@ -26,7 +26,7 @@ final class PlaylistViewController: ViewManager {
         super.viewWillAppear(animated)
         items = PlaylistManager.makePlaylists()
         tableView.reloadData()
-        updatePlayingView()
+        updatePlayingView(nil)
     }
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

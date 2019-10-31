@@ -27,7 +27,6 @@ final class PlayingViewController: UIViewController {
     @IBOutlet private weak var backgroundTrailingConstraint: NSLayoutConstraint!
     // MARK: - Properties
     var prepared: PreparedData?
-    weak var delegate: PlayingViewControllerDelegate?
     private var player: MusicPlayer? = MusicPlayer.shared
     // MARK: - Methods
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -56,7 +55,6 @@ final class PlayingViewController: UIViewController {
     // MARK: - Actions
     @IBAction func chevronTapped(_ sender: Any) {
         chevron.isHidden = true
-        delegate?.commitChanges()
         animateCoverOut()
     }
     // MARK: - Utilities

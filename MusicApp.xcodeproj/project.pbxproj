@@ -22,7 +22,6 @@
 		7430EB28236325AC005829E4 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7430EB27236325AC005829E4 /* PlaylistViewController.swift */; };
 		7430EB2B23632B81005829E4 /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7430EB2A23632B81005829E4 /* PlaylistCell.swift */; };
 		7430EB2D23632CC0005829E4 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7430EB2C23632CC0005829E4 /* Playlist.swift */; };
-		7445A0D12355AB1A00FF1292 /* PlayingViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */; };
 		7445A0D7235603C000FF1292 /* ControlsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */; };
 		7453D4262343578E007E022F /* MusicListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7453D4252343578E007E022F /* MusicListCell.swift */; };
 		745B3ECF236071440038B0A3 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745B3ECE236071440038B0A3 /* QueueCell.swift */; };
@@ -79,7 +78,6 @@
 		7430EB27236325AC005829E4 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		7430EB2A23632B81005829E4 /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		7430EB2C23632CC0005829E4 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
-		7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewControllerDelegate.swift; sourceTree = "<group>"; };
 		7445A0D6235603C000FF1292 /* ControlsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsControllerDelegate.swift; sourceTree = "<group>"; };
 		7453D4252343578E007E022F /* MusicListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListCell.swift; sourceTree = "<group>"; };
 		745B3ECE236071440038B0A3 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 			isa = PBXGroup;
 			children = (
 				74846CF2234F16DF008EC89F /* PlayingViewController.swift */,
-				7445A0D02355AB1A00FF1292 /* PlayingViewControllerDelegate.swift */,
 			);
 			path = PlayingViewController;
 			sourceTree = "<group>";
@@ -497,7 +494,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7460BEAB234F53E400CFFDCB /* Helpers.swift in Sources */,
-				7445A0D12355AB1A00FF1292 /* PlayingViewControllerDelegate.swift in Sources */,
 				741C2C2023697DE600BE59EC /* ViewManager.swift in Sources */,
 				7430EB28236325AC005829E4 /* PlaylistViewController.swift in Sources */,
 				745B3ECF236071440038B0A3 /* QueueCell.swift in Sources */,

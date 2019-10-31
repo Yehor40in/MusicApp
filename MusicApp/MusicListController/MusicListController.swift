@@ -29,7 +29,7 @@ final class MusicListController: ViewManager {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updatePlayingView()
+        updatePlayingView(nil)
     }
     // MARK: - Actions
     @IBAction func sortTapped(_ sender: Any) {
@@ -129,7 +129,6 @@ final class MusicListController: ViewManager {
                 let row = Int.random(in: 0..<set.count)
                 setPlayingItem(for: IndexPath(row: row, section: sec))
                 player.play()
-                updatePlayingView()
             }
         }
     }
@@ -167,6 +166,6 @@ extension MusicListController: UITableViewDelegate {
         player.updateUpNext(forward: true)
         setPlayingItem(for: indexPath)
         player.play()
-        updatePlayingView()
+        updatePlayingView(nil)
     }
 }

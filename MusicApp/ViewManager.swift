@@ -22,8 +22,20 @@ class ViewManager: UIViewController {
     func setupActions() {
         playButton.addTarget(self, action: #selector(playButtonTapped(_:)), for: .touchUpInside)
         forwardButton.addTarget(self, action: #selector(forwardTapped(_:)), for: .touchUpInside)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updatePlayingView(_:)),
+            name: .MPMusicPlayerControllerNowPlayingItemDidChange,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updatePlayingView(_:)),
+            name: .MPMusicPlayerControllerPlaybackStateDidChange,
+            object: nil
+        )
     }
-    func updatePlayingView() {
+    @objc func updatePlayingView(_ notification: Notification?) {
         if let object = MusicPlayer.shared.nowPlayingItem {
             let img = object.artwork?.image(at: playingCover.bounds.size)
             playingCover.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
@@ -47,7 +59,6 @@ class ViewManager: UIViewController {
         guard let items = player.query.items else { return }
         let index = Int.random(in: 0..<items.count)
         player.nowPlayingItem = items[index]
-        updatePlayingView()
     }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
         if let details = storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
@@ -59,7 +70,6 @@ class ViewManager: UIViewController {
             )
             if let img = self.view.makeScreenshot() {
                 details.prepared = PreparedData(image: img, outPosition: pos)
-                details.delegate = self
                 details.modalPresentationStyle = .fullScreen
                 present(details, animated: false)
             }
@@ -79,12 +89,5 @@ class ViewManager: UIViewController {
     @objc func forwardTapped(_ sender: Any) {
         player.updateUpNext(forward: true)
         playRandomSong()
-    }
-}
-
-extension ViewManager: PlayingViewControllerDelegate {
-    // MARK: - PlayingViewControllerDelegate
-    func commitChanges() {
-        updatePlayingView()
     }
 }
