@@ -57,6 +57,10 @@
 	</array>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>App needs your itunes library access to synchronize music</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App would like to access your camera to take pictures</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App would like to access your photo library to choose pictures</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

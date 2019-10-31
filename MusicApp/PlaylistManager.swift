@@ -46,14 +46,17 @@ final class PlaylistManager {
         let favs = PlaylistManager.getFavorites()
         return favs.items.contains(where: { $0.storeID == item.playbackStoreID })
     }
+    static func makePlaylists() -> [Playlist] {
+        var playlists: [Playlist] = []
+        playlists.append(PlaylistManager.getFavorites())
+        guard let list = PlaylistManager.getPlaylists() else { return playlists }
+        playlists.append(contentsOf: list)
+        return playlists
+    }
     static func getPlaylists() -> [Playlist]? {
         var playlists: [Playlist] = []
         let path = PlaylistManager.makePath(for: Config.playlistsFilename)
         let decoder = PropertyListDecoder()
-        playlists.append(PlaylistManager.getFavorites())
-        if !FileManager.default.fileExists(atPath: path.absoluteString) {
-            return playlists
-        }
         guard let data = try? Data(contentsOf: path) else { return [] }
         do {
             let recieved = try decoder.decode(Array<Playlist>.self, from: data)

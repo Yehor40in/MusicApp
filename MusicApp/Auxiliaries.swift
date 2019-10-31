@@ -72,6 +72,12 @@ enum Config {
     static var playlistsFilename: String {
         return "Playlists.plist"
     }
+    static var takePicturePlaceholder: String {
+        return "Take picture"
+    }
+    static var choosePicturePlaceholder: String {
+        return "Choose photo"
+    }
     static var defaultPlaylistName: String {
         return "Unnamed playlist"
     }

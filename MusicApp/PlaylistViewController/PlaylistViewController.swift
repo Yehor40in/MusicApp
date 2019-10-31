@@ -11,7 +11,7 @@ import MediaPlayer
 
 final class PlaylistViewController: ViewManager {
     // MARK: - Properties
-    private var items: [Playlist]?
+    private var items = PlaylistManager.makePlaylists()
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ final class PlaylistViewController: ViewManager {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        items = PlaylistManager.getPlaylists()
+        items = PlaylistManager.makePlaylists()
         tableView.reloadData()
         updatePlayingView()
     }
@@ -41,7 +41,6 @@ extension PlaylistViewController: UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let items = items else { return UITableViewCell() }
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistCell") as? PlaylistCell {
             cell.item = items[indexPath.row]
             return cell
@@ -49,7 +48,6 @@ extension PlaylistViewController: UITableViewDataSource {
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let items = items else { return 0 }
         return items.count
     }
 }

@@ -13,11 +13,12 @@ final class Playlist: Codable {
     // MARK: - Properties
     var artwork: Artwork
     var name: String
-    var items: [MediaItem] = []
+    var items: [MediaItem]
     // MARK: - Initialization
-    init(image: UIImage?, name: String) {
+    init(image: UIImage?, name: String, media: [MediaItem] = []) {
         self.artwork = Artwork(with: image)
         self.name = name
+        self.items = media
     }
     func getStoreIDs() -> [String] {
         return items.map {

@@ -9,7 +9,7 @@
 import UIKit
 
 final class SearchViewController: UIViewController {
-
+    weak var delegate: SearchControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
 
