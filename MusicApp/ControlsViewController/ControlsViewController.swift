@@ -88,7 +88,6 @@ final class ControlsViewController: UIViewController {
         shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         nextInQueue.reloadData()
     }
-    // swiftlint:disable function_body_length
     @IBAction func moreTapped(_ sender: Any) {
         let actionSheet = UIAlertController(
             title: nil,
@@ -140,7 +139,6 @@ final class ControlsViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
-    // swiftlint:enable function_body_length
     // MARK: - Utilities
     func checkRepeating() -> Bool {
         guard let repeating = player?.isRepeating else { return false }
@@ -159,8 +157,6 @@ final class ControlsViewController: UIViewController {
         }
         songName.text = item.title
         artist.text = item.artist
-        guard let progress = player?.playbackTime else { return }
-        handleProgress(for: item, value: progress)
         switch player?.playbackState {
         case .paused:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
@@ -171,6 +167,8 @@ final class ControlsViewController: UIViewController {
         default:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
+        guard let progress = player?.playbackTime else { return }
+        handleProgress(for: item, value: progress)
         nextInQueue.reloadData()
     }
     func setPlayingItem(_ item: MPMediaItem) {

@@ -15,7 +15,7 @@ final class MusicPlayer {
     private var player: MPMusicPlayerController
     private var tempUpNext: [MPMediaItem]?
     private var currentIndex: Int = 0
-    var query: MPMediaQuery = MPMediaQuery.songs()
+    var items: [MPMediaItem] = []
     var upNext: [MPMediaItem]?
     var isPlaying: Bool = false
     var nowPlayingItem: MPMediaItem? {
@@ -53,6 +53,10 @@ final class MusicPlayer {
     }
     // MARK: - Initialization
     init() {
+        let query = MPMediaQuery.songs()
+        if let items = query.items {
+            self.items = items
+        }
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player.setQueue(with: query)
         self.player.prepareToPlay()
@@ -72,11 +76,10 @@ final class MusicPlayer {
         updateUpNext(forward: false)
     }
     func setUpNext() {
-        guard let queue = query.items else { return }
         guard let item = nowPlayingItem else { return }
-        if let index = queue.firstIndex(of: item) {
+        if let index = items.firstIndex(of: item) {
             currentIndex = index
-            let slice = queue.suffix(from: index + 1)
+            let slice = items.suffix(from: index + 1)
             upNext = Array(slice)
         }
     }
@@ -84,7 +87,6 @@ final class MusicPlayer {
         if forward {
             upNext = upNext?.filter { $0 != nowPlayingItem }
         } else {
-            guard let items = query.items else { return }
             upNext?.insert(items[currentIndex], at: 0)
         }
     }
@@ -109,7 +111,6 @@ final class MusicPlayer {
         play()
     }
     func goToPreviousInQueue() {
-        guard let items = query.items else { return }
         guard currentIndex > 0 else { return }
         updateUpNext(forward: false)
         currentIndex -= 1

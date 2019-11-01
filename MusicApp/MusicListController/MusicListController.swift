@@ -41,21 +41,21 @@ final class MusicListController: ViewManager {
         actionSheet.view.tintColor = UIColor.systemPink
         actionSheet.addAction(
             UIAlertAction(title: Config.sortArtistPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.query.items, by: .artist)
+                self?.items = self?.preparedItems(from: self?.player.items, by: .artist)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.query.items, by: .title)
+                self?.items = self?.preparedItems(from: self?.player.items, by: .title)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.query.items, by: .date)
+                self?.items = self?.preparedItems(from: self?.player.items, by: .date)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -116,7 +116,7 @@ final class MusicListController: ViewManager {
         SKCloudServiceController.requestAuthorization {[weak self] status in
             if status == .authorized {
                 self?.preparePlayer()
-                guard let data = self?.player.query.items else { return }
+                guard let data = self?.player.items else { return }
                 self?.items = self?.preparedItems(from: data, by: .title)
             }
         }

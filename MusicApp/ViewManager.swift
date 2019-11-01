@@ -56,9 +56,8 @@ class ViewManager: UIViewController {
         }
     }
     func playRandomSong() {
-        guard let items = player.query.items else { return }
-        let index = Int.random(in: 0..<items.count)
-        player.nowPlayingItem = items[index]
+        let index = Int.random(in: 0..<player.items.count)
+        player.nowPlayingItem = player.items[index]
     }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
         if let details = storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
