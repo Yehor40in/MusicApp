@@ -88,6 +88,7 @@ final class ControlsViewController: UIViewController {
         shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         nextInQueue.reloadData()
     }
+    // swiftlint:disable function_body_length
     @IBAction func moreTapped(_ sender: Any) {
         let actionSheet = UIAlertController(
             title: nil,
@@ -134,12 +135,11 @@ final class ControlsViewController: UIViewController {
             UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
                 if let selectVC = self?.storyboard?.instantiateViewController(withIdentifier: "SelectPlaylist")
                    as? SelectPlaylistController {
-                    selectVC.modalPresentationStyle = .popover
-                    selectVC.preferredContentSize = CGSize(width: 300, height: 400)
+                    selectVC.modalPresentationStyle = .overCurrentContext
+                    selectVC.modalTransitionStyle = .coverVertical
                     selectVC.toAdd = MediaItem(with: self?.player?.nowPlayingItem)
                     let presentationController = selectVC.popoverPresentationController
                     presentationController?.sourceView = self?.moreButton.imageView
-                    presentationController?.sourceRect = CGRect(x: 0, y: 0, width: 10, height: 10)
                     presentationController?.delegate = self
                     self?.present(selectVC, animated: true)
                 }
@@ -147,6 +147,7 @@ final class ControlsViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
+    // swiftlint:enable function_body_length
     // MARK: - Utilities
     func checkRepeating() -> Bool {
         guard let repeating = player?.isRepeating else { return false }
