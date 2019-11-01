@@ -132,12 +132,16 @@ final class ControlsViewController: UIViewController {
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
-            //
-            // Implementation
-            //
+            
         }))
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let selectVC = segue.destination as? SelectPlaylistController {
+            selectVC.toAdd = MediaItem(with: player?.nowPlayingItem)
+        }
     }
     // MARK: - Utilities
     func checkRepeating() -> Bool {

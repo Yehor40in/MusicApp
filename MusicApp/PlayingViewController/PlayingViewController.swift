@@ -11,7 +11,7 @@ import MediaPlayer
 
 final class PlayingViewController: UIViewController {
     // MARK: - Outlets
-    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet private weak var coverView: UIView!
     @IBOutlet private weak var coverImageView: UIImageView!
     @IBOutlet private weak var container: UIView!
