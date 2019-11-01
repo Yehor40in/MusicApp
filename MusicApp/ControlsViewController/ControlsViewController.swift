@@ -132,16 +132,20 @@ final class ControlsViewController: UIViewController {
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
-            
+                if let selectVC = self?.storyboard?.instantiateViewController(withIdentifier: "SelectPlaylist")
+                   as? SelectPlaylistController {
+                    selectVC.modalPresentationStyle = .popover
+                    selectVC.preferredContentSize = CGSize(width: 300, height: 400)
+                    selectVC.toAdd = MediaItem(with: self?.player?.nowPlayingItem)
+                    let presentationController = selectVC.popoverPresentationController
+                    presentationController?.sourceView = self?.moreButton.imageView
+                    presentationController?.sourceRect = CGRect(x: 0, y: 0, width: 10, height: 10)
+                    presentationController?.delegate = self
+                    self?.present(selectVC, animated: true)
+                }
         }))
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
-    }
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let selectVC = segue.destination as? SelectPlaylistController {
-            selectVC.toAdd = MediaItem(with: player?.nowPlayingItem)
-        }
     }
     // MARK: - Utilities
     func checkRepeating() -> Bool {
@@ -241,5 +245,14 @@ extension ControlsViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+}
+
+extension ControlsViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(
+        for controller: UIPresentationController,
+        traitCollection: UITraitCollection
+    ) -> UIModalPresentationStyle {
+        return .none
     }
 }

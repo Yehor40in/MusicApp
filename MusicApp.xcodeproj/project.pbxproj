@@ -29,6 +29,7 @@
 		7460BEAD234F55E200CFFDCB /* Auxiliaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7460BEAC234F55E200CFFDCB /* Auxiliaries.swift */; };
 		74846CF3234F16DF008EC89F /* PlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74846CF2234F16DF008EC89F /* PlayingViewController.swift */; };
 		74846CF7234F1788008EC89F /* ControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74846CF6234F1788008EC89F /* ControlsViewController.swift */; };
+		74884731236C413B00F0F906 /* SelectPlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74884730236C413B00F0F906 /* SelectPlaylistController.swift */; };
 		748C8EFB236AF32400C371A8 /* SearchControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748C8EFA236AF32400C371A8 /* SearchControllerDelegate.swift */; };
 		748C8F04236B199000C371A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 748C8F06236B199000C371A8 /* Localizable.strings */; };
 		74A85F2423682FCA0044B03C /* CreatePlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A85F2323682FCA0044B03C /* CreatePlaylistController.swift */; };
@@ -85,6 +86,7 @@
 		7460BEAC234F55E200CFFDCB /* Auxiliaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auxiliaries.swift; sourceTree = "<group>"; };
 		74846CF2234F16DF008EC89F /* PlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewController.swift; sourceTree = "<group>"; };
 		74846CF6234F1788008EC89F /* ControlsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsViewController.swift; sourceTree = "<group>"; };
+		74884730236C413B00F0F906 /* SelectPlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaylistController.swift; sourceTree = "<group>"; };
 		748C8EFA236AF32400C371A8 /* SearchControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerDelegate.swift; sourceTree = "<group>"; };
 		748C8F02236B193100C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
 		748C8F03236B193200C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 		7453F96E2369A0F4008551E7 /* PlaylistViewController */ = {
 			isa = PBXGroup;
 			children = (
+				74884730236C413B00F0F906 /* SelectPlaylistController.swift */,
 				7430EB27236325AC005829E4 /* PlaylistViewController.swift */,
 				7430EB2A23632B81005829E4 /* PlaylistCell.swift */,
 			);
@@ -505,6 +508,7 @@
 				7406518A23434E350030A724 /* AppDelegate.swift in Sources */,
 				7430EB2B23632B81005829E4 /* PlaylistCell.swift in Sources */,
 				74846CF7234F1788008EC89F /* ControlsViewController.swift in Sources */,
+				74884731236C413B00F0F906 /* SelectPlaylistController.swift in Sources */,
 				7406518C23434E350030A724 /* SceneDelegate.swift in Sources */,
 				7430EB2D23632CC0005829E4 /* Playlist.swift in Sources */,
 				7460BEAD234F55E200CFFDCB /* Auxiliaries.swift in Sources */,

@@ -60,6 +60,7 @@ final class MusicPlayer {
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player.setQueue(with: query)
         self.player.prepareToPlay()
+        updateUpNext(forward: true)
     }
     // MARK: - Methods
     func play() {
