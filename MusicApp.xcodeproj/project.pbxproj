@@ -87,6 +87,9 @@
 		74846CF2234F16DF008EC89F /* PlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingViewController.swift; sourceTree = "<group>"; };
 		74846CF6234F1788008EC89F /* ControlsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsViewController.swift; sourceTree = "<group>"; };
 		74884730236C413B00F0F906 /* SelectPlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaylistController.swift; sourceTree = "<group>"; };
+		74884734236C8BF800F0F906 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		74884735236C8BF800F0F906 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		74884736236C8BF800F0F906 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		748C8EFA236AF32400C371A8 /* SearchControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerDelegate.swift; sourceTree = "<group>"; };
 		748C8F02236B193100C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
 		748C8F03236B193200C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -364,6 +367,7 @@
 				en,
 				Base,
 				uk,
+				ru,
 			);
 			mainGroup = 7406517D23434E350030A724;
 			productRefGroup = 7406518723434E350030A724 /* Products */;
@@ -556,6 +560,7 @@
 			children = (
 				7406519023434E350030A724 /* Base */,
 				748C8F02236B193100C371A8 /* uk */,
+				74884734236C8BF800F0F906 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -565,6 +570,7 @@
 			children = (
 				7406519823434E360030A724 /* Base */,
 				748C8F03236B193200C371A8 /* uk */,
+				74884735236C8BF800F0F906 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -574,6 +580,7 @@
 			children = (
 				748C8F05236B199000C371A8 /* en */,
 				748C8F07236B19B600C371A8 /* uk */,
+				74884736236C8BF800F0F906 /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
