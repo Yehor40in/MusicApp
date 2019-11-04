@@ -35,6 +35,10 @@ final class SearchViewController: UIViewController {
     @IBAction func cancelTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    @IBAction func clearTapped(_ sender: Any) {
+        toDisplay = MPMediaQuery.songs().items
+        tableView.reloadData()
+    }
     @IBAction func doneTapped(_ sender: Any) {
         var result = [MPMediaItem]()
         guard let temp = toDisplay, let slctd = selected else { return }
@@ -47,8 +51,9 @@ final class SearchViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func textChanged() {
+        toDisplay = MPMediaQuery.songs().items
         guard let entered = searchField.text else { return }
-        guard let temp = toDisplay else { return }
+        guard let temp = MPMediaQuery.songs().items else { return }
         tempItems = temp
         toDisplay = toDisplay?.filter {
             if let title = $0.title, let artist = $0.artist {
