@@ -12,6 +12,7 @@ import MediaPlayer
 final class SearchViewController: UIViewController {
     // MARK: - Properties
     private var toDisplay: [MPMediaItem]? = MPMediaQuery.songs().items
+    private var tempItems: [MPMediaItem] = []
     private var selected: [Bool]?
     weak var delegate: SearchControllerDelegate?
     // MARK: - Outlets
@@ -23,6 +24,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        searchField.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -43,6 +45,18 @@ final class SearchViewController: UIViewController {
         }
         delegate?.getCodableItems(form: result)
         dismiss(animated: true, completion: nil)
+    }
+    @IBAction func textChanged() {
+        guard let entered = searchField.text else { return }
+        guard let temp = toDisplay else { return }
+        tempItems = temp
+        toDisplay = toDisplay?.filter {
+            if let title = $0.title, let artist = $0.artist {
+                return title.contains(entered) || artist.contains(entered)
+            }
+            return false
+        }
+        tableView.reloadData()
     }
 }
 
@@ -74,5 +88,11 @@ extension SearchViewController: UITableViewDelegate {
         }
         selected?[indexPath.row] = true
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
     }
 }
