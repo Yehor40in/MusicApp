@@ -19,14 +19,14 @@ final class CreatePlaylistController: UIViewController {
     @IBOutlet private weak var choosedPicture: UIImageView!
     // MARK: - Properties
     private let picker = UIImagePickerController()
-    private var items: [MPMediaItem]?
+    private var items: [MPMediaItem] = []
     var songs: [MediaItem]?
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.isEditing = true
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.isEditing = true
         playlistNameField.delegate = self
         picker.delegate = self
         navigationItem.title = NSLocalizedString("Create Playlist", comment: "Navigation item title")
@@ -79,16 +79,12 @@ final class CreatePlaylistController: UIViewController {
             present(failAlert, animated: true)
         }
     }
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let searchVC = segue.destination as? SearchViewController {
+            searchVC.delegate = self
+        }
     }
-    */
-
 }
 
 extension CreatePlaylistController: UITableViewDataSource {
@@ -100,17 +96,17 @@ extension CreatePlaylistController: UITableViewDataSource {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddSongsCell", for: indexPath)
             return cell
-        } else {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "QueueCell", for: indexPath) as? QueueCell {
-                guard let items = items else { return UITableViewCell() }
-                cell.item = items[indexPath.row]
-                return cell
-            }
+        }
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "QueueCell", for: indexPath) as? QueueCell {
+            let item = items[indexPath.row - 1]
+            cell.item = item
+            return cell
         }
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items?.count ?? 1
+        if items.isEmpty { return 1 }
+        return items.count + 1
     }
 }
 
@@ -119,6 +115,19 @@ extension CreatePlaylistController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)
         -> UITableViewCell.EditingStyle {
         return indexPath.row == 0 ? .insert : .delete
+    }
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if indexPath.row == 0 {
+            performSegue(withIdentifier: "ShowSearch", sender: nil)
+        } else {
+            items.remove(at: indexPath.row)
+            songs?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+        }
     }
 }
 
@@ -147,9 +156,10 @@ extension CreatePlaylistController: UIImagePickerControllerDelegate, UINavigatio
 
 extension CreatePlaylistController: SearchControllerDelegate {
     // MARK: - SearchController Delegate
-    func getCodableItems(form standard: [MPMediaItem]?) {
-        guard let temp = standard else { return }
-        songs = temp.map {
+    func getCodableItems(form standard: [MPMediaItem]) {
+        items.append(contentsOf: standard)
+        tableView.reloadData()
+        songs = standard.map {
             MediaItem(with: $0)
         }
     }

@@ -25,4 +25,8 @@ final class QueueCell: UITableViewCell {
         super.awakeFromNib()
         songCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
     }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        accessoryType = selected ? .checkmark : .none
+    }
 }

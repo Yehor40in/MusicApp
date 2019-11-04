@@ -7,22 +7,72 @@
 //
 
 import UIKit
+import MediaPlayer
 
 final class SearchViewController: UIViewController {
+    // MARK: - Properties
+    private var toDisplay: [MPMediaItem]? = MPMediaQuery.songs().items
+    private var selected: [Bool]?
     weak var delegate: SearchControllerDelegate?
+    // MARK: - Outlets
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var searchButton: UIButton!
+    @IBOutlet private weak var searchField: UITextField!
+    // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        tableView.dataSource = self
+        tableView.delegate = self
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let items = toDisplay {
+            selected = Array(repeating: false, count: items.count)
+        }
     }
-    */
+    @IBAction func cancelTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func doneTapped(_ sender: Any) {
+        var result = [MPMediaItem]()
+        guard let temp = toDisplay, let slctd = selected else { return }
+        for (index, value) in temp.enumerated() {
+            if slctd[index] {
+                result.append(value)
+            }
+        }
+        delegate?.getCodableItems(form: result)
+        dismiss(animated: true, completion: nil)
+    }
+}
 
+extension SearchViewController: UITableViewDataSource {
+    // MARK: - TableView DataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let items = toDisplay else { return UITableViewCell() }
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "QueueCell", for: indexPath) as? QueueCell {
+            cell.item = items[indexPath.row]
+            return cell
+        }
+        return UITableViewCell()
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let items = toDisplay else { return 0 }
+        return items.count
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let status = selected?[indexPath.row] else { return }
+        if status {
+            selected?[indexPath.row] = false
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        selected?[indexPath.row] = true
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+    }
 }

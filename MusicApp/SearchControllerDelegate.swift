@@ -10,5 +10,5 @@ import Foundation
 import MediaPlayer
 
 protocol SearchControllerDelegate: class {
-    func getCodableItems(form standard: [MPMediaItem]?)
+    func getCodableItems(form standard: [MPMediaItem])
 }

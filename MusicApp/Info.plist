@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>App needs your itunes library access to synchronize music</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App needs camera access to take picture</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
