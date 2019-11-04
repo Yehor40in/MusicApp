@@ -124,8 +124,8 @@ extension CreatePlaylistController: UITableViewDelegate {
         if indexPath.row == 0 {
             performSegue(withIdentifier: "ShowSearch", sender: nil)
         } else {
-            items.remove(at: indexPath.row)
-            songs?.remove(at: indexPath.row)
+            items.remove(at: indexPath.row - 1)
+            songs?.remove(at: indexPath.row - 1)
             tableView.deleteRows(at: [indexPath], with: .left)
         }
     }

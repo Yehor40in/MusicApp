@@ -42,10 +42,8 @@ final class SearchViewController: UIViewController {
     @IBAction func doneTapped(_ sender: Any) {
         var result = [MPMediaItem]()
         guard let temp = toDisplay, let slctd = selected else { return }
-        for (index, value) in temp.enumerated() {
-            if slctd[index] {
-                result.append(value)
-            }
+        for (index, value) in temp.enumerated() where slctd[index] {
+            result.append(value)
         }
         delegate?.getCodableItems(form: result)
         dismiss(animated: true, completion: nil)
