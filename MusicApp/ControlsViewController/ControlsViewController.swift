@@ -43,7 +43,6 @@ final class ControlsViewController: UIViewController {
         repeatButton.setTitle(NSLocalizedString("Repeat", comment: "Repeat"), for: .normal)
         shuffleButton.setTitle(NSLocalizedString("Shuffle", comment: "Shuffle"), for: .normal)
         updateDetails()
-        player.setUpNext()
         player.updateUpNext(forward: true)
         data = player.upNext
     }
@@ -91,6 +90,7 @@ final class ControlsViewController: UIViewController {
     @IBAction func shuffleTapped(_ sender: Any) {
         let shuffled = checkShuffled()
         player.shuffleQueue(!shuffled)
+        data = player.upNext
         shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         nextInQueue.reloadData()
     }
@@ -230,6 +230,7 @@ extension ControlsViewController: UITableViewDelegate {
         let temp = player.upNext.remove(at: sourceIndexPath.row)
         player.upNext.insert(temp, at: destinationIndexPath.row)
         nextInQueue.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+        data = player.upNext
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
