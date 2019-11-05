@@ -56,9 +56,8 @@ class ViewManager: UIViewController {
         }
     }
     func playRandomSong() {
-        let index = Int.random(in: 0..<player.items.count)
-        player.nowPlayingItem = player.items[index]
-        player.updateUpNext(forward: true)
+        let index = Int.random(in: 0..<player.getItems.count)
+        player.nowPlayingItem = player.getItems[index]
     }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
         if let details = storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
@@ -87,7 +86,6 @@ class ViewManager: UIViewController {
         }
     }
     @objc func forwardTapped(_ sender: Any) {
-        player.updateUpNext(forward: true)
         playRandomSong()
     }
 }

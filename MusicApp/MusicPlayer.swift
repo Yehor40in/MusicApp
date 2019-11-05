@@ -12,22 +12,23 @@ import MediaPlayer
 final class MusicPlayer {
     static var shared: MusicPlayer = MusicPlayer()
     // MARK: - Properties
-    private var player: MPMusicPlayerController
-    private var tempUpNext: [MPMediaItem]?
+    private var player: MPMusicPlayerController?
+    private var tempUpNext: [MPMediaItem] = []
     private var currentIndex: Int = 0
-    var items: [MPMediaItem] = []
-    var upNext: [MPMediaItem]?
+    private var items: [MPMediaItem] = []
+    var upNext: [MPMediaItem] = []
     var isPlaying: Bool = false
     var nowPlayingItem: MPMediaItem? {
-        get { return player.nowPlayingItem }
-        set(item) { player.nowPlayingItem = item }
+        get { return player?.nowPlayingItem }
+        set(item) { player?.nowPlayingItem = item }
     }
     var isPrepared: Bool {
-        guard player.isPreparedToPlay else { return false }
+        guard let plr = player else { return false }
+        guard plr.isPreparedToPlay else { return false }
         return true
     }
     var isShuffled: Bool {
-        switch player.shuffleMode {
+        switch player?.shuffleMode {
         case .songs:
             return true
         default:
@@ -35,90 +36,99 @@ final class MusicPlayer {
         }
     }
     var isRepeating: Bool {
-        switch player.repeatMode {
+        switch player?.repeatMode {
         case .one:
             return true
         default:
             return false
         }
     }
+    var getItems: [MPMediaItem] {
+        guard let data = MPMediaQuery.songs().items else { return [] }
+        return data
+    }
     var playbackDuration: TimeInterval {
         return nowPlayingItem?.playbackDuration ?? 0
     }
     var playbackState: MPMusicPlaybackState {
-        return player.playbackState
+        guard let plr = player else { return .stopped }
+        return plr.playbackState
     }
     var playbackTime: TimeInterval {
-        return player.currentPlaybackTime
+        guard let plr = player else { return 0 }
+        return plr.currentPlaybackTime
     }
     // MARK: - Initialization
     init() {
-        let query = MPMediaQuery.songs()
-        if let items = query.items {
-            self.items = items
-        }
+        guard let temp = MPMediaQuery.songs().items else { return }
+        self.items = temp
         self.player = MPMusicPlayerController.systemMusicPlayer
-        self.player.setQueue(with: query)
-        self.player.prepareToPlay()
-        updateUpNext(forward: true)
+        self.player?.setQueue(with: MPMediaQuery.songs())
+        self.player?.prepareToPlay()
     }
     // MARK: - Methods
     func play() {
-        player.play()
+        player?.play()
     }
     func pause() {
-        player.pause()
+        player?.pause()
     }
     func forward() {
-        player.skipToNextItem()
+        player?.skipToNextItem()
     }
     func backward() {
-        player.skipToNextItem()
-        updateUpNext(forward: false)
+        player?.skipToNextItem()
     }
     func setUpNext() {
         guard let item = nowPlayingItem else { return }
-        if let index = items.firstIndex(of: item) {
-            currentIndex = index
-            let slice = items.suffix(from: index + 1)
-            upNext = Array(slice)
-        }
+        guard let index = getItems.firstIndex(of: item) else { return }
+        currentIndex = index
+        let slice = getItems.suffix(from: currentIndex + 1)
+        upNext = [MPMediaItem](slice.map { $0 })
     }
     func updateUpNext(forward: Bool) {
+        guard let item = nowPlayingItem else { return }
         if forward {
-            upNext = upNext?.filter { $0 != nowPlayingItem }
+            upNext = upNext.filter { $0 != item }
         } else {
-            upNext?.insert(items[currentIndex], at: 0)
+            guard currentIndex >= 0 && currentIndex < items.count else { return }
+            upNext.insert(getItems[currentIndex], at: 0)
         }
     }
     func shuffleQueue(_ flag: Bool) {
         if flag {
             tempUpNext = upNext
-            upNext?.shuffle()
-            player.shuffleMode = .songs
+            upNext.shuffle()
+            player?.shuffleMode = .songs
         } else {
             upNext = tempUpNext
-            player.shuffleMode = .off
+            player?.shuffleMode = .off
         }
     }
     func goToNextInQueue() {
-        guard let queue = upNext else { return }
-        nowPlayingItem = queue.first
-        if let length = upNext?.count {
-            guard currentIndex < length - 1 else { return }
-        }
-        currentIndex += 1
+        nowPlayingItem = upNext.first
         updateUpNext(forward: true)
+        let length = upNext.count
+        guard currentIndex < length - 1 else { return }
+        currentIndex += 1
+        guard currentIndex < items.count else {
+            currentIndex = 0
+            return
+        }
         play()
     }
     func goToPreviousInQueue() {
-        guard currentIndex > 0 else { return }
         updateUpNext(forward: false)
+        guard currentIndex > 0 else { return }
         currentIndex -= 1
+        guard currentIndex >= 0 else {
+            currentIndex = items.endIndex
+            return
+        }
         nowPlayingItem = items[currentIndex]
         play()
     }
     func setRepeating(_ flag: Bool) {
-        player.repeatMode = flag ? .one : .none
+        player?.repeatMode = flag ? .one : .none
     }
 }

@@ -41,21 +41,21 @@ final class MusicListController: ViewManager {
         actionSheet.view.tintColor = UIColor.systemPink
         actionSheet.addAction(
             UIAlertAction(title: Config.sortArtistPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.items, by: .artist)
+                self?.items = self?.preparedItems(from: self?.player.getItems, by: .artist)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.items, by: .title)
+                self?.items = self?.preparedItems(from: self?.player.getItems, by: .title)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.items, by: .date)
+                self?.items = self?.preparedItems(from: self?.player.getItems, by: .date)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -104,19 +104,24 @@ final class MusicListController: ViewManager {
         }
         return prepared
     }
-    func preparePlayer() {
-        player.setUpNext()
-    }
     func setPlayingItem(for path: IndexPath) {
-        guard let sectionTitles = self.sectionTitles else { return }
-        let key = Character(sectionTitles[path.section])
-        player.nowPlayingItem = items?[key]?[path.row]
+        if isValid(path) {
+            let key = Character(sectionTitles![path.section])
+            player.nowPlayingItem = items?[key]?[path.row]
+        }
+    }
+    func isValid(_ path: IndexPath) -> Bool {
+        guard let titles = sectionTitles else { return false}
+        let key = Character(titles[path.section])
+        guard path.section < titles.count && path.section >= 0 else { return false }
+        guard let temp = items?[key] else { return false }
+        guard path.row < temp.count && path.row >= 0 else { return false}
+        return true
     }
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization {[weak self] status in
             if status == .authorized {
-                self?.preparePlayer()
-                guard let data = self?.player.items else { return }
+                guard let data = self?.player.getItems else { return }
                 self?.items = self?.preparedItems(from: data, by: .title)
             }
         }
@@ -146,11 +151,12 @@ extension MusicListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let sectionTitles = sectionTitles else { return UITableViewCell() }
         let key = Character(sectionTitles[indexPath.section])
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "MusicListCell", for: indexPath) as? MusicListCell {
-            cell.item = items?[key]?[indexPath.row]
-            return cell
-        }
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "MusicListCell",
+            for: indexPath
+        ) as? MusicListCell else { return UITableViewCell() }
+        cell.item = items?[key]?[indexPath.row]
+        return cell
     }
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return sectionTitles
@@ -163,9 +169,7 @@ extension MusicListController: UITableViewDataSource {
 extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        player.updateUpNext(forward: true)
         setPlayingItem(for: indexPath)
         player.play()
-        updatePlayingView(nil)
     }
 }

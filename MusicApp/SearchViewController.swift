@@ -32,6 +32,7 @@ final class SearchViewController: UIViewController {
             selected = Array(repeating: false, count: items.count)
         }
     }
+    // MARK: - Actions
     @IBAction func cancelTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -83,6 +84,7 @@ extension SearchViewController: UITableViewDataSource {
 }
 
 extension SearchViewController: UITableViewDelegate {
+    // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let status = selected?[indexPath.row] else { return }
         if status {
@@ -95,6 +97,7 @@ extension SearchViewController: UITableViewDelegate {
 }
 
 extension SearchViewController: UITextFieldDelegate {
+    // MARK: - TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }

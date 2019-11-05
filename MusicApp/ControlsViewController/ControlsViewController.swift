@@ -25,8 +25,9 @@ final class ControlsViewController: UIViewController {
     // MARK: - Delegate
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
+    private var data: [MPMediaItem]?
     var vps: Float?
-    var player: MusicPlayer? = MusicPlayer.shared
+    var player: MusicPlayer = MusicPlayer.shared
     var updater: CADisplayLink?
     // MARK: - Methods
     override func viewDidLoad() {
@@ -42,6 +43,9 @@ final class ControlsViewController: UIViewController {
         repeatButton.setTitle(NSLocalizedString("Repeat", comment: "Repeat"), for: .normal)
         shuffleButton.setTitle(NSLocalizedString("Shuffle", comment: "Shuffle"), for: .normal)
         updateDetails()
+        player.setUpNext()
+        player.updateUpNext(forward: true)
+        data = player.upNext
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         if let item = audio {
@@ -54,18 +58,19 @@ final class ControlsViewController: UIViewController {
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
-        player?.goToPreviousInQueue()
-        delegate?.updateCover(with: player?.nowPlayingItem)
+        player.goToPreviousInQueue()
+        data = player.upNext
+        delegate?.updateCover(with: player.nowPlayingItem)
         updateDetails()
     }
     @IBAction func playTapped(_ sender: Any) {
-        switch player?.playbackState {
+        switch player.playbackState {
         case .paused:
-            player?.play()
+            player.play()
             playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
             updater?.isPaused = false
         case .playing:
-            player?.pause()
+            player.pause()
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             updater?.isPaused = true
         default:
@@ -73,18 +78,19 @@ final class ControlsViewController: UIViewController {
         }
     }
     @IBAction func forwardTapped(_ sender: Any) {
-        player?.goToNextInQueue()
-        delegate?.updateCover(with: player?.nowPlayingItem)
+        player.goToNextInQueue()
+        data = player.upNext
+        delegate?.updateCover(with: player.nowPlayingItem)
         updateDetails()
     }
     @IBAction func repeatTapped(_ sender: Any) {
         let repeating = checkRepeating()
-        player?.setRepeating(!repeating)
+        player.setRepeating(!repeating)
         repeatButton.layer.backgroundColor = !repeating ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
     }
     @IBAction func shuffleTapped(_ sender: Any) {
         let shuffled = checkShuffled()
-        player?.shuffleQueue(!shuffled)
+        player.shuffleQueue(!shuffled)
         shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         nextInQueue.reloadData()
     }
@@ -137,7 +143,7 @@ final class ControlsViewController: UIViewController {
                    as? SelectPlaylistController {
                     selectVC.modalPresentationStyle = .overCurrentContext
                     selectVC.modalTransitionStyle = .coverVertical
-                    selectVC.toAdd = MediaItem(with: self?.player?.nowPlayingItem)
+                    selectVC.toAdd = MediaItem(with: self?.player.nowPlayingItem)
                     let presentationController = selectVC.popoverPresentationController
                     presentationController?.sourceView = self?.moreButton.imageView
                     presentationController?.delegate = self
@@ -150,23 +156,21 @@ final class ControlsViewController: UIViewController {
     // swiftlint:enable function_body_length
     // MARK: - Utilities
     func checkRepeating() -> Bool {
-        guard let repeating = player?.isRepeating else { return false }
-        return repeating
+        return player.isRepeating
     }
     func checkShuffled() -> Bool {
-        guard let shuffled = player?.isShuffled else { return false }
-        return shuffled
+        return player.isShuffled
     }
     func updateDetails() {
         updater?.invalidate()
-        guard let item = player?.nowPlayingItem else {
+        guard let item = player.nowPlayingItem else {
             songName.text = Config.songLabelPlaceholder
             artist.text = Config.songLabelPlaceholder
             return
         }
         songName.text = item.title
         artist.text = item.artist
-        switch player?.playbackState {
+        switch player.playbackState {
         case .paused:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             updater?.isPaused = true
@@ -176,23 +180,15 @@ final class ControlsViewController: UIViewController {
         default:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
-        guard let progress = player?.playbackTime else { return }
-        handleProgress(for: item, value: progress)
+        handleProgress(for: item, value: player.playbackTime)
         nextInQueue.reloadData()
-    }
-    func setPlayingItem(_ item: MPMediaItem) {
-        player?.updateUpNext(forward: true)
-        player?.nowPlayingItem = item
-        updateDetails()
-        delegate?.updateCover(with: item)
     }
     @objc func trackAudio() {
         guard songProgress.progress < 1 else {
-            guard let repeating = player?.isRepeating else { return }
-            if !repeating {
-                player?.updateUpNext(forward: true)
-                player?.goToNextInQueue()
-                delegate?.updateCover(with: player?.nowPlayingItem)
+            if !checkRepeating() {
+                player.updateUpNext(forward: true)
+                player.goToNextInQueue()
+                delegate?.updateCover(with: player.nowPlayingItem)
                 updateDetails()
             } else {
                 songProgress.progress = 0
@@ -211,37 +207,28 @@ extension ControlsViewController: UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let data = player?.upNext {
-            if let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell {
-                guard indexPath.row < data.count else { return UITableViewCell() }
-                cell.item = data[indexPath.row]
-                return cell
-            }
+        guard let data = data else { return UITableViewCell() }
+        if let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell {
+            guard indexPath.row < data.count && indexPath.row >= 0 else { return UITableViewCell() }
+            cell.item = data[indexPath.row]
+            return cell
         }
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let data = player?.upNext else { return 0 }
-        return data.count
+        return data?.count ?? 0
     }
 }
 
 extension ControlsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let items = player?.upNext else { return }
-        setPlayingItem(items[indexPath.row])
-    }
     func tableView(_ tableView: UITableView,
                    editingStyleForRowAt indexPath: IndexPath
     ) -> UITableViewCell.EditingStyle {
         return .none
     }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if var queue = player?.upNext {
-            let temp = queue.remove(at: sourceIndexPath.row)
-            queue.insert(temp, at: destinationIndexPath.row)
-            player?.upNext = queue
-        }
+        let temp = player.upNext.remove(at: sourceIndexPath.row)
+        player.upNext.insert(temp, at: destinationIndexPath.row)
         nextInQueue.moveRow(at: sourceIndexPath, to: destinationIndexPath)
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {

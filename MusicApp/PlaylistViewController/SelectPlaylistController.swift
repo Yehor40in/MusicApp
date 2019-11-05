@@ -21,6 +21,7 @@ final class SelectPlaylistController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    // MARK: - Actions
     @IBAction func cancelTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -44,6 +45,7 @@ extension SelectPlaylistController: UITableViewDataSource {
 }
 
 extension SelectPlaylistController: UITableViewDelegate {
+    // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let newItem = toAdd else { return }
         if indexPath.row == 0 {
