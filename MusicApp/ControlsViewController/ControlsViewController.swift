@@ -43,8 +43,8 @@ final class ControlsViewController: UIViewController {
         repeatButton.setTitle(NSLocalizedString("Repeat", comment: "Repeat"), for: .normal)
         shuffleButton.setTitle(NSLocalizedString("Shuffle", comment: "Shuffle"), for: .normal)
         updateDetails()
-        player.updateUpNext(forward: true)
-        data = player.upNext
+        player.setUpNext()
+        data = player.upNext.map { $0 }
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         if let item = audio {
@@ -230,7 +230,7 @@ extension ControlsViewController: UITableViewDelegate {
         let temp = player.upNext.remove(at: sourceIndexPath.row)
         player.upNext.insert(temp, at: destinationIndexPath.row)
         nextInQueue.moveRow(at: sourceIndexPath, to: destinationIndexPath)
-        data = player.upNext
+        data = player.upNext.map { $0 }
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
