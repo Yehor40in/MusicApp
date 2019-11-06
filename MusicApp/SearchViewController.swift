@@ -86,13 +86,12 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let status = selected?[indexPath.row] else { return }
-        if status {
-            selected?[indexPath.row] = false
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
         selected?[indexPath.row] = true
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selected?[indexPath.row] = false
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
