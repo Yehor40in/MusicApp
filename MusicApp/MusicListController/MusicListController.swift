@@ -41,21 +41,21 @@ final class MusicListController: ViewManager {
         actionSheet.view.tintColor = UIColor.systemPink
         actionSheet.addAction(
             UIAlertAction(title: Config.sortArtistPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.getItems, by: .artist)
+                self?.items = self?.preparedItems(from: self?.player.rawItems, by: .artist)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.sortTitlePlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.getItems, by: .title)
+                self?.items = self?.preparedItems(from: self?.player.rawItems, by: .title)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }))
         actionSheet.addAction(
             UIAlertAction(title: Config.recentlyAddedPlaceholder, style: .default, handler: { [weak self] (_) in
-                self?.items = self?.preparedItems(from: self?.player.getItems, by: .date)
+                self?.items = self?.preparedItems(from: self?.player.rawItems, by: .date)
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -102,6 +102,7 @@ final class MusicListController: ViewManager {
                 prepared[" "] = temp
             }
         }
+        player.setupItems(by: option)
         return prepared
     }
     func setPlayingItem(for path: IndexPath) {
@@ -120,21 +121,11 @@ final class MusicListController: ViewManager {
     }
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization {[weak self] status in
-            if status == .authorized {
-                guard let data = self?.player.getItems else { return }
-                self?.items = self?.preparedItems(from: data, by: .title)
+            if status != .authorized {
+                return
             }
-        }
-    }
-    override func playRandomSong() {
-        if let titles = sectionTitles, let values = items {
-            let sec = Int.random(in: 0..<titles.count)
-            if let key = titles[sec].first {
-                guard let set = values[key] else { return }
-                let row = Int.random(in: 0..<set.count)
-                setPlayingItem(for: IndexPath(row: row, section: sec))
-                player.play()
-            }
+            guard let data = self?.player.getItems else { return }
+            self?.items = self?.preparedItems(from: data, by: .title)
         }
     }
 }

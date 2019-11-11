@@ -47,12 +47,14 @@ final class ControlsViewController: UIViewController {
         data = player.upNext.map { $0 }
     }
     func handleProgress(for audio: MPMediaItem?, value: Double) {
+        songProgress.progress = 0
         if let item = audio {
             songProgress.progress = Float(value / item.playbackDuration)
             vps = Float(1 / item.playbackDuration)
             updater = CADisplayLink(target: self, selector: #selector(trackAudio))
             updater?.preferredFramesPerSecond = 1
             updater?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
+            if player.playbackState == .paused { updater?.isPaused = true }
         }
     }
     // MARK: - Actions
@@ -184,9 +186,8 @@ final class ControlsViewController: UIViewController {
         nextInQueue.reloadData()
     }
     @objc func trackAudio() {
-        guard songProgress.progress < 1 else {
+        guard songProgress.progress <= 1 else {
             if !checkRepeating() {
-                player.updateUpNext(forward: true)
                 player.goToNextInQueue()
                 delegate?.updateCover(with: player.nowPlayingItem)
                 updateDetails()

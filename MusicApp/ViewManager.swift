@@ -55,10 +55,6 @@ class ViewManager: UIViewController {
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
     }
-    func playRandomSong() {
-        let index = Int.random(in: 0..<player.getItems.count)
-        player.nowPlayingItem = player.getItems[index]
-    }
     @objc func showDetails(_ sender: UITapGestureRecognizer!) {
         if let details = storyboard?.instantiateViewController(withIdentifier: "detailInfo") as? PlayingViewController {
             guard let navHeight = navigationController?.navigationBar.frame.height else { return }
@@ -76,7 +72,7 @@ class ViewManager: UIViewController {
     }
     @objc func playButtonTapped(_ sender: Any) {
         if player.isPrepared && !forwardButton.isEnabled {
-            playRandomSong()
+            player.playRandomSong()
         } else if player.playbackState == .paused {
             player.play()
             playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
@@ -86,6 +82,6 @@ class ViewManager: UIViewController {
         }
     }
     @objc func forwardTapped(_ sender: Any) {
-        playRandomSong()
+        player.playRandomSong()
     }
 }

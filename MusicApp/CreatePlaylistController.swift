@@ -158,6 +158,7 @@ extension CreatePlaylistController: SearchControllerDelegate {
     // MARK: - SearchController Delegate
     func getCodableItems(form standard: [MPMediaItem]) {
         items.append(contentsOf: standard)
+        items = Array(Set(items))
         tableView.reloadData()
         songs = standard.map {
             MediaItem(with: $0)

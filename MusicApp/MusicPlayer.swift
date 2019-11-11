@@ -18,6 +18,7 @@ final class MusicPlayer {
     private var items: [MPMediaItem] = []
     var upNext: [MPMediaItem] = []
     var isPlaying: Bool = false
+    // MARK: - Getters & Setters
     var nowPlayingItem: MPMediaItem? {
         get { return player?.nowPlayingItem }
         set(item) { player?.nowPlayingItem = item }
@@ -35,6 +36,10 @@ final class MusicPlayer {
             return false
         }
     }
+    var cIndex: Int {
+        get { return currentIndex }
+        set(value) { currentIndex = value }
+    }
     var isRepeating: Bool {
         switch player?.repeatMode {
         case .one:
@@ -44,6 +49,9 @@ final class MusicPlayer {
         }
     }
     var getItems: [MPMediaItem] {
+        return items
+    }
+    var rawItems: [MPMediaItem] {
         guard let data = MPMediaQuery.songs().items else { return [] }
         return data
     }
@@ -60,8 +68,7 @@ final class MusicPlayer {
     }
     // MARK: - Initialization
     init() {
-        guard let temp = MPMediaQuery.songs().items else { return }
-        self.items = temp
+        setupItems(by: .title)
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player?.setQueue(with: MPMediaQuery.songs())
         self.player?.prepareToPlay()
@@ -79,11 +86,25 @@ final class MusicPlayer {
     func backward() {
         player?.skipToNextItem()
     }
+    func playRandomSong() {
+        currentIndex = Int.random(in: 0..<items.count)
+        nowPlayingItem = items[currentIndex]
+    }
+    func setupItems(by option: SortOption) {
+        switch option {
+        case .artist:
+            items = rawItems.sorted { $0.artist! < $1.artist! }
+        case .title:
+            items = rawItems.sorted { $0.title! < $1.title! }
+        case .date:
+            items = rawItems.sorted { $0.dateAdded < $1.dateAdded }
+        }
+    }
     func setUpNext() {
         guard let item = nowPlayingItem else { return }
-        guard let index = getItems.firstIndex(of: item) else { return }
+        guard let index = items.firstIndex(of: item) else { return }
         currentIndex = index
-        let slice = getItems.suffix(from: currentIndex + 1)
+        let slice = items.suffix(from: currentIndex + 1)
         upNext = [MPMediaItem](slice.map { $0 })
     }
     func updateUpNext(forward: Bool) {
@@ -92,7 +113,7 @@ final class MusicPlayer {
             upNext = upNext.filter { $0 != item }
         } else {
             guard currentIndex >= 0 && currentIndex < items.count else { return }
-            upNext.insert(getItems[currentIndex], at: 0)
+            upNext.insert(items[currentIndex], at: 0)
         }
     }
     func shuffleQueue(_ flag: Bool) {
@@ -108,21 +129,18 @@ final class MusicPlayer {
     func goToNextInQueue() {
         nowPlayingItem = upNext.first
         updateUpNext(forward: true)
-        let length = upNext.count
-        guard currentIndex < length - 1 else { return }
-        currentIndex += 1
-        guard currentIndex < items.count else {
+        guard currentIndex <= upNext.count - 1 else {
             currentIndex = 0
             return
         }
+        currentIndex += 1
         play()
     }
     func goToPreviousInQueue() {
         updateUpNext(forward: false)
-        guard currentIndex > 0 else { return }
         currentIndex -= 1
         guard currentIndex >= 0 else {
-            currentIndex = items.endIndex
+            currentIndex = items.endIndex - 1
             return
         }
         nowPlayingItem = items[currentIndex]
