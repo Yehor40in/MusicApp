@@ -127,12 +127,13 @@ final class MusicPlayer {
         }
     }
     func goToNextInQueue() {
-        nowPlayingItem = upNext.first
-        updateUpNext(forward: true)
         guard currentIndex <= upNext.count - 1 else {
             currentIndex = 0
+            nowPlayingItem = items[currentIndex]
             return
         }
+        nowPlayingItem = upNext.first
+        updateUpNext(forward: true)
         currentIndex += 1
         play()
     }
@@ -141,6 +142,7 @@ final class MusicPlayer {
         currentIndex -= 1
         guard currentIndex >= 0 else {
             currentIndex = items.endIndex - 1
+            nowPlayingItem = items[currentIndex]
             return
         }
         nowPlayingItem = items[currentIndex]
