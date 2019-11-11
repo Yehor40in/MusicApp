@@ -30,15 +30,15 @@ class MusicAppTests: XCTestCase {
         player.setUpNext()
         XCTAssertNotEqual(player.upNext, [], "Failed to calculate next in queue!")
     }
-    func testUpNextForward() {
+    func testUpNextForward() throws {
         player.setUpNext()
-        let temp = player.nowPlayingItem!
+        let temp = try XCTUnwrap(player.nowPlayingItem)
         player.goToNextInQueue()
         XCTAssert(!player.upNext.contains(temp), "Next in queue contains passed by item!")
     }
-    func testUpNextBackward() {
+    func testUpNextBackward() throws {
         player.setUpNext()
-        let temp = player.nowPlayingItem!
+        let temp = try XCTUnwrap(player.nowPlayingItem)
         player.goToPreviousInQueue()
         XCTAssert(player.upNext.contains(temp), "Next in queue does not contain rewinded item!")
     }
@@ -59,22 +59,24 @@ class MusicAppTests: XCTestCase {
         let end = player.getItems.endIndex - 1
         XCTAssertEqual(player.cIndex, end, "Trying to go earlier than first index should return last index!")
     }
-    func testCurrentIndexForward() {
+    func testCurrentIndexForward() throws {
         player.playRandomSong()
         player.setUpNext()
         player.goToNextInQueue()
-        let tempIndex = player.getItems.firstIndex(of: player.nowPlayingItem!)!
+        let item = try XCTUnwrap(player.nowPlayingItem)
+        let tempIndex = try XCTUnwrap(player.getItems.firstIndex(of: item))
         XCTAssertEqual(
             player.cIndex,
             tempIndex,
             "Index of next playing song differs from next in queue index!"
         )
     }
-    func testCurrentIndexBackward() {
+    func testCurrentIndexBackward() throws {
         player.playRandomSong()
         player.setUpNext()
         player.goToPreviousInQueue()
-        let tempIndex = player.getItems.firstIndex(of: player.nowPlayingItem!)!
+        let item = try XCTUnwrap(player.nowPlayingItem)
+        let tempIndex = try XCTUnwrap(player.getItems.firstIndex(of: item))
         XCTAssertEqual(
             player.cIndex,
             tempIndex,
