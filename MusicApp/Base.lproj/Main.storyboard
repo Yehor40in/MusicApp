@@ -3,7 +3,7 @@
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,9 +61,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="artist" destination="a4y-ZI-TLu" id="Y5H-XS-5rC"/>
-                                            <outlet property="songCover" destination="d63-VC-mAQ" id="7Q6-5G-gZb"/>
-                                            <outlet property="songName" destination="fa0-ix-GlN" id="MSj-LZ-J6u"/>
+                                            <outlet property="artist" destination="a4y-ZI-TLu" id="I75-Zb-RDc"/>
+                                            <outlet property="cover" destination="d63-VC-mAQ" id="Qb8-0q-R9J"/>
+                                            <outlet property="name" destination="fa0-ix-GlN" id="AFx-uK-HKJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -452,9 +452,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="artist" destination="wuF-9L-VhM" id="z1C-Kk-wAI"/>
-                                            <outlet property="songCover" destination="Rga-Qx-Ald" id="lsy-bo-QCF"/>
-                                            <outlet property="songName" destination="3Z9-5p-4EF" id="RRN-eY-zTM"/>
+                                            <outlet property="artist" destination="wuF-9L-VhM" id="maA-YO-59s"/>
+                                            <outlet property="cover" destination="Rga-Qx-Ald" id="3dz-ny-0Qz"/>
+                                            <outlet property="name" destination="3Z9-5p-4EF" id="XWw-P2-0dw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -755,10 +755,10 @@
             </objects>
             <point key="canvasLocation" x="7633" y="1019"/>
         </scene>
-        <!--View Controller-->
+        <!--Playlist Controller-->
         <scene sceneID="cYQ-ci-I5I">
             <objects>
-                <viewController id="gW3-Dz-26e" sceneMemberID="viewController">
+                <viewController id="gW3-Dz-26e" customClass="PlaylistController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bHu-Q1-5IJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -800,12 +800,15 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" red="0.86871898579999995" green="0.86871898579999995" blue="0.86871898579999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="playTapped:" destination="gW3-Dz-26e" eventType="touchUpInside" id="BIK-Jy-O4e"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MUz-cK-UoR">
                                 <rect key="frame" x="0.0" y="243" width="320" height="276"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QueueCell" id="1h5-pN-sev" customClass="QueueCell" customModule="MusicApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MediaCell" id="1h5-pN-sev" customClass="MediaCell" customModule="MusicApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="70.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1h5-pN-sev" id="JLs-Z0-Eks">
@@ -843,9 +846,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="artist" destination="xN0-aW-J8p" id="Elf-sJ-Uxi"/>
-                                            <outlet property="songCover" destination="Bgi-mc-dY1" id="U7S-C9-ev2"/>
-                                            <outlet property="songName" destination="PpA-US-aa9" id="Xud-2q-zSj"/>
+                                            <outlet property="artist" destination="xN0-aW-J8p" id="bCt-eV-94Y"/>
+                                            <outlet property="cover" destination="Bgi-mc-dY1" id="rY8-8X-0KW"/>
+                                            <outlet property="name" destination="PpA-US-aa9" id="Y78-Fb-EB4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -880,6 +883,14 @@
                         <viewLayoutGuide key="safeArea" id="w9L-OR-wLD"/>
                     </view>
                     <navigationItem key="navigationItem" id="uDW-yQ-wqt"/>
+                    <connections>
+                        <outlet property="moreButton" destination="osF-IA-DMy" id="SJ2-rx-cP5"/>
+                        <outlet property="playPlaylistBtn" destination="Lfc-dd-kJQ" id="sV1-jV-R8p"/>
+                        <outlet property="playlistCover" destination="WNR-nR-GAu" id="ADp-EA-oNH"/>
+                        <outlet property="playlistName" destination="6xl-DO-BBE" id="p8a-tf-MEX"/>
+                        <outlet property="songsAmount" destination="m51-Q9-ctN" id="qHs-Q6-YZJ"/>
+                        <outlet property="tableView" destination="MUz-cK-UoR" id="vA6-KC-qQl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ej4-CK-4hU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1017,9 +1028,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="artist" destination="Rd7-Sj-hiG" id="hvp-ss-WOZ"/>
-                                            <outlet property="songCover" destination="gtu-Pj-ooI" id="tda-yG-AUi"/>
-                                            <outlet property="songName" destination="j9K-c4-yEH" id="puT-7r-GcP"/>
+                                            <outlet property="artist" destination="Rd7-Sj-hiG" id="bde-dV-vIc"/>
+                                            <outlet property="cover" destination="gtu-Pj-ooI" id="R2y-d3-7dd"/>
+                                            <outlet property="name" destination="j9K-c4-yEH" id="9D2-si-Dbd"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1151,9 +1162,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="artist" destination="fsF-IM-C0a" id="79s-Hv-4OT"/>
-                                            <outlet property="songCover" destination="5BM-0w-hIR" id="r5D-dm-Bti"/>
-                                            <outlet property="songName" destination="pZN-VP-eXm" id="A5X-O9-PyH"/>
+                                            <outlet property="artist" destination="fsF-IM-C0a" id="iQB-zX-od1"/>
+                                            <outlet property="cover" destination="5BM-0w-hIR" id="erP-Wb-nau"/>
+                                            <outlet property="name" destination="pZN-VP-eXm" id="epK-zP-c9f"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

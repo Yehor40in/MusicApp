@@ -106,6 +106,8 @@ final class MusicListController: ViewManager {
         return prepared
     }
     func setPlayingItem(for path: IndexPath) {
+        player.setupItems(by: .title)
+        player.setupQueue(with: MPMediaQuery.songs())
         if isValid(path) {
             let key = Character(sectionTitles![path.section])
             player.nowPlayingItem = items?[key]?[path.row]

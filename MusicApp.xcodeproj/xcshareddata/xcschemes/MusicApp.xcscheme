@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7406519E23434E360030A724"
+               BlueprintIdentifier = "7407C4362379679A00044B41"
                BuildableName = "MusicAppTests.xctest"
                BlueprintName = "MusicAppTests"
                ReferencedContainer = "container:MusicApp.xcodeproj">
@@ -54,7 +54,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = "ru"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

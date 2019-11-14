@@ -16,6 +16,7 @@ final class PlaylistViewController: ViewManager {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -30,9 +31,16 @@ final class PlaylistViewController: ViewManager {
     }
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //
-        // Implementation
-        //
+        if let ctrl = segue.destination as? PlaylistController {
+            guard let path = sender as? IndexPath else { return }
+            ctrl.info = items[path.row]
+        }
+    }
+}
+
+extension PlaylistViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowPlaylist", sender: indexPath)
     }
 }
 

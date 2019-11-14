@@ -16,6 +16,7 @@ final class MusicPlayer {
     private var tempUpNext: [MPMediaItem] = []
     private var currentIndex: Int = 0
     private var items: [MPMediaItem] = []
+    private var playlistItems: [MPMediaItem] = []
     var upNext: [MPMediaItem] = []
     var isPlaying: Bool = false
     // MARK: - Getters & Setters
@@ -49,7 +50,8 @@ final class MusicPlayer {
         }
     }
     var getItems: [MPMediaItem] {
-        return items
+        get { return items }
+        set(value) { items = value.map { $0 } }
     }
     var rawItems: [MPMediaItem] {
         guard let data = MPMediaQuery.songs().items else { return [] }
@@ -86,9 +88,29 @@ final class MusicPlayer {
     func backward() {
         player?.skipToNextItem()
     }
+    func setupPlaylist(ids: [String]) {
+        playlistItems = items.filter {
+            ids.contains($0.playbackStoreID)
+        }
+    }
+    func playPlaylist(_ ids: [String]) {
+        player?.stop()
+        setupPlaylist(ids: ids)
+        items = playlistItems
+        setupQueue(with: ids)
+        setUpNext()
+        player?.play()
+    }
     func playRandomSong() {
         currentIndex = Int.random(in: 0..<items.count)
         nowPlayingItem = items[currentIndex]
+    }
+    func setupQueue(with tracks: Any?) {
+        if let temp = tracks as? [String] {
+            player?.setQueue(with: temp)
+        } else if let temp = tracks as? MPMediaQuery {
+            player?.setQueue(with: temp)
+        }
     }
     func setupItems(by option: SortOption) {
         switch option {
