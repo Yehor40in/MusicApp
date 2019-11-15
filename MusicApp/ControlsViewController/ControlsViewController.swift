@@ -186,8 +186,8 @@ final class ControlsViewController: UIViewController {
         nextInQueue.reloadData()
     }
     @objc func trackAudio() {
-        guard songProgress.progress <= 1 else {
-            if !checkRepeating() {
+        guard songProgress.progress < 1 else {
+            if !player.isRepeating {
                 player.goToNextInQueue()
                 delegate?.updateCover(with: player.nowPlayingItem)
                 updateDetails()
