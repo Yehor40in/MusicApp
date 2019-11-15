@@ -16,7 +16,6 @@ final class MusicPlayer {
     private var tempUpNext: [MPMediaItem] = []
     private var currentIndex: Int = 0
     private var items: [MPMediaItem] = []
-    private var playlistItems: [MPMediaItem] = []
     var upNext: [MPMediaItem] = []
     var isPlaying: Bool = false
     // MARK: - Getters & Setters
@@ -70,7 +69,6 @@ final class MusicPlayer {
     }
     // MARK: - Initialization
     init() {
-        setupItems(by: .title)
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player?.setQueue(with: MPMediaQuery.songs())
         self.player?.prepareToPlay()
@@ -89,30 +87,20 @@ final class MusicPlayer {
         player?.skipToNextItem()
     }
     func setupPlaylist(ids: [String]) {
-        playlistItems = items.filter {
-            ids.contains($0.playbackStoreID)
-        }
+        items = items.filter { ids.contains($0.playbackStoreID) }
     }
     func playPlaylist(_ ids: [String]) {
-        player?.stop()
         setupPlaylist(ids: ids)
-        items = playlistItems
-        setupQueue(with: ids)
+        player?.setQueue(with: ids)
         setUpNext()
-        player?.play()
+        play()
     }
     func playRandomSong() {
         currentIndex = Int.random(in: 0..<items.count)
         nowPlayingItem = items[currentIndex]
     }
-    func setupQueue(with tracks: Any?) {
-        if let temp = tracks as? [String] {
-            player?.setQueue(with: temp)
-        } else if let temp = tracks as? MPMediaQuery {
-            player?.setQueue(with: temp)
-        }
-    }
     func setupItems(by option: SortOption) {
+        player?.stop()
         switch option {
         case .artist:
             items = rawItems.sorted { $0.artist! < $1.artist! }
@@ -122,7 +110,7 @@ final class MusicPlayer {
             items = rawItems.sorted { $0.dateAdded < $1.dateAdded }
         }
     }
-    func setUpNext() {
+    func setUpNext(_ inPlaylist: Bool? = nil) {
         guard let item = nowPlayingItem else { return }
         guard let index = items.firstIndex(of: item) else { return }
         currentIndex = index

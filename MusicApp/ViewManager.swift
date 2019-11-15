@@ -82,6 +82,6 @@ class ViewManager: UIViewController {
         }
     }
     @objc func forwardTapped(_ sender: Any) {
-        player.playRandomSong()
+        player.goToNextInQueue()
     }
 }
