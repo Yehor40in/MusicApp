@@ -5,7 +5,6 @@
 //  Created by Yehor Sorokin on 10/22/19.
 //  Copyright © 2019 Yehor Sorokin. All rights reserved.
 //
-
 import Foundation
 import MediaPlayer
 
@@ -16,7 +15,6 @@ final class MusicPlayer {
     private var tempUpNext: [MPMediaItem] = []
     private var currentIndex: Int = 0
     private var items: [MPMediaItem] = []
-    private var playlistItems: [MPMediaItem] = []
     var upNext: [MPMediaItem] = []
     var isPlaying: Bool = false
     // MARK: - Getters & Setters
@@ -73,37 +71,34 @@ final class MusicPlayer {
         setupItems(by: .title)
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player?.setQueue(with: MPMediaQuery.songs())
+        setUpNext()
         self.player?.prepareToPlay()
     }
     // MARK: - Methods
+    func stop() {
+        player?.stop()
+    }
     func play() {
         player?.play()
     }
     func pause() {
         player?.pause()
     }
-    func forward() {
-        player?.skipToNextItem()
-    }
-    func backward() {
-        player?.skipToNextItem()
-    }
     func setupPlaylist(ids: [String]) {
-        playlistItems = items.filter {
+        items = items.filter {
             ids.contains($0.playbackStoreID)
         }
     }
     func playPlaylist(_ ids: [String]) {
-        player?.stop()
+        stop()
         setupPlaylist(ids: ids)
-        items = playlistItems
         setupQueue(with: ids)
         setUpNext()
-        player?.play()
+        play()
     }
     func playRandomSong() {
-        currentIndex = Int.random(in: 0..<items.count)
-        nowPlayingItem = items[currentIndex]
+        currentIndex = Int.random(in: 0..<rawItems.count)
+        nowPlayingItem = rawItems[currentIndex]
     }
     func setupQueue(with tracks: Any?) {
         if let temp = tracks as? [String] {

@@ -16,6 +16,7 @@ final class MusicListController: ViewManager {
     // MARK: - Properties
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
+    private var sortOption = SortOption.title
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,33 +103,26 @@ final class MusicListController: ViewManager {
                 prepared[" "] = temp
             }
         }
+        sortOption = option
         player.setupItems(by: option)
         return prepared
-    }
-    func setPlayingItem(for path: IndexPath) {
-        player.setupItems(by: .title)
-        player.setupQueue(with: MPMediaQuery.songs())
-        if isValid(path) {
-            let key = Character(sectionTitles![path.section])
-            player.nowPlayingItem = items?[key]?[path.row]
-        }
-    }
-    func isValid(_ path: IndexPath) -> Bool {
-        guard let titles = sectionTitles else { return false}
-        let key = Character(titles[path.section])
-        guard path.section < titles.count && path.section >= 0 else { return false }
-        guard let temp = items?[key] else { return false }
-        guard path.row < temp.count && path.row >= 0 else { return false}
-        return true
     }
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization {[weak self] status in
             if status != .authorized {
                 return
             }
-            guard let data = self?.player.getItems else { return }
+            guard let data = self?.player.rawItems else { return }
             self?.items = self?.preparedItems(from: data, by: .title)
         }
+    }
+    func setPlayingItem(for path: IndexPath) {
+        let key = Character(sectionTitles![path.section])
+        player.setupItems(by: sortOption)
+        player.setupQueue(with: MPMediaQuery.songs())
+        player.nowPlayingItem = items?[key]?[path.row]
+        player.setUpNext()
+        player.play()
     }
 }
 
@@ -162,7 +156,7 @@ extension MusicListController: UITableViewDataSource {
 extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        player.stop()
         setPlayingItem(for: indexPath)
-        player.play()
     }
 }

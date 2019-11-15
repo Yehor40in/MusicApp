@@ -81,8 +81,8 @@ final class PlayingViewController: UIViewController {
         backgroundLeadingConstraint.constant = horizontalOffset
         backgroundBottomConstraint.constant = verticalOffset
         backgroundTrailingConstraint.constant = horizontalOffset
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: {[weak self] _ in
             self?.chevron.isHidden = false
         })
@@ -95,8 +95,8 @@ final class PlayingViewController: UIViewController {
         backgroundLeadingConstraint.constant = 0
         backgroundBottomConstraint.constant = 0
         backgroundTrailingConstraint.constant = 0
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: { [weak self] _ in
             self?.dismiss(animated: false, completion: nil)
         })
