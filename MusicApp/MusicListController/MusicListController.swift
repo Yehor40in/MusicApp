@@ -122,6 +122,14 @@ final class MusicListController: ViewManager {
             self?.items = self?.preparedItems(from: data, by: .title)
         }
     }
+    func isValid(_ path: IndexPath) -> Bool {
+        //
+        //
+        // Implement
+        //
+        //
+        return true
+    }
 }
 
 extension MusicListController: UITableViewDataSource {

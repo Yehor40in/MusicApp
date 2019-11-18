@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4F055FB9DB17333AD47965E4 /* Pods_MusicApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBF9202AA3718EE319A7757 /* Pods_MusicApp.framework */; };
+		54885746238293AD000B3FEF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54885745238293AD000B3FEF /* MapViewController.swift */; };
+		548857482382A330000B3FEF /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548857472382A330000B3FEF /* LocationSearchTable.swift */; };
 		5A3B77A75F4412874E5FF5B4 /* Pods_MusicApp_MusicAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F78E20D2E00FA2CD977A3F /* Pods_MusicApp_MusicAppUITests.framework */; };
 		7406518A23434E350030A724 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7406518923434E350030A724 /* AppDelegate.swift */; };
 		7406518C23434E350030A724 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7406518B23434E350030A724 /* SceneDelegate.swift */; };
@@ -61,6 +63,8 @@
 		1FBF9202AA3718EE319A7757 /* Pods_MusicApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C0DAA83A6FAB864B12121A /* Pods-MusicAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicAppTests.release.xcconfig"; path = "Target Support Files/Pods-MusicAppTests/Pods-MusicAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		46F78E20D2E00FA2CD977A3F /* Pods_MusicApp_MusicAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicApp_MusicAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54885745238293AD000B3FEF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		548857472382A330000B3FEF /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		64133FD98634231B3668BE23 /* Pods-MusicAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MusicAppTests/Pods-MusicAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		651DB6A1C69B46D394CCE2E0 /* Pods-MusicApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp.release.xcconfig"; path = "Target Support Files/Pods-MusicApp/Pods-MusicApp.release.xcconfig"; sourceTree = "<group>"; };
 		7406518623434E350030A724 /* MusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +151,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		548857492382A341000B3FEF /* MapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				54885745238293AD000B3FEF /* MapViewController.swift */,
+				548857472382A330000B3FEF /* LocationSearchTable.swift */,
+			);
+			path = MapViewController;
+			sourceTree = "<group>";
+		};
 		5ACB9B17AB99473B0F9FE0C3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +207,7 @@
 				74F449842367039E00C73510 /* PlaylistManager.swift */,
 				7430EB2C23632CC0005829E4 /* Playlist.swift */,
 				745A2B5E237D4F240062A067 /* CellPrototype.swift */,
+				548857492382A341000B3FEF /* MapViewController */,
 				745A2B60237D65990062A067 /* PlaylistController */,
 				7453F96E2369A0F4008551E7 /* PlaylistViewController */,
 				74A85F27236843890044B03C /* SearchViewController */,
@@ -495,10 +509,12 @@
 				7460BEAB234F53E400CFFDCB /* Helpers.swift in Sources */,
 				741C2C2023697DE600BE59EC /* ViewManager.swift in Sources */,
 				7430EB28236325AC005829E4 /* PlaylistViewController.swift in Sources */,
+				548857482382A330000B3FEF /* LocationSearchTable.swift in Sources */,
 				745A2B5F237D4F240062A067 /* CellPrototype.swift in Sources */,
 				745B3ECF236071440038B0A3 /* QueueCell.swift in Sources */,
 				74A85F29236843AB0044B03C /* SearchViewController.swift in Sources */,
 				74C4E218235F468D00390CB0 /* MusicPlayer.swift in Sources */,
+				54885746238293AD000B3FEF /* MapViewController.swift in Sources */,
 				745A2B5D237D4C170062A067 /* MediaCell.swift in Sources */,
 				7445A0D7235603C000FF1292 /* ControlsControllerDelegate.swift in Sources */,
 				74F449852367039E00C73510 /* PlaylistManager.swift in Sources */,
