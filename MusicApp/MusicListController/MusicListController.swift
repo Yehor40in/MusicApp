@@ -107,28 +107,22 @@ final class MusicListController: ViewManager {
         player.setupItems(by: option)
         return prepared
     }
-    func setPlayingItem(for path: IndexPath) {
-        player.setupItems(by: sortOption)
-        let key = Character(sectionTitles![path.section])
-        player.nowPlayingItem = items?[key]?[path.row]
-        player.play()
-    }
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization {[weak self] status in
             if status != .authorized {
                 return
             }
-            guard let data = self?.player.getItems else { return }
+            guard let data = self?.player.rawItems else { return }
             self?.items = self?.preparedItems(from: data, by: .title)
         }
     }
-    func isValid(_ path: IndexPath) -> Bool {
-        //
-        //
-        // Implement
-        //
-        //
-        return true
+    func setPlayingItem(for path: IndexPath) {
+        let key = Character(sectionTitles![path.section])
+        player.setupItems(by: sortOption)
+        player.setupQueue(with: MPMediaQuery.songs())
+        player.nowPlayingItem = items?[key]?[path.row]
+        player.setUpNext()
+        player.play()
     }
 }
 
@@ -162,6 +156,7 @@ extension MusicListController: UITableViewDataSource {
 extension MusicListController: UITableViewDelegate {
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        player.stop()
         setPlayingItem(for: indexPath)
     }
 }

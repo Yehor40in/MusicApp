@@ -5,7 +5,6 @@
 //  Created by Yehor Sorokin on 10/22/19.
 //  Copyright © 2019 Yehor Sorokin. All rights reserved.
 //
-
 import Foundation
 import MediaPlayer
 
@@ -69,38 +68,46 @@ final class MusicPlayer {
     }
     // MARK: - Initialization
     init() {
+        setupItems(by: .title)
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player?.setQueue(with: MPMediaQuery.songs())
+        setUpNext()
         self.player?.prepareToPlay()
     }
     // MARK: - Methods
+    func stop() {
+        player?.stop()
+    }
     func play() {
         player?.play()
     }
     func pause() {
         player?.pause()
     }
-    func forward() {
-        player?.skipToNextItem()
-    }
-    func backward() {
-        player?.skipToNextItem()
-    }
     func setupPlaylist(ids: [String]) {
-        items = items.filter { ids.contains($0.playbackStoreID) }
+        items = items.filter {
+            ids.contains($0.playbackStoreID)
+        }
     }
     func playPlaylist(_ ids: [String]) {
+        stop()
         setupPlaylist(ids: ids)
-        player?.setQueue(with: ids)
+        setupQueue(with: ids)
         setUpNext()
         play()
     }
     func playRandomSong() {
-        currentIndex = Int.random(in: 0..<items.count)
-        nowPlayingItem = items[currentIndex]
+        currentIndex = Int.random(in: 0..<rawItems.count)
+        nowPlayingItem = rawItems[currentIndex]
+    }
+    func setupQueue(with tracks: Any?) {
+        if let temp = tracks as? [String] {
+            player?.setQueue(with: temp)
+        } else if let temp = tracks as? MPMediaQuery {
+            player?.setQueue(with: temp)
+        }
     }
     func setupItems(by option: SortOption) {
-        player?.stop()
         switch option {
         case .artist:
             items = rawItems.sorted { $0.artist! < $1.artist! }
@@ -110,7 +117,7 @@ final class MusicPlayer {
             items = rawItems.sorted { $0.dateAdded < $1.dateAdded }
         }
     }
-    func setUpNext(_ inPlaylist: Bool? = nil) {
+    func setUpNext() {
         guard let item = nowPlayingItem else { return }
         guard let index = items.firstIndex(of: item) else { return }
         currentIndex = index
