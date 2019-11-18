@@ -599,6 +599,7 @@
                     <connections>
                         <segue destination="pOI-dL-Ytr" kind="relationship" relationship="viewControllers" id="BId-kE-2Sc"/>
                         <segue destination="rha-qj-ker" kind="relationship" relationship="viewControllers" id="y3m-4J-nwF"/>
+                        <segue destination="ker-Yn-g4Z" kind="relationship" relationship="viewControllers" id="s5e-n8-bL2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBU-4f-MAU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -916,6 +917,95 @@
             </objects>
             <point key="canvasLocation" x="6924" y="841"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="xbp-FA-pPF">
+            <objects>
+                <viewController id="fCL-KP-oy0" customClass="MapViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eFU-yc-0Gx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KhX-vg-W9a">
+                                <rect key="frame" x="0.0" y="44" width="320" height="475"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mx8-dL-K8J">
+                                <rect key="frame" x="230" y="429" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="JEd-TT-1kC"/>
+                                    <constraint firstAttribute="width" constant="60" id="hoF-T7-hNI"/>
+                                </constraints>
+                                <state key="normal" image="location"/>
+                                <connections>
+                                    <action selector="homePressed:" destination="fCL-KP-oy0" eventType="touchUpInside" id="e4l-vm-RJc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ajh-KQ-r0i" firstAttribute="bottom" secondItem="mx8-dL-K8J" secondAttribute="bottom" constant="30" id="BY1-ae-dOT"/>
+                            <constraint firstItem="KhX-vg-W9a" firstAttribute="leading" secondItem="ajh-KQ-r0i" secondAttribute="leading" id="GAE-vZ-ojE"/>
+                            <constraint firstItem="KhX-vg-W9a" firstAttribute="top" secondItem="ajh-KQ-r0i" secondAttribute="top" id="UqP-pN-yBU"/>
+                            <constraint firstItem="ajh-KQ-r0i" firstAttribute="trailing" secondItem="mx8-dL-K8J" secondAttribute="trailing" constant="30" id="YUD-KE-lfH"/>
+                            <constraint firstItem="ajh-KQ-r0i" firstAttribute="bottom" secondItem="KhX-vg-W9a" secondAttribute="bottom" id="bul-HY-Qhu"/>
+                            <constraint firstItem="ajh-KQ-r0i" firstAttribute="trailing" secondItem="KhX-vg-W9a" secondAttribute="trailing" id="heK-7J-E1X"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ajh-KQ-r0i"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kxf-P4-elv"/>
+                    <connections>
+                        <outlet property="homeLocation" destination="mx8-dL-K8J" id="Icx-4c-qoC"/>
+                        <outlet property="mapView" destination="KhX-vg-W9a" id="6gx-MV-ZWT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xNz-Ka-qoI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7920" y="1770.4225352112676"/>
+        </scene>
+        <!--Location Search Table-->
+        <scene sceneID="Tuo-gZ-xqm">
+            <objects>
+                <tableViewController storyboardIdentifier="LocationSearchTable" id="81w-I9-K75" customClass="LocationSearchTable" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Se2-u7-5N2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" textLabel="KHs-sZ-AXf" detailTextLabel="rTt-JO-tb0" style="IBUITableViewCellStyleSubtitle" id="Od0-EU-asd">
+                                <rect key="frame" x="0.0" y="28" width="320" height="55.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Od0-EU-asd" id="4uI-QE-XIw">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KHs-sZ-AXf">
+                                            <rect key="frame" x="16" y="10" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rTt-JO-tb0">
+                                            <rect key="frame" x="16" y="31.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="81w-I9-K75" id="Hyi-Bz-ZES"/>
+                            <outlet property="delegate" destination="81w-I9-K75" id="vUh-vR-1ac"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rFf-ah-IPz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8814.375" y="1769.3661971830986"/>
+        </scene>
         <!--Create Playlist Controller-->
         <scene sceneID="rDI-MS-70C">
             <objects>
@@ -1231,6 +1321,25 @@
             </objects>
             <point key="canvasLocation" x="9396" y="507"/>
         </scene>
+        <!--Map-->
+        <scene sceneID="PuL-Nm-C5o">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ker-Yn-g4Z" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="WDe-za-kp5"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fjY-wE-EdB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fCL-KP-oy0" kind="relationship" relationship="rootViewController" id="swm-PR-ikP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vt8-dQ-Kbr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6922.5" y="1770.4225352112676"/>
+        </scene>
     </scenes>
     <resources>
         <image name="camera" width="24" height="24"/>
@@ -1239,6 +1348,8 @@
         <image name="defaultmusicicon" width="100" height="100"/>
         <image name="forward" width="30" height="30"/>
         <image name="library" width="32" height="32"/>
+        <image name="location" width="30" height="30"/>
+        <image name="map" width="40" height="40"/>
         <image name="more" width="35" height="35"/>
         <image name="play" width="30" height="30"/>
         <image name="playlists" width="32" height="32"/>
