@@ -143,7 +143,7 @@
                                     <action selector="sortTapped:" destination="38y-Xj-qmE" eventType="touchUpInside" id="jmf-NR-hA8"/>
                                 </connections>
                             </button>
-                            <color key="tintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -928,11 +928,25 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KhX-vg-W9a">
                                 <rect key="frame" x="0.0" y="44" width="320" height="475"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mx8-dL-K8J">
+                                <rect key="frame" x="230" y="429" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="JEd-TT-1kC"/>
+                                    <constraint firstAttribute="width" constant="60" id="hoF-T7-hNI"/>
+                                </constraints>
+                                <state key="normal" image="location"/>
+                                <connections>
+                                    <action selector="homePressed:" destination="fCL-KP-oy0" eventType="touchUpInside" id="e4l-vm-RJc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ajh-KQ-r0i" firstAttribute="bottom" secondItem="mx8-dL-K8J" secondAttribute="bottom" constant="30" id="BY1-ae-dOT"/>
                             <constraint firstItem="KhX-vg-W9a" firstAttribute="leading" secondItem="ajh-KQ-r0i" secondAttribute="leading" id="GAE-vZ-ojE"/>
                             <constraint firstItem="KhX-vg-W9a" firstAttribute="top" secondItem="ajh-KQ-r0i" secondAttribute="top" id="UqP-pN-yBU"/>
+                            <constraint firstItem="ajh-KQ-r0i" firstAttribute="trailing" secondItem="mx8-dL-K8J" secondAttribute="trailing" constant="30" id="YUD-KE-lfH"/>
                             <constraint firstItem="ajh-KQ-r0i" firstAttribute="bottom" secondItem="KhX-vg-W9a" secondAttribute="bottom" id="bul-HY-Qhu"/>
                             <constraint firstItem="ajh-KQ-r0i" firstAttribute="trailing" secondItem="KhX-vg-W9a" secondAttribute="trailing" id="heK-7J-E1X"/>
                         </constraints>
@@ -940,6 +954,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="kxf-P4-elv"/>
                     <connections>
+                        <outlet property="homeLocation" destination="mx8-dL-K8J" id="Icx-4c-qoC"/>
                         <outlet property="mapView" destination="KhX-vg-W9a" id="6gx-MV-ZWT"/>
                     </connections>
                 </viewController>
@@ -1333,6 +1348,7 @@
         <image name="defaultmusicicon" width="100" height="100"/>
         <image name="forward" width="30" height="30"/>
         <image name="library" width="32" height="32"/>
+        <image name="location" width="30" height="30"/>
         <image name="map" width="40" height="40"/>
         <image name="more" width="35" height="35"/>
         <image name="play" width="30" height="30"/>
