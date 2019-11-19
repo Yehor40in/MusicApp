@@ -82,4 +82,8 @@ final class PlaylistManager {
             in: .userDomainMask
         )[0].appendingPathComponent(resource)
     }
+    static func getLastPlaylist() -> Playlist? {
+        let temp = PlaylistManager.getPlaylists()
+        return temp?.last
+    }
 }

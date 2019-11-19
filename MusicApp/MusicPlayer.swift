@@ -100,6 +100,10 @@ final class MusicPlayer {
         currentIndex = Int.random(in: 0..<rawItems.count)
         nowPlayingItem = rawItems[currentIndex]
     }
+    private func getRandomSong() -> MPMediaItem {
+        let rand = Int.random(in: 0..<rawItems.count)
+        return rawItems[rand]
+    }
     func setupQueue(with tracks: Any?) {
         if let temp = tracks as? [String] {
             player?.setQueue(with: temp)
@@ -167,5 +171,18 @@ final class MusicPlayer {
     }
     func setRepeating(_ flag: Bool) {
         player?.repeatMode = flag ? .one : .none
+    }
+    func getRoutePlaylist(for interval: TimeInterval) -> Bool {
+        var counter: TimeInterval = 0
+        var routePlaylist = [MediaItem]()
+        while counter < interval {
+            let temp = getRandomSong()
+            routePlaylist.append(MediaItem(with: temp))
+            counter += temp.playbackDuration
+        }
+        let artwork = UIImage(named: Config.playlistIconPlaceholder)
+        guard var existed = PlaylistManager.getPlaylists() else { return false }
+        existed.append(Playlist(image: artwork, name: "Route playlist", media: routePlaylist))
+        return PlaylistManager.storePlaylists(items: existed)
     }
 }
