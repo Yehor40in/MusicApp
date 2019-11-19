@@ -78,8 +78,7 @@ extension SearchViewController: UITableViewDataSource {
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let items = toDisplay else { return 0 }
-        return items.count
+        return toDisplay?.count ?? 0
     }
 }
 
