@@ -30,5 +30,7 @@
 "Next in queue"    = "Next in queue";
 "Tracks"           = "tracks";
 "Success"          = "Success";
+"Fail"             = "Fail";
+"Failed to create playlist" = "Failed to create playlist";
 "Removed from favorites" = "Removed from favorites";
 "Added to favorites"     = "Added to favorites";

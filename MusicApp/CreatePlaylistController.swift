@@ -20,6 +20,12 @@ final class CreatePlaylistController: UIViewController {
     // MARK: - Properties
     private let picker = UIImagePickerController()
     private var items: [MPMediaItem] = []
+    private enum Localized {
+        static var createTitle: String = NSLocalizedString("Create Playlist", comment: "Navigation item title")
+        static var dismissPlaceholder: String = NSLocalizedString("Dismiss", comment: "Dismiss")
+        static var failPlaceholder: String = NSLocalizedString("Fail", comment: "Fail")
+        static var failMessage: String = NSLocalizedString("Failed to create playlist", comment: "Message")
+    }
     var songs: [MediaItem]?
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -29,7 +35,7 @@ final class CreatePlaylistController: UIViewController {
         tableView.isEditing = true
         playlistNameField.delegate = self
         picker.delegate = self
-        navigationItem.title = NSLocalizedString("Create Playlist", comment: "Navigation item title")
+        navigationItem.title = Localized.createTitle
     }
     // MARK: - Methods
     func savePlaylist(withTitle title: String, image: UIImage?, songs: [MediaItem]?) -> Bool {
@@ -70,12 +76,12 @@ final class CreatePlaylistController: UIViewController {
             dismiss(animated: true, completion: nil)
         } else {
             let failAlert = UIAlertController(
-                title: "Fail",
-                message: "Failed to create playlist",
+                title: Localized.failPlaceholder,
+                message: Localized.failMessage,
                 preferredStyle: .alert
             )
             failAlert.view.tintColor = UIColor.systemPink
-            failAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+            failAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
             present(failAlert, animated: true)
         }
     }
