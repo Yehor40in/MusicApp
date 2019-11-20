@@ -77,6 +77,7 @@ final class MapViewController: UIViewController {
         locationManager.delegate = self
     }
     func drawRoute(to destination: MKPlacemark) {
+        mapView.removeOverlays(mapView.overlays)
         let directionRequest = MKDirections.Request()
         guard let userLoc = userLocation else { return }
         directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: userLoc))
