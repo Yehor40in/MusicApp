@@ -28,7 +28,7 @@ final class PlayingViewController: UIViewController {
     // MARK: - Properties
     var prepared: PreparedData?
     private var player: MusicPlayer? = MusicPlayer.shared
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override var preferredStatusBarStyle: UIStatusBarStyle {
            return .lightContent
     }
@@ -60,7 +60,7 @@ final class PlayingViewController: UIViewController {
         chevron.isHidden = true
         animateCoverOut()
     }
-    // MARK: - Utilities
+    // MARK: - Methods
     func setupCover() {
         if let out = prepared?.outPosition.coverOut,
         let bottom = prepared?.outPosition.imageOutBottom,
@@ -111,9 +111,8 @@ final class PlayingViewController: UIViewController {
         }
     }
 }
-
+// MARK: - ControlsControllerDelegate
 extension PlayingViewController: ControlsControllerDelegate {
-    // MARK: - ControlsControllerDelegate
     func updateCover(with item: MPMediaItem?) {
         guard let unwrapped = item else { return }
         update(with: unwrapped)

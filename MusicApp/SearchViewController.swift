@@ -19,7 +19,7 @@ final class SearchViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchButton: UIButton!
     @IBOutlet private weak var searchField: UITextField!
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -63,9 +63,8 @@ final class SearchViewController: UIViewController {
         tableView.reloadData()
     }
 }
-
+ // MARK: - TableView DataSource
 extension SearchViewController: UITableViewDataSource {
-    // MARK: - TableView DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -81,9 +80,8 @@ extension SearchViewController: UITableViewDataSource {
         return toDisplay?.count ?? 0
     }
 }
-
+// MARK: - TableView Delegate
 extension SearchViewController: UITableViewDelegate {
-    // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selected?[indexPath.row] = true
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
@@ -93,9 +91,8 @@ extension SearchViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
+// MARK: - TextField Delegate
 extension SearchViewController: UITextFieldDelegate {
-    // MARK: - TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }

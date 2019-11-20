@@ -129,9 +129,8 @@ final class MusicListController: ViewManager {
         player.play()
     }
 }
-
+// MARK: - TableView DataSource
 extension MusicListController: UITableViewDataSource {
-    // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles?.count ?? 0
     }
