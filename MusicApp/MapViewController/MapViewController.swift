@@ -86,12 +86,7 @@ final class MapViewController: UIViewController {
 
         let directions = MKDirections(request: directionRequest)
         directions.calculate { [unowned self] (response, error) in
-            guard let directionResonse = response else {
-                if let error = error {
-                    print("we have error getting directions==\(error.localizedDescription)")
-                }
-                return
-            }
+            guard let directionResonse = response else { return }
             let route = directionResonse.routes[0]
             self.travelTime = route.expectedTravelTime
             self.animateGetPlaylistBtn()
