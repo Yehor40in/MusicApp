@@ -63,9 +63,8 @@ final class SearchViewController: UIViewController {
         tableView.reloadData()
     }
 }
-
+// MARK: - TableView DataSource
 extension SearchViewController: UITableViewDataSource {
-    // MARK: - TableView DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -82,9 +81,8 @@ extension SearchViewController: UITableViewDataSource {
         return items.count
     }
 }
-
+// MARK: - TableView Delegate
 extension SearchViewController: UITableViewDelegate {
-    // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selected?[indexPath.row] = true
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
@@ -94,9 +92,8 @@ extension SearchViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
+// MARK: - TextField Delegate
 extension SearchViewController: UITextFieldDelegate {
-    // MARK: - TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }

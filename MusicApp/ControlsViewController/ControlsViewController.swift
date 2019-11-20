@@ -37,7 +37,7 @@ final class ControlsViewController: UIViewController {
     var vps: Float?
     var player: MusicPlayer = MusicPlayer.shared
     var updater: CADisplayLink?
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         nextInQueue.dataSource = self
@@ -54,6 +54,7 @@ final class ControlsViewController: UIViewController {
         player.setUpNext()
         data = player.upNext.map { $0 }
     }
+    // MARK: - Methods
     func handleProgress(for audio: MPMediaItem?, value: Double) {
         songProgress.progress = 0
         if let item = audio {
@@ -121,49 +122,6 @@ final class ControlsViewController: UIViewController {
         actions.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         present(actions, animated: true, completion: nil)
     }
-    // MARK: - Actions
-    @IBAction func backwardTapped(_ sender: Any) {
-        player.goToPreviousInQueue()
-        data = player.upNext
-        delegate?.updateCover(with: player.nowPlayingItem)
-        updateDetails()
-    }
-    @IBAction func playTapped(_ sender: Any) {
-        switch player.playbackState {
-        case .paused:
-            player.play()
-            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
-            updater?.isPaused = false
-        case .playing:
-            player.pause()
-            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-            updater?.isPaused = true
-        default:
-            return
-        }
-    }
-    @IBAction func forwardTapped(_ sender: Any) {
-        player.goToNextInQueue()
-        data = player.upNext
-        delegate?.updateCover(with: player.nowPlayingItem)
-        updateDetails()
-    }
-    @IBAction func repeatTapped(_ sender: Any) {
-        let repeating = checkRepeating()
-        player.setRepeating(!repeating)
-        repeatButton.layer.backgroundColor = !repeating ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
-    }
-    @IBAction func shuffleTapped(_ sender: Any) {
-        let shuffled = checkShuffled()
-        player.shuffleQueue(!shuffled)
-        data = player.upNext
-        shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
-        nextInQueue.reloadData()
-    }
-    @IBAction func moreTapped(_ sender: Any) {
-        showActionSheet()
-    }
-    // MARK: - Utilities
     func checkRepeating() -> Bool {
         return player.isRepeating
     }
@@ -206,6 +164,48 @@ final class ControlsViewController: UIViewController {
         if let value = vps {
             songProgress.progress += value
         }
+    }
+    // MARK: - Actions
+    @IBAction func backwardTapped(_ sender: Any) {
+        player.goToPreviousInQueue()
+        data = player.upNext
+        delegate?.updateCover(with: player.nowPlayingItem)
+        updateDetails()
+    }
+    @IBAction func playTapped(_ sender: Any) {
+        switch player.playbackState {
+        case .paused:
+            player.play()
+            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
+            updater?.isPaused = false
+        case .playing:
+            player.pause()
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
+            updater?.isPaused = true
+        default:
+            return
+        }
+    }
+    @IBAction func forwardTapped(_ sender: Any) {
+        player.goToNextInQueue()
+        data = player.upNext
+        delegate?.updateCover(with: player.nowPlayingItem)
+        updateDetails()
+    }
+    @IBAction func repeatTapped(_ sender: Any) {
+        let repeating = checkRepeating()
+        player.setRepeating(!repeating)
+        repeatButton.layer.backgroundColor = !repeating ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+    }
+    @IBAction func shuffleTapped(_ sender: Any) {
+        let shuffled = checkShuffled()
+        player.shuffleQueue(!shuffled)
+        data = player.upNext
+        shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+        nextInQueue.reloadData()
+    }
+    @IBAction func moreTapped(_ sender: Any) {
+        showActionSheet()
     }
 }
 // MARK: - QueueList DataSource

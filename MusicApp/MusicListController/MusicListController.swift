@@ -156,9 +156,8 @@ extension MusicListController: UITableViewDataSource {
         return sectionTitles?[section]
     }
 }
-
+// MARK: - TableViewDelegate
 extension MusicListController: UITableViewDelegate {
-    // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         player.stop()
         setPlayingItem(for: indexPath)

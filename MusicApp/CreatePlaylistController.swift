@@ -21,7 +21,7 @@ final class CreatePlaylistController: UIViewController {
     private let picker = UIImagePickerController()
     private var items: [MPMediaItem] = []
     var songs: [MediaItem]?
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -130,16 +130,14 @@ extension CreatePlaylistController: UITableViewDelegate {
         }
     }
 }
-
+// MARK: - TextField Delegate
 extension CreatePlaylistController: UITextFieldDelegate {
-    // MARK: - TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }
 }
-
+// MARK: - ImagePicker Delegate
 extension CreatePlaylistController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    // MARK: - ImagePicker Delegate
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
@@ -153,9 +151,8 @@ extension CreatePlaylistController: UIImagePickerControllerDelegate, UINavigatio
         dismiss(animated: true, completion: nil)
     }
 }
-
+// MARK: - SearchController Delegate
 extension CreatePlaylistController: SearchControllerDelegate {
-    // MARK: - SearchController Delegate
     func getCodableItems(form standard: [MPMediaItem]) {
         items.append(contentsOf: standard)
         items = Array(Set(items))
