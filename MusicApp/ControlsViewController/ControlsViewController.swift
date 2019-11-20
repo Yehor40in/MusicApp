@@ -26,6 +26,14 @@ final class ControlsViewController: UIViewController {
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
     private var data: [MPMediaItem]?
+    private enum Localized {
+        static var upNextLabel: String = NSLocalizedString("Next in queue", comment: "Up Next label")
+        static var repeatLabel: String = NSLocalizedString("Repeat", comment: "Repeat")
+        static var shuffleTitle: String = NSLocalizedString("Shuffle", comment: "Shuffle")
+        static var removedPlaceholder: String = NSLocalizedString("Removed from favorites", comment: "Alert message")
+        static var addedPlaceholder: String = NSLocalizedString("Added to fvorites", comment: "Alert message")
+        static var alertTitle: String = NSLocalizedString("Success", comment: "Alert title")
+    }
     var vps: Float?
     var player: MusicPlayer = MusicPlayer.shared
     var updater: CADisplayLink?
@@ -39,9 +47,9 @@ final class ControlsViewController: UIViewController {
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         repeatButton.layer.backgroundColor = checkRepeating() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         shuffleButton.layer.backgroundColor = checkShuffled() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
-        upNextLabel.text = NSLocalizedString("Next in queue", comment: "Up Next label")
-        repeatButton.setTitle(NSLocalizedString("Repeat", comment: "Repeat"), for: .normal)
-        shuffleButton.setTitle(NSLocalizedString("Shuffle", comment: "Shuffle"), for: .normal)
+        upNextLabel.text = Localized.upNextLabel
+        repeatButton.setTitle(Localized.repeatLabel, for: .normal)
+        shuffleButton.setTitle(Localized.shuffleTitle, for: .normal)
         updateDetails()
         player.setUpNext()
         data = player.upNext.map { $0 }
@@ -56,6 +64,62 @@ final class ControlsViewController: UIViewController {
             updater?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
             if player.playbackState == .paused { updater?.isPaused = true }
         }
+    }
+    func actionSheet() -> UIAlertController {
+        return UIAlertController(
+            title: nil,
+            message: Config.actionsMessagePlaceholder,
+            preferredStyle: .actionSheet
+        )
+    }
+    func addToPlaylistAction() -> UIAlertAction {
+        return UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
+            if let selectVC = self?.storyboard?.instantiateViewController(withIdentifier: "SelectPlaylist")
+               as? SelectPlaylistController {
+                selectVC.modalPresentationStyle = .overCurrentContext
+                selectVC.modalTransitionStyle = .coverVertical
+                selectVC.toAdd = MediaItem(with: self?.player.nowPlayingItem)
+                let presentationController = selectVC.popoverPresentationController
+                presentationController?.sourceView = self?.moreButton.imageView
+                presentationController?.delegate = self
+                self?.present(selectVC, animated: true)
+            }
+        })
+    }
+    func addToFavoritesAction(message: String, title: String, favs: Playlist) -> UIAlertAction {
+        return UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
+                if PlaylistManager.storeFavorites(item: favs) {
+                    let successAlert = UIAlertController(
+                        title: Localized.alertTitle,
+                        message: message,
+                        preferredStyle: .alert
+                    )
+                    successAlert.view.tintColor = UIColor.green
+                    successAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    self?.present(successAlert, animated: true)
+                }
+            })
+    }
+    func showActionSheet() {
+        let actions = actionSheet()
+        var message: String
+        var title: String
+        let favs = PlaylistManager.getFavorites()
+        guard let item = MusicPlayer.shared.nowPlayingItem else { return }
+        if PlaylistManager.isFavorite(item: item) {
+            favs.items = favs.items.filter { item.playbackStoreID != $0.storeID }
+            message = Localized.removedPlaceholder
+            title = Config.actionsUnlikePlaceholder
+        } else {
+            favs.items.append(MediaItem(with: item))
+            message = Localized.addedPlaceholder
+            title = Config.actionsLikePlaceholder
+        }
+        actions.view.tintColor = UIColor.systemPink
+        actions.addAction(addToFavoritesAction(message: message, title: title, favs: favs))
+        actions.addAction(addToPlaylistAction())
+        actions.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
+        present(actions, animated: true, completion: nil)
     }
     // MARK: - Actions
     @IBAction func backwardTapped(_ sender: Any) {
@@ -96,66 +160,9 @@ final class ControlsViewController: UIViewController {
         shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
         nextInQueue.reloadData()
     }
-    // swiftlint:disable function_body_length
     @IBAction func moreTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(
-            title: nil,
-            message: Config.actionsMessagePlaceholder,
-            preferredStyle: .actionSheet
-        )
-        var message: String
-        var title: String
-        let favs = PlaylistManager.getFavorites()
-        guard let item = MusicPlayer.shared.nowPlayingItem else { return }
-        if PlaylistManager.isFavorite(item: item) {
-            favs.items = favs.items.filter { item.playbackStoreID != $0.storeID }
-            message = "Removed from favorites"
-            title = Config.actionsUnlikePlaceholder
-        } else {
-            favs.items.append(MediaItem(with: item))
-            message = "Added to favorites"
-            title = Config.actionsLikePlaceholder
-        }
-        actionSheet.view.tintColor = UIColor.systemPink
-        actionSheet.addAction(
-            UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
-                if PlaylistManager.storeFavorites(item: favs) {
-                    let successAlert = UIAlertController(
-                        title: "Success",
-                        message: message,
-                        preferredStyle: .alert
-                    )
-                    successAlert.view.tintColor = UIColor.green
-                    successAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-                    self?.present(successAlert, animated: true)
-                } else {
-                    let failAlert = UIAlertController(
-                        title: "Fail",
-                        message: "Failed to add to favorites",
-                        preferredStyle: .alert
-                    )
-                    failAlert.view.tintColor = UIColor.systemPink
-                    failAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-                    self?.present(failAlert, animated: true)
-                }
-        }))
-        actionSheet.addAction(
-            UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
-                if let selectVC = self?.storyboard?.instantiateViewController(withIdentifier: "SelectPlaylist")
-                   as? SelectPlaylistController {
-                    selectVC.modalPresentationStyle = .overCurrentContext
-                    selectVC.modalTransitionStyle = .coverVertical
-                    selectVC.toAdd = MediaItem(with: self?.player.nowPlayingItem)
-                    let presentationController = selectVC.popoverPresentationController
-                    presentationController?.sourceView = self?.moreButton.imageView
-                    presentationController?.delegate = self
-                    self?.present(selectVC, animated: true)
-                }
-        }))
-        actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
-        self.present(actionSheet, animated: true, completion: nil)
+        showActionSheet()
     }
-    // swiftlint:enable function_body_length
     // MARK: - Utilities
     func checkRepeating() -> Bool {
         return player.isRepeating
@@ -186,7 +193,7 @@ final class ControlsViewController: UIViewController {
         nextInQueue.reloadData()
     }
     @objc func trackAudio() {
-        guard songProgress.progress < 1 else {
+        if songProgress.progress >= 1 {
             if !player.isRepeating {
                 player.goToNextInQueue()
                 delegate?.updateCover(with: player.nowPlayingItem)
@@ -201,20 +208,18 @@ final class ControlsViewController: UIViewController {
         }
     }
 }
-
+// MARK: - QueueList DataSource
 extension ControlsViewController: UITableViewDataSource {
-    // MARK: - QueueList DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let data = data else { return UITableViewCell() }
-        if let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell {
-            guard indexPath.row < data.count && indexPath.row >= 0 else { return UITableViewCell() }
-            cell.item = data[indexPath.row]
-            return cell
-        }
-        return UITableViewCell()
+        guard
+            let data = data,
+            let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell,
+            indexPath.row < data.count && indexPath.row >= 0 else { return UITableViewCell() }
+        cell.item = data[indexPath.row]
+        return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 0
@@ -223,8 +228,7 @@ extension ControlsViewController: UITableViewDataSource {
 
 extension ControlsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
-                   editingStyleForRowAt indexPath: IndexPath
-    ) -> UITableViewCell.EditingStyle {
+                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -239,10 +243,8 @@ extension ControlsViewController: UITableViewDelegate {
 }
 
 extension ControlsViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(
-        for controller: UIPresentationController,
-        traitCollection: UITraitCollection
-    ) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
 }

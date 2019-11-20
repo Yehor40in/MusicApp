@@ -12,6 +12,9 @@ import MediaPlayer
 final class PlaylistViewController: ViewManager {
     // MARK: - Properties
     private var items: [Playlist] = PlaylistManager.makePlaylists()
+    private enum Localized {
+        static var title: String = NSLocalizedString("Playlists", comment: "Navigation item title")
+    }
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +23,7 @@ final class PlaylistViewController: ViewManager {
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = NSLocalizedString("Playlists", comment: "Navigation item title")
+        navigationItem.title = Localized.title
         setupActions()
     }
     override func viewWillAppear(_ animated: Bool) {

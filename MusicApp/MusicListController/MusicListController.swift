@@ -17,6 +17,10 @@ final class MusicListController: ViewManager {
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
     private var sortOption = SortOption.title
+    private enum Localized {
+        static var navigationTitle: String = NSLocalizedString("Your Music", comment: "Navigation item title")
+        static var sortTitle: String = NSLocalizedString("Sort", comment: "Sort placeholder")
+    }
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +28,8 @@ final class MusicListController: ViewManager {
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = NSLocalizedString("Your Music", comment: "Navigation item title")
-        sortButton.title = NSLocalizedString("Sort", comment: "Sort placeholder")
+        navigationItem.title = Localized.navigationTitle
+        sortButton.title = Localized.sortTitle
         setupActions()
     }
     override func viewWillAppear(_ animated: Bool) {
