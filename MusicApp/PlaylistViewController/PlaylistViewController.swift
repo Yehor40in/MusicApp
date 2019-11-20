@@ -40,7 +40,7 @@ final class PlaylistViewController: ViewManager {
         }
     }
 }
-
+// MARK: - TableView Delegate
 extension PlaylistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowPlaylist", sender: indexPath)

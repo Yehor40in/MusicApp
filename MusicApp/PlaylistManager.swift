@@ -77,10 +77,8 @@ final class PlaylistManager {
         return false
     }
     static func makePath(for resource: String) -> URL {
-        return FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask
-        )[0].appendingPathComponent(resource)
+        return FileManager.default.urls(for: .documentDirectory,
+                                        in: .userDomainMask)[0].appendingPathComponent(resource)
     }
     static func getLastPlaylist() -> Playlist? {
         let temp = PlaylistManager.getPlaylists()

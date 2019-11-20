@@ -13,8 +13,8 @@ final class LocationSearchTable: UITableViewController {
     // MARK: - Properties
     private var matchingItems: [MKMapItem] = []
     var mapView: MKMapView!
-    weak var delegate: HandleMapSearch?
-    // MARK: - Methods
+    weak var delegate: SearchDelegate?
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -41,9 +41,8 @@ final class LocationSearchTable: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-
+// MARK: - SearchResults Delegate
 extension LocationSearchTable: UISearchResultsUpdating {
-    // MARK: - SearchResults Delegate
     func updateSearchResults(for searchController: UISearchController) {
         guard
             let mapView = mapView,

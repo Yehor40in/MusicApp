@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import Foundation
 
-protocol HandleMapSearch: class {
+protocol SearchDelegate: class {
     func dropPinZoomIn(placemark: MKPlacemark)
 }
 
@@ -28,7 +28,7 @@ final class MapViewController: UIViewController {
     private var travelTime: TimeInterval?
     private var selectedPin: MKPlacemark?
     private var player = MusicPlayer.shared
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
@@ -45,6 +45,7 @@ final class MapViewController: UIViewController {
         getPlaylistBtnBottom.constant = 10
         view.layoutIfNeeded()
     }
+    // MARK: - Methods
     func setupSearchController() {
         let locationSearchTable = storyboard?.instantiateViewController(
             withIdentifier: "LocationSearchTable"
@@ -85,7 +86,7 @@ final class MapViewController: UIViewController {
         directionRequest.transportType = .walking
 
         let directions = MKDirections(request: directionRequest)
-        directions.calculate { [unowned self] (response, error) in
+        directions.calculate { [unowned self] (response, _) in
             guard let directionResonse = response else { return }
             let route = directionResonse.routes[0]
             self.travelTime = route.expectedTravelTime
@@ -111,6 +112,7 @@ final class MapViewController: UIViewController {
             ctrl.info = last
         }
     }
+    // MARK: - Actions
     @IBAction func homePressed(_ sender: Any) {
         guard let location = userLocation else { return }
         setRegion(with: location)
@@ -122,9 +124,8 @@ final class MapViewController: UIViewController {
         }
     }
 }
-
+// MARK: - LocationManager Delegate
 extension MapViewController: CLLocationManagerDelegate {
-    // MARK: - LocationManager Delegate
     private func locationManager(
         manager: CLLocationManager,
         didChangeAuthorizationStatus status: CLAuthorizationStatus
@@ -149,9 +150,8 @@ extension MapViewController: CLLocationManagerDelegate {
         setRegion(with: center)
     }
 }
-
-extension MapViewController: HandleMapSearch {
-    // MARK: - LocationSearch Delegate
+// MARK: - LocationSearch Delegate
+extension MapViewController: SearchDelegate {
     func dropPinZoomIn(placemark: MKPlacemark) {
         selectedPin = placemark
         mapView.removeAnnotations(mapView.annotations)
@@ -167,9 +167,8 @@ extension MapViewController: HandleMapSearch {
         drawRoute(to: placemark)
     }
 }
-
+// MARK: - MapView Delegate
 extension MapViewController: MKMapViewDelegate {
-    // MARK: - MapView Delegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.blue
