@@ -21,7 +21,7 @@ final class MusicListController: ViewManager {
         static var navigationTitle: String = NSLocalizedString("Your Music", comment: "Navigation item title")
         static var sortTitle: String = NSLocalizedString("Sort", comment: "Sort placeholder")
     }
-    // MARK: - Methods
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         checkAuthorization()
@@ -68,7 +68,7 @@ final class MusicListController: ViewManager {
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
-    // MARK: - Utilities
+    // MARK: - Methods
     // swiftlint:disable cyclomatic_complexity
     func preparedItems(from raw: [MPMediaItem]?, by option: SortOption) -> [Character: [MPMediaItem]] {
         var prepared = [Character: [MPMediaItem]]()
