@@ -33,6 +33,7 @@ final class ControlsViewController: UIViewController {
         static var removedPlaceholder: String = NSLocalizedString("Removed from favorites", comment: "Alert message")
         static var addedPlaceholder: String = NSLocalizedString("Added to fvorites", comment: "Alert message")
         static var alertTitle: String = NSLocalizedString("Success", comment: "Alert title")
+        static var dismissPlaceholder: String = NSLocalizedString("Dismiss", comment: "Dismiss")
     }
     var vps: Float?
     var player: MusicPlayer = MusicPlayer.shared
@@ -96,7 +97,7 @@ final class ControlsViewController: UIViewController {
                         preferredStyle: .alert
                     )
                     successAlert.view.tintColor = UIColor.green
-                    successAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    successAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
                     self?.present(successAlert, animated: true)
                 }
             })
