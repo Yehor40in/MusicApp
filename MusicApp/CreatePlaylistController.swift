@@ -20,8 +20,14 @@ final class CreatePlaylistController: UIViewController {
     // MARK: - Properties
     private let picker = UIImagePickerController()
     private var items: [MPMediaItem] = []
+    private enum Localized {
+        static var createTitle: String = NSLocalizedString("Create Playlist", comment: "Navigation item title")
+        static var dismissPlaceholder: String = NSLocalizedString("Dismiss", comment: "Dismiss")
+        static var failPlaceholder: String = NSLocalizedString("Fail", comment: "Fail")
+        static var failMessage: String = NSLocalizedString("Failed to create playlist", comment: "Message")
+    }
     var songs: [MediaItem]?
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -29,7 +35,7 @@ final class CreatePlaylistController: UIViewController {
         tableView.isEditing = true
         playlistNameField.delegate = self
         picker.delegate = self
-        navigationItem.title = NSLocalizedString("Create Playlist", comment: "Navigation item title")
+        navigationItem.title = Localized.createTitle
     }
     // MARK: - Methods
     func savePlaylist(withTitle title: String, image: UIImage?, songs: [MediaItem]?) -> Bool {
@@ -70,12 +76,12 @@ final class CreatePlaylistController: UIViewController {
             dismiss(animated: true, completion: nil)
         } else {
             let failAlert = UIAlertController(
-                title: "Fail",
-                message: "Failed to create playlist",
+                title: Localized.failPlaceholder,
+                message: Localized.failMessage,
                 preferredStyle: .alert
             )
             failAlert.view.tintColor = UIColor.systemPink
-            failAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+            failAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
             present(failAlert, animated: true)
         }
     }
@@ -130,16 +136,14 @@ extension CreatePlaylistController: UITableViewDelegate {
         }
     }
 }
-
+// MARK: - TextField Delegate
 extension CreatePlaylistController: UITextFieldDelegate {
-    // MARK: - TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }
 }
-
+// MARK: - ImagePicker Delegate
 extension CreatePlaylistController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    // MARK: - ImagePicker Delegate
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
@@ -153,9 +157,8 @@ extension CreatePlaylistController: UIImagePickerControllerDelegate, UINavigatio
         dismiss(animated: true, completion: nil)
     }
 }
-
+// MARK: - SearchController Delegate
 extension CreatePlaylistController: SearchControllerDelegate {
-    // MARK: - SearchController Delegate
     func getCodableItems(form standard: [MPMediaItem]) {
         items.append(contentsOf: standard)
         items = Array(Set(items))

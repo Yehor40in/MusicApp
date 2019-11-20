@@ -599,7 +599,6 @@
                     <connections>
                         <segue destination="pOI-dL-Ytr" kind="relationship" relationship="viewControllers" id="BId-kE-2Sc"/>
                         <segue destination="rha-qj-ker" kind="relationship" relationship="viewControllers" id="y3m-4J-nwF"/>
-                        <segue destination="ker-Yn-g4Z" kind="relationship" relationship="viewControllers" id="s5e-n8-bL2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBU-4f-MAU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -917,6 +916,7 @@
             </objects>
             <point key="canvasLocation" x="6924" y="841"/>
         </scene>
+<<<<<<< HEAD
         <!--Map View Controller-->
         <scene sceneID="xbp-FA-pPF">
             <objects>
@@ -1025,6 +1025,8 @@
             </objects>
             <point key="canvasLocation" x="9384" y="1746"/>
         </scene>
+=======
+>>>>>>> feature-6
         <!--Create Playlist Controller-->
         <scene sceneID="rDI-MS-70C">
             <objects>
@@ -1340,6 +1342,7 @@
             </objects>
             <point key="canvasLocation" x="9971" y="125"/>
         </scene>
+<<<<<<< HEAD
         <!--Map-->
         <scene sceneID="PuL-Nm-C5o">
             <objects>
@@ -1359,6 +1362,8 @@
             </objects>
             <point key="canvasLocation" x="7020" y="1745"/>
         </scene>
+=======
+>>>>>>> feature-6
     </scenes>
     <resources>
         <image name="camera" width="24" height="24"/>
@@ -1367,8 +1372,6 @@
         <image name="defaultmusicicon" width="100" height="100"/>
         <image name="forward" width="30" height="30"/>
         <image name="library" width="32" height="32"/>
-        <image name="location" width="30" height="30"/>
-        <image name="map" width="40" height="40"/>
         <image name="more" width="35" height="35"/>
         <image name="play" width="30" height="30"/>
         <image name="playlists" width="32" height="32"/>

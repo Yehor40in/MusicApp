@@ -17,15 +17,19 @@ final class MusicListController: ViewManager {
     private var items: [Character: [MPMediaItem]]?
     private var sectionTitles: [String]?
     private var sortOption = SortOption.title
-    // MARK: - Methods
+    private enum Localized {
+        static var navigationTitle: String = NSLocalizedString("Your Music", comment: "Navigation item title")
+        static var sortTitle: String = NSLocalizedString("Sort", comment: "Sort placeholder")
+    }
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         checkAuthorization()
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = NSLocalizedString("Your Music", comment: "Navigation item title")
-        sortButton.title = NSLocalizedString("Sort", comment: "Sort placeholder")
+        navigationItem.title = Localized.navigationTitle
+        sortButton.title = Localized.sortTitle
         setupActions()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +68,7 @@ final class MusicListController: ViewManager {
         actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
-    // MARK: - Utilities
+    // MARK: - Methods
     // swiftlint:disable cyclomatic_complexity
     func preparedItems(from raw: [MPMediaItem]?, by option: SortOption) -> [Character: [MPMediaItem]] {
         var prepared = [Character: [MPMediaItem]]()
@@ -152,9 +156,8 @@ extension MusicListController: UITableViewDataSource {
         return sectionTitles?[section]
     }
 }
-
+// MARK: - TableViewDelegate
 extension MusicListController: UITableViewDelegate {
-    // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         player.stop()
         setPlayingItem(for: indexPath)

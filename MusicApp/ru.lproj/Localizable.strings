@@ -30,3 +30,7 @@
 "Next in queue"    = "Далее";
 "Tracks"           = "песен";
 "Success"          = "Успех";
+"Fail"             = "Неудача";
+"Failed to create playlist" = "Подборку не создано";
+"Removed from favorites" = "Удалено из любимых";
+"Added to favorites"     = "Добавлено к любимым";
