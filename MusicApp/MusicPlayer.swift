@@ -173,6 +173,7 @@ final class MusicPlayer {
         player?.repeatMode = flag ? .one : .none
     }
     func getRoutePlaylist(for interval: TimeInterval) -> Bool {
+        guard interval > 0 else { return false }
         var counter: TimeInterval = 0
         var routePlaylist = [MediaItem]()
         while counter < interval {

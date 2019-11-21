@@ -90,17 +90,17 @@ final class ControlsViewController: UIViewController {
     }
     func addToFavoritesAction(message: String, title: String, favs: Playlist) -> UIAlertAction {
         return UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
-                if PlaylistManager.storeFavorites(item: favs) {
-                    let successAlert = UIAlertController(
-                        title: Localized.alertTitle,
-                        message: message,
-                        preferredStyle: .alert
-                    )
-                    successAlert.view.tintColor = UIColor.green
-                    successAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
-                    self?.present(successAlert, animated: true)
-                }
-            })
+            if PlaylistManager.storeFavorites(item: favs) {
+                let successAlert = UIAlertController(
+                    title: Localized.alertTitle,
+                    message: message,
+                    preferredStyle: .alert
+                )
+                successAlert.view.tintColor = UIColor.green
+                successAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
+                self?.present(successAlert, animated: true)
+            }
+        })
     }
     func showActionSheet() {
         let actions = actionSheet()
