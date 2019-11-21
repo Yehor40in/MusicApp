@@ -39,6 +39,7 @@ final class PlaylistViewController: ViewManager {
             ctrl.info = items[path.row]
         }
     }
+    @IBAction func unwindToPlaylists(segue: UIStoryboardSegue?) {}
 }
 // MARK: - TableView Delegate
 extension PlaylistViewController: UITableViewDelegate {

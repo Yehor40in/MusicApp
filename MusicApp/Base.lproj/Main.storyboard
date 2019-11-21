@@ -860,6 +860,9 @@
                                     <constraint firstAttribute="width" constant="40" id="1lK-YR-UmM"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="more"/>
+                                <connections>
+                                    <action selector="moreTapped:" destination="gW3-Dz-26e" eventType="touchUpInside" id="4oI-3G-hOl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -891,9 +894,11 @@
                         <outlet property="playlistName" destination="6xl-DO-BBE" id="p8a-tf-MEX"/>
                         <outlet property="songsAmount" destination="m51-Q9-ctN" id="qHs-Q6-YZJ"/>
                         <outlet property="tableView" destination="MUz-cK-UoR" id="vA6-KC-qQl"/>
+                        <segue destination="IsT-Yf-R7l" kind="unwind" identifier="unwindToPlaylists" unwindAction="unwindToPlaylistsWithSegue:" id="O0Z-qL-VNZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ej4-CK-4hU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="IsT-Yf-R7l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="9208" y="841"/>
         </scene>

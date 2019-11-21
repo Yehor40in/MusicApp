@@ -20,6 +20,7 @@
 "Recently added"   = "Датою";
 "Add to playlist"  = "Додати до підбірки";
 "Dismiss"          = "Скасувати";
+"Delete"           = "Видалити";
 "Sort"             = "Сортувати";
 "Library"          = "Бібліотека";
 "Playlists"        = "Підбірки";
@@ -32,5 +33,7 @@
 "Success"          = "Успішно";
 "Fail"             = "Невдача";
 "Failed to create playlist" = "Підбірку не створено";
-"Removed from favorites" = "Прибрано із улюблених";
-"Added to favorites"     = "Додано до улюблених";
+"Removed from favorites"    = "Прибрано із улюблених";
+"Added to favorites"        = "Додано до улюблених";
+"Are you sure you want to delete?" = "Ви впевнені, що хочете видалити?";
+"Yes" = "Так";

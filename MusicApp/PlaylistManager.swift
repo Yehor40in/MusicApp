@@ -16,7 +16,8 @@ final class PlaylistManager {
         let decoder = PropertyListDecoder()
         let empty = Playlist(
             image: UIImage(named: Config.favoritesImagePlaceholder),
-            name: Config.favoritesName
+            name: Config.favoritesName,
+            id: -1
         )
         guard let data = try? Data(contentsOf: path) else {
             return empty
@@ -27,6 +28,10 @@ final class PlaylistManager {
             print(error)
         }
         return empty
+    }
+    static func deletePlaylist(with identifier: Int) {
+        guard let existed = PlaylistManager.getPlaylists() else { return }
+        PlaylistManager.storePlaylists(items: existed.filter { $0.id != identifier })
     }
     static func storeFavorites(item: Playlist) -> Bool {
         let path = PlaylistManager.makePath(for: Config.favoritesFilename)
@@ -63,6 +68,7 @@ final class PlaylistManager {
         }
         return nil
     }
+    @discardableResult
     static func storePlaylists(items: [Playlist]) -> Bool {
         let path = PlaylistManager.makePath(for: Config.playlistsFilename)
         let encoder = PropertyListEncoder()

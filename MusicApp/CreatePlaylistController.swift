@@ -42,7 +42,7 @@ final class CreatePlaylistController: UIViewController {
         let artwork = image ?? UIImage(named: Config.playlistIconPlaceholder)
         let media = songs ?? []
         guard var existed = PlaylistManager.getPlaylists() else { return false }
-        existed.append(Playlist(image: artwork, name: title, media: media))
+        existed.append(Playlist(image: artwork, name: title, media: media, id: existed.count))
         return PlaylistManager.storePlaylists(items: existed)
     }
     // MARK: - Actions

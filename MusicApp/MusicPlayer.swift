@@ -183,7 +183,7 @@ final class MusicPlayer {
         }
         let artwork = UIImage(named: Config.playlistIconPlaceholder)
         guard var existed = PlaylistManager.getPlaylists() else { return false }
-        existed.append(Playlist(image: artwork, name: "Route playlist", media: routePlaylist))
+        existed.append(Playlist(image: artwork, name: "Route playlist", media: routePlaylist, id: existed.count))
         return PlaylistManager.storePlaylists(items: existed)
     }
 }

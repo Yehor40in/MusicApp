@@ -106,6 +106,7 @@ final class MapViewController: UIViewController {
         )
         mapView.setRegion(region, animated: true)
     }
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let ctrl = segue.destination as? PlaylistController {
             guard let last = PlaylistManager.getLastPlaylist() else { return }

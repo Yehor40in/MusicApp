@@ -66,6 +66,15 @@ enum Config {
     static var actionsMessagePlaceholder: String {
         return NSLocalizedString("Options", comment: "Options action sheet title")
     }
+    static var deletePlaceholder: String {
+        return NSLocalizedString("Delete", comment: "Delete action")
+    }
+    static var deleteWaring: String {
+        return NSLocalizedString("Are you sure you want to delete?", comment: "Delete warning")
+    }
+    static var approvePlaceholder: String {
+        return NSLocalizedString("Yes", comment: "Approve")
+    }
     static var sortArtistPlaceholder: String {
         return NSLocalizedString("Artist", comment: "Sort by artist action placeholder")
     }
