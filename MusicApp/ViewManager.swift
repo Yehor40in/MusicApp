@@ -36,11 +36,11 @@ class ViewManager: UIViewController {
         )
     }
     @objc func updatePlayingView(_ notification: Notification?) {
-        if let object = MusicPlayer.shared.nowPlayingItem {
+        if let object = player.nowPlayingItem {
             let img = object.artwork?.image(at: playingCover.bounds.size)
             playingCover.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
             playingName.text = object.title
-            switch MusicPlayer.shared.playbackState {
+            switch player.playbackState {
             case .paused:
                 playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             case .playing:
