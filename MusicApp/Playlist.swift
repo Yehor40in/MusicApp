@@ -14,6 +14,7 @@ final class Playlist: Codable {
     var artwork: Artwork
     var name: String
     var items: [MediaItem]
+    //swiftlint:disable identifier_name
     var id: Int
     // MARK: - Initialization
     init(image: UIImage?, name: String, media: [MediaItem] = [], id: Int) {

@@ -52,7 +52,6 @@ final class ControlsViewController: UIViewController {
         repeatButton.setTitle(Localized.repeatLabel, for: .normal)
         shuffleButton.setTitle(Localized.shuffleTitle, for: .normal)
         updateDetails()
-        player.setUpNext()
         data = player.upNext.map { $0 }
     }
     // MARK: - Methods
@@ -88,7 +87,20 @@ final class ControlsViewController: UIViewController {
             }
         })
     }
-    func addToFavoritesAction(message: String, title: String, favs: Playlist) -> UIAlertAction {
+    func addToFavoritesAction() -> UIAlertAction? {
+        var message: String
+        var title: String
+        let favs = PlaylistManager.getFavorites()
+        guard let item = player.nowPlayingItem else { return nil }
+        if PlaylistManager.isFavorite(item: item) {
+            favs.items = favs.items.filter { item.playbackStoreID != $0.storeID }
+            message = Localized.removedPlaceholder
+            title = Config.actionsUnlikePlaceholder
+        } else {
+            favs.items.append(MediaItem(with: item))
+            message = Localized.addedPlaceholder
+            title = Config.actionsLikePlaceholder
+        }
         return UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
             if PlaylistManager.storeFavorites(item: favs) {
                 let successAlert = UIAlertController(
@@ -104,21 +116,8 @@ final class ControlsViewController: UIViewController {
     }
     func showActionSheet() {
         let actions = actionSheet()
-        var message: String
-        var title: String
-        let favs = PlaylistManager.getFavorites()
-        guard let item = MusicPlayer.shared.nowPlayingItem else { return }
-        if PlaylistManager.isFavorite(item: item) {
-            favs.items = favs.items.filter { item.playbackStoreID != $0.storeID }
-            message = Localized.removedPlaceholder
-            title = Config.actionsUnlikePlaceholder
-        } else {
-            favs.items.append(MediaItem(with: item))
-            message = Localized.addedPlaceholder
-            title = Config.actionsLikePlaceholder
-        }
         actions.view.tintColor = UIColor.systemPink
-        actions.addAction(addToFavoritesAction(message: message, title: title, favs: favs))
+        actions.addAction(addToFavoritesAction()!)
         actions.addAction(addToPlaylistAction())
         actions.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         present(actions, animated: true, completion: nil)

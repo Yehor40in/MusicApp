@@ -17,7 +17,7 @@ class ViewManager: UIViewController {
     @IBOutlet internal var playingName: UILabel!
     @IBOutlet internal var playButton: UIButton!
     @IBOutlet internal var forwardButton: UIButton!
-    internal var player: MusicPlayer = MusicPlayer.shared
+    var player: MusicPlayer = MusicPlayer.shared
     // MARK: - Methods
     func setupActions() {
         playButton.addTarget(self, action: #selector(playButtonTapped(_:)), for: .touchUpInside)

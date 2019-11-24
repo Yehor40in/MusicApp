@@ -261,7 +261,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7M2-BJ-wxb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10498" y="991"/>
+            <point key="canvasLocation" x="10494" y="936"/>
         </scene>
         <!--Select Playlist Controller-->
         <scene sceneID="FFV-Cw-bek">
@@ -364,7 +364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Thf-dX-gTm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11333" y="990"/>
+            <point key="canvasLocation" x="11224" y="1709"/>
         </scene>
         <!--Library-->
         <scene sceneID="aMW-zp-A1C">
@@ -582,7 +582,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Jf-R3-RLK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11333" y="1807"/>
+            <point key="canvasLocation" x="10496" y="1727"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ie5-xE-hkK">
@@ -900,7 +900,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ej4-CK-4hU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="IsT-Yf-R7l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="9208" y="841"/>
+            <point key="canvasLocation" x="9204" y="1021"/>
         </scene>
         <!--Playlists-->
         <scene sceneID="pOF-WM-NIw">
@@ -920,7 +920,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FKz-2P-reo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6924" y="841"/>
+            <point key="canvasLocation" x="6923" y="841"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="xbp-FA-pPF">
@@ -984,7 +984,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xNz-Ka-qoI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8409" y="1745"/>
+            <point key="canvasLocation" x="8394" y="1744"/>
         </scene>
         <!--Location Search Table-->
         <scene sceneID="Tuo-gZ-xqm">
@@ -1028,7 +1028,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFf-ah-IPz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9384" y="1746"/>
+            <point key="canvasLocation" x="9323" y="1928"/>
         </scene>
         <!--Create Playlist Controller-->
         <scene sceneID="rDI-MS-70C">

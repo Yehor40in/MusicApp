@@ -151,6 +151,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		54322002238873B50091B11A /* PlaylistController */ = {
+			isa = PBXGroup;
+			children = (
+				745A2B59237D49680062A067 /* PlaylistController.swift */,
+				745A2B5C237D4C170062A067 /* MediaCell.swift */,
+			);
+			name = PlaylistController;
+			sourceTree = "<group>";
+		};
 		548857492382A341000B3FEF /* MapViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,8 +216,8 @@
 				74F449842367039E00C73510 /* PlaylistManager.swift */,
 				7430EB2C23632CC0005829E4 /* Playlist.swift */,
 				745A2B5E237D4F240062A067 /* CellPrototype.swift */,
+				54322002238873B50091B11A /* PlaylistController */,
 				548857492382A341000B3FEF /* MapViewController */,
-				745A2B60237D65990062A067 /* PlaylistController */,
 				7453F96E2369A0F4008551E7 /* PlaylistViewController */,
 				74A85F27236843890044B03C /* SearchViewController */,
 				74A85F26236830560044B03C /* CreatePlaylistController */,
@@ -277,15 +286,6 @@
 				7430EB2A23632B81005829E4 /* PlaylistCell.swift */,
 			);
 			path = PlaylistViewController;
-			sourceTree = "<group>";
-		};
-		745A2B60237D65990062A067 /* PlaylistController */ = {
-			isa = PBXGroup;
-			children = (
-				745A2B59237D49680062A067 /* PlaylistController.swift */,
-				745A2B5C237D4C170062A067 /* MediaCell.swift */,
-			);
-			name = PlaylistController;
 			sourceTree = "<group>";
 		};
 		74A85F26236830560044B03C /* CreatePlaylistController */ = {

@@ -17,7 +17,7 @@ final class PlaylistController: UIViewController {
     @IBOutlet private weak var moreButton: UIButton!
     // MARK: - Properties
     var info: Playlist?
-    private var player = MusicPlayer.shared
+    var player = MusicPlayer.shared
     private var contents: [MediaItem]?
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -34,17 +34,19 @@ final class PlaylistController: UIViewController {
     // MARK: - Actions
     @IBAction func playTapped(_ sender: Any) {
         guard let temp = info else { return }
-        player.playPlaylist(temp.getStoreIDs())
+        player.setupPlaylist(temp.getStoreIDs())
+        player.play()
     }
     @IBAction func moreTapped(_ sender: Any) {
         showAlertController()
     }
     // MARK: - Methods
+    // swiftlint:disable line_length identifier_name
     func showAlertController() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: Config.deletePlaceholder, style: .destructive, handler: { [weak self] _ in
             let alert = UIAlertController(title: nil, message: Config.deleteWaring, preferredStyle: .alert)
-            let confirmDeleteAction = UIAlertAction(title: Config.approvePlaceholder, style: .default, handler: { _ in
+            let confirmDeleteAction = UIAlertAction(title: Config.approvePlaceholder, style: .default, handler: { [weak self] _ in
                 guard let id = self?.info?.id else { return }
                 PlaylistManager.deletePlaylist(with: id)
                 self?.performSegue(withIdentifier: "unwindToPlaylists", sender: self)
@@ -58,7 +60,7 @@ final class PlaylistController: UIViewController {
         present(actionSheet, animated: true)
     }
 }
-
+// MARK: - TableView DataSource
 extension PlaylistController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

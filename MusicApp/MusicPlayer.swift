@@ -7,6 +7,7 @@
 //
 import Foundation
 import MediaPlayer
+import StoreKit
 
 final class MusicPlayer {
     static var shared: MusicPlayer = MusicPlayer()
@@ -71,10 +72,18 @@ final class MusicPlayer {
         setupItems(by: .title)
         self.player = MPMusicPlayerController.systemMusicPlayer
         self.player?.setQueue(with: MPMediaQuery.songs())
+        checkAuthorization()
         setUpNext()
         self.player?.prepareToPlay()
     }
     // MARK: - Methods
+    func checkAuthorization() {
+        SKCloudServiceController.requestAuthorization { [weak self] status in
+            if status == .authorized {
+                self?.setupItems(by: .title)
+            }
+        }
+    }
     func stop() {
         player?.stop()
     }
@@ -84,17 +93,13 @@ final class MusicPlayer {
     func pause() {
         player?.pause()
     }
-    func setupPlaylist(ids: [String]) {
-        items = items.filter {
-            ids.contains($0.playbackStoreID)
-        }
+    func replaceItems(with ids: [String]) {
+        items = items.filter { ids.contains($0.playbackStoreID) }
     }
-    func playPlaylist(_ ids: [String]) {
-        stop()
-        setupPlaylist(ids: ids)
+    func setupPlaylist(_ ids: [String]) {
+        replaceItems(with: ids)
         setupQueue(with: ids)
         setUpNext()
-        play()
     }
     func playRandomSong() {
         currentIndex = Int.random(in: 0..<rawItems.count)

@@ -27,7 +27,7 @@ final class MapViewController: UIViewController {
     private var resultSearchController: UISearchController!
     private var travelTime: TimeInterval?
     private var selectedPin: MKPlacemark?
-    private var player = MusicPlayer.shared
+    var player = MusicPlayer.shared
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,7 +13,7 @@ class CellPrototype: UITableViewCell {
     @IBOutlet internal weak var cover: UIImageView!
     @IBOutlet internal weak var name: UILabel!
     @IBOutlet internal weak var artist: UILabel!
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func awakeFromNib() {
         super.awakeFromNib()
         cover.layer.cornerRadius = Config.cornerRadiusPlaceholder
