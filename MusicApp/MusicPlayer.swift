@@ -69,18 +69,14 @@ final class MusicPlayer {
     }
     // MARK: - Initialization
     init() {
-        setupItems(by: .title)
-        self.player = MPMusicPlayerController.systemMusicPlayer
-        self.player?.setQueue(with: MPMediaQuery.songs())
         checkAuthorization()
-        setUpNext()
-        self.player?.prepareToPlay()
     }
     // MARK: - Methods
     func checkAuthorization() {
         SKCloudServiceController.requestAuthorization { [weak self] status in
             if status == .authorized {
-                self?.setupItems(by: .title)
+                self?.player = MPMusicPlayerController.systemMusicPlayer
+                self?.player?.prepareToPlay()
             }
         }
     }
@@ -94,7 +90,7 @@ final class MusicPlayer {
         player?.pause()
     }
     func replaceItems(with ids: [String]) {
-        items = items.filter { ids.contains($0.playbackStoreID) }
+        items = items.filter { ids.contains($0.playbackStoreID) && $0.playbackStoreID != "0" }
     }
     func setupPlaylist(_ ids: [String]) {
         replaceItems(with: ids)
@@ -128,6 +124,7 @@ final class MusicPlayer {
     }
     func setUpNext() {
         guard let item = nowPlayingItem else { return }
+        print("\n\n\n\n\nDEBUG\n\(item.title!)\n\n\n\n\n\n")
         guard let index = items.firstIndex(of: item) else { return }
         currentIndex = index
         let slice = items.suffix(from: currentIndex + 1)
