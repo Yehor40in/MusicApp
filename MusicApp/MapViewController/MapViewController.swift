@@ -27,6 +27,10 @@ final class MapViewController: UIViewController {
     private var resultSearchController: UISearchController!
     private var travelTime: TimeInterval?
     private var selectedPin: MKPlacemark?
+    private enum Localized {
+        static var navigationTitle: String = NSLocalizedString("Where would you like to go?", comment: "title")
+        static var searchPlaceholder: String = NSLocalizedString("Search for places", comment: "placeholder")
+    }
     var player = MusicPlayer.shared
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -54,10 +58,10 @@ final class MapViewController: UIViewController {
         resultSearchController.searchResultsUpdater = locationSearchTable
         let searchBar = resultSearchController.searchBar
         searchBar.sizeToFit()
-        searchBar.placeholder = "Search for places"
+        searchBar.placeholder = Localized.searchPlaceholder
         navigationItem.searchController = resultSearchController
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.title = "Where would you like to go?"
+        navigationItem.title = Localized.navigationTitle
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         locationSearchTable?.mapView = mapView
