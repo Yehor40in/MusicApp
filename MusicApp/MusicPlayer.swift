@@ -76,7 +76,6 @@ final class MusicPlayer {
         SKCloudServiceController.requestAuthorization { [weak self] status in
             if status == .authorized {
                 self?.player = MPMusicPlayerController.systemMusicPlayer
-                self?.player?.prepareToPlay()
             }
         }
     }
@@ -100,6 +99,7 @@ final class MusicPlayer {
     func playRandomSong() {
         currentIndex = Int.random(in: 0..<rawItems.count)
         nowPlayingItem = rawItems[currentIndex]
+        play()
     }
     private func getRandomSong() -> MPMediaItem {
         let rand = Int.random(in: 0..<rawItems.count)
@@ -111,6 +111,7 @@ final class MusicPlayer {
         } else if let temp = tracks as? MPMediaQuery {
             player?.setQueue(with: temp)
         }
+        player?.prepareToPlay()
     }
     func setupItems(by option: SortOption) {
         switch option {
@@ -124,7 +125,6 @@ final class MusicPlayer {
     }
     func setUpNext() {
         guard let item = nowPlayingItem else { return }
-        print("\n\n\n\n\nDEBUG\n\(item.title!)\n\n\n\n\n\n")
         guard let index = items.firstIndex(of: item) else { return }
         currentIndex = index
         let slice = items.suffix(from: currentIndex + 1)

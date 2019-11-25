@@ -135,6 +135,7 @@ final class ControlsViewController: UIViewController {
             artist.text = Config.songLabelPlaceholder
             return
         }
+        handleProgress(for: item, value: player.playbackTime)
         songName.text = item.title
         artist.text = item.artist
         switch player.playbackState {
@@ -147,7 +148,6 @@ final class ControlsViewController: UIViewController {
         default:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
-        handleProgress(for: item, value: player.playbackTime)
         nextInQueue.reloadData()
     }
     @objc func trackAudio() {

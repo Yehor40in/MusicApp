@@ -44,8 +44,10 @@ final class PlaylistController: UIViewController {
     // swiftlint:disable line_length identifier_name
     func showAlertController() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = UIColor.systemPink
         let deleteAction = UIAlertAction(title: Config.deletePlaceholder, style: .destructive, handler: { [weak self] _ in
             let alert = UIAlertController(title: nil, message: Config.deleteWaring, preferredStyle: .alert)
+            alert.view.tintColor = UIColor.systemPink
             let confirmDeleteAction = UIAlertAction(title: Config.approvePlaceholder, style: .default, handler: { [weak self] _ in
                 guard let id = self?.info?.id else { return }
                 PlaylistManager.deletePlaylist(with: id)

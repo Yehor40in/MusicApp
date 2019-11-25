@@ -57,6 +57,7 @@ final class MapViewController: UIViewController {
         searchBar.placeholder = "Search for places"
         navigationItem.searchController = resultSearchController
         navigationItem.largeTitleDisplayMode = .never
+        navigationItem.title = "Where would you like to go?"
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         locationSearchTable?.mapView = mapView
