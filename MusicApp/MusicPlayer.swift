@@ -88,11 +88,11 @@ final class MusicPlayer {
     func pause() {
         player?.pause()
     }
-    func replaceItems(with ids: [String]) {
-        items = items.filter { ids.contains($0.playbackStoreID) && $0.playbackStoreID != "0" }
+    func filterItems(with ids: [String]) {
+        items = rawItems.filter { ids.contains($0.playbackStoreID) && $0.playbackStoreID != "0" }
     }
     func setupPlaylist(_ ids: [String]) {
-        replaceItems(with: ids)
+        filterItems(with: ids)
         setupQueue(with: ids)
         setUpNext()
     }
@@ -180,8 +180,10 @@ final class MusicPlayer {
         var routePlaylist = [MediaItem]()
         while counter < interval {
             let temp = getRandomSong()
-            routePlaylist.append(MediaItem(with: temp))
-            counter += temp.playbackDuration
+            if temp.playbackStoreID != "0" {
+                routePlaylist.append(MediaItem(with: temp))
+                counter += temp.playbackDuration
+            }
         }
         let artwork = UIImage(named: Config.playlistIconPlaceholder)
         guard var existed = PlaylistManager.getPlaylists() else { return false }
