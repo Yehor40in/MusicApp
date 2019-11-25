@@ -31,7 +31,6 @@ final class MapViewController: UIViewController {
         static var navigationTitle: String = NSLocalizedString("Where would you like to go?", comment: "title")
         static var searchPlaceholder: String = NSLocalizedString("Search for places", comment: "placeholder")
     }
-    var player = MusicPlayer.shared
     // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +124,7 @@ final class MapViewController: UIViewController {
     }
     @IBAction func getPlaylistPressed(_ sender: Any) {
         guard let travelTime = travelTime else { return }
-        if player.getRoutePlaylist(for: travelTime) {
+        if MusicPlayer.shared.getRoutePlaylist(for: travelTime) {
             performSegue(withIdentifier: "GoToPlaylist", sender: nil)
         }
     }

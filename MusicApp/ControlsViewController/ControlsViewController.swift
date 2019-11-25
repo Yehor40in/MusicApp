@@ -52,6 +52,7 @@ final class ControlsViewController: UIViewController {
         repeatButton.setTitle(Localized.repeatLabel, for: .normal)
         shuffleButton.setTitle(Localized.shuffleTitle, for: .normal)
         updateDetails()
+        player.setUpNext()
         data = player.upNext.map { $0 }
     }
     // MARK: - Methods
