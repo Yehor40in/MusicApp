@@ -29,6 +29,7 @@ final class PlaylistController: UIViewController {
             playlistName.text = temp.name
             songsAmount.text = "\(contents?.count ?? 0)"
         }
+        tableView.delegate = self
         navigationItem.largeTitleDisplayMode = .never
     }
     // MARK: - Actions
@@ -77,5 +78,20 @@ extension PlaylistController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contents?.count ?? 0
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        contents?.remove(at: indexPath.row)
+        guard
+            let identifier = info?.id,
+            let temp = contents else { return }
+        if PlaylistManager.updatePlaylist(with: identifier, set: temp) {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+}
+// MARK: - TableView Delegate
+extension PlaylistController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
 }
