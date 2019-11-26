@@ -31,11 +31,9 @@ final class PlaylistManager {
     }
     static func updatePlaylist(with identifier: Int, set items: [MediaItem]) -> Bool {
         guard let existed = PlaylistManager.getPlaylists() else { return false }
-        for index in 0..<existed.count {
-            if existed[index].id == identifier {
-                existed[index].items = items
-                break
-            }
+        for index in 0..<existed.count where existed[index].id == identifier {
+            existed[index].items = items
+            break
         }
         return PlaylistManager.storePlaylists(items: existed)
     }
