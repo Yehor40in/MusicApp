@@ -31,7 +31,7 @@ final class ControlsViewController: UIViewController {
         static var repeatLabel: String = NSLocalizedString("Repeat", comment: "Repeat")
         static var shuffleTitle: String = NSLocalizedString("Shuffle", comment: "Shuffle")
         static var removedPlaceholder: String = NSLocalizedString("Removed from favorites", comment: "Alert message")
-        static var addedPlaceholder: String = NSLocalizedString("Added to fvorites", comment: "Alert message")
+        static var addedPlaceholder: String = NSLocalizedString("Added to favorites", comment: "Alert message")
         static var alertTitle: String = NSLocalizedString("Success", comment: "Alert title")
         static var dismissPlaceholder: String = NSLocalizedString("Dismiss", comment: "Dismiss")
     }
