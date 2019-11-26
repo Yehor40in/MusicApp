@@ -15,7 +15,7 @@ final class SelectPlaylistController: UIViewController {
     // MARK: - Properties
     private var playlists: [Playlist] = PlaylistManager.makePlaylists()
     var toAdd: MediaItem?
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self

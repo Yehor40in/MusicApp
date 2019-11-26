@@ -28,10 +28,10 @@ final class PlayingViewController: UIViewController {
     // MARK: - Properties
     var prepared: PreparedData?
     private var player: MusicPlayer? = MusicPlayer.shared
-    // MARK: - View LifeCycle
     override var preferredStatusBarStyle: UIStatusBarStyle {
            return .lightContent
     }
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         if let temp = prepared {

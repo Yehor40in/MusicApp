@@ -211,7 +211,6 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="tcQ-z2-tGn" secondAttribute="trailing" id="4mR-YC-tcr"/>
                                     <constraint firstItem="vEa-dg-zTx" firstAttribute="leading" secondItem="RcO-qF-piD" secondAttribute="leading" id="9Lj-G2-sdf"/>
-                                    <constraint firstItem="tcQ-z2-tGn" firstAttribute="top" secondItem="vEa-dg-zTx" secondAttribute="bottom" id="Itc-7u-6ag"/>
                                     <constraint firstAttribute="bottom" secondItem="vEa-dg-zTx" secondAttribute="bottom" constant="666.5" id="J8e-yh-mRw"/>
                                     <constraint firstItem="vEa-dg-zTx" firstAttribute="trailing" secondItem="RcO-qF-piD" secondAttribute="trailing" id="OwD-2S-Jpl"/>
                                     <constraint firstAttribute="bottom" secondItem="tcQ-z2-tGn" secondAttribute="bottom" id="TKM-sg-gyZ"/>

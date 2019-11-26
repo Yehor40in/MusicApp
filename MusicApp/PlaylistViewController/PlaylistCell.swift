@@ -21,7 +21,7 @@ final class PlaylistCell: UITableViewCell {
             trackCount.text = String(describing: item?.items.count ?? 0)
         }
     }
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func awakeFromNib() {
         super.awakeFromNib()
         playlistCover.layer.cornerRadius = Config.cornerRadiusPlaceholder

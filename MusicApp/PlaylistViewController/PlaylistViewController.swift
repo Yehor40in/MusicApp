@@ -15,7 +15,7 @@ final class PlaylistViewController: ViewManager {
     private enum Localized {
         static var title: String = NSLocalizedString("Playlists", comment: "Navigation item title")
     }
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
