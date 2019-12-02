@@ -81,9 +81,6 @@ final class ControlsViewController: UIViewController {
                 selectVC.modalPresentationStyle = .overCurrentContext
                 selectVC.modalTransitionStyle = .coverVertical
                 selectVC.toAdd = MediaItem(with: self?.player.nowPlayingItem)
-                let presentationController = selectVC.popoverPresentationController
-                presentationController?.sourceView = self?.moreButton.imageView
-                presentationController?.delegate = self
                 self?.present(selectVC, animated: true)
             }
         })
@@ -226,7 +223,7 @@ extension ControlsViewController: UITableViewDataSource {
         return data?.count ?? 0
     }
 }
-
+// MARK: - TableView Delegate
 extension ControlsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -240,12 +237,5 @@ extension ControlsViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
-    }
-}
-
-extension ControlsViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController,
-                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .none
     }
 }

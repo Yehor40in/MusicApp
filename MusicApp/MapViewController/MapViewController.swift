@@ -51,8 +51,7 @@ final class MapViewController: UIViewController {
     // MARK: - Methods
     func setupSearchController() {
         let locationSearchTable = storyboard?.instantiateViewController(
-            withIdentifier: "LocationSearchTable"
-        ) as? LocationSearchTable
+            withIdentifier: "LocationSearchTable") as? LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController.searchResultsUpdater = locationSearchTable
         let searchBar = resultSearchController.searchBar
@@ -131,10 +130,8 @@ final class MapViewController: UIViewController {
 }
 // MARK: - LocationManager Delegate
 extension MapViewController: CLLocationManagerDelegate {
-    private func locationManager(
-        manager: CLLocationManager,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus
-    ) {
+    private func locationManager(manager: CLLocationManager,
+                                 didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             locationManager.requestLocation()
         }

@@ -171,7 +171,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fZm-Vh-whp">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RcO-qF-piD">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcO-qF-piD">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEa-dg-zTx">
@@ -553,6 +553,7 @@
                             <constraint firstItem="A71-4H-bdh" firstAttribute="top" secondItem="Yfr-GQ-WVd" secondAttribute="bottom" constant="10" id="fOQ-vL-Bw5"/>
                             <constraint firstItem="cYg-BH-Nr4" firstAttribute="top" secondItem="Vzs-Sr-gZY" secondAttribute="top" constant="30" id="hMo-YX-Xle"/>
                             <constraint firstItem="BGN-TY-rEv" firstAttribute="centerX" secondItem="IxC-ZQ-Ahj" secondAttribute="centerX" id="kXu-vu-cfn"/>
+                            <constraint firstAttribute="bottom" secondItem="A71-4H-bdh" secondAttribute="bottom" id="lma-cQ-7Vy"/>
                             <constraint firstItem="Yfr-GQ-WVd" firstAttribute="top" secondItem="IxC-ZQ-Ahj" secondAttribute="topMargin" constant="250" id="mjm-eW-seC"/>
                             <constraint firstItem="A71-4H-bdh" firstAttribute="leading" secondItem="Vzs-Sr-gZY" secondAttribute="leading" id="pyz-oR-o1L"/>
                             <constraint firstItem="pn2-Dh-tnY" firstAttribute="centerX" secondItem="IxC-ZQ-Ahj" secondAttribute="centerX" id="qcb-Nj-mNg"/>
@@ -560,7 +561,6 @@
                             <constraint firstItem="O8A-0x-k1f" firstAttribute="top" secondItem="Evk-1d-f4g" secondAttribute="bottom" constant="15" id="u8M-k3-qxN"/>
                             <constraint firstItem="Yfr-GQ-WVd" firstAttribute="leading" secondItem="Vzs-Sr-gZY" secondAttribute="leading" constant="20" id="uVh-iN-yi3"/>
                             <constraint firstItem="Evk-1d-f4g" firstAttribute="top" secondItem="cYg-BH-Nr4" secondAttribute="bottom" constant="20" id="y7C-Mp-OWB"/>
-                            <constraint firstItem="A71-4H-bdh" firstAttribute="bottom" secondItem="Vzs-Sr-gZY" secondAttribute="bottom" id="zz1-nf-Jzu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vzs-Sr-gZY"/>
                     </view>
@@ -1380,6 +1380,6 @@
         <image name="rewind" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DFa-kP-SNk"/>
+        <segue reference="Rc6-s1-a9a"/>
     </inferredMetricsTieBreakers>
 </document>
