@@ -34,6 +34,8 @@
 		74846CF3234F16DF008EC89F /* PlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74846CF2234F16DF008EC89F /* PlayingViewController.swift */; };
 		74846CF7234F1788008EC89F /* ControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74846CF6234F1788008EC89F /* ControlsViewController.swift */; };
 		74884731236C413B00F0F906 /* SelectPlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74884730236C413B00F0F906 /* SelectPlaylistController.swift */; };
+		748A9F902398F4B4004E0EED /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748A9F8F2398F4B4004E0EED /* SettingsManager.swift */; };
+		748A9F9223990163004E0EED /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 748A9F9123990163004E0EED /* Settings.bundle */; };
 		748C8EFB236AF32400C371A8 /* SearchControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748C8EFA236AF32400C371A8 /* SearchControllerDelegate.swift */; };
 		748C8F04236B199000C371A8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 748C8F06236B199000C371A8 /* Localizable.strings */; };
 		74A85F2423682FCA0044B03C /* CreatePlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A85F2323682FCA0044B03C /* CreatePlaylistController.swift */; };
@@ -99,6 +101,8 @@
 		74884734236C8BF800F0F906 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		74884735236C8BF800F0F906 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		74884736236C8BF800F0F906 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		748A9F8F2398F4B4004E0EED /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		748A9F9123990163004E0EED /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		748C8EFA236AF32400C371A8 /* SearchControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchControllerDelegate.swift; sourceTree = "<group>"; };
 		748C8F02236B193100C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
 		748C8F03236B193200C371A8 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 		7406517D23434E350030A724 = {
 			isa = PBXGroup;
 			children = (
+				748A9F9123990163004E0EED /* Settings.bundle */,
 				7406518823434E350030A724 /* MusicApp */,
 				740651AD23434E360030A724 /* MusicAppUITests */,
 				7407C4382379679A00044B41 /* MusicAppTests */,
@@ -212,6 +217,7 @@
 				7460BEAC234F55E200CFFDCB /* Auxiliaries.swift */,
 				7460BEAA234F53E400CFFDCB /* Helpers.swift */,
 				74C4E217235F468D00390CB0 /* MusicPlayer.swift */,
+				748A9F8F2398F4B4004E0EED /* SettingsManager.swift */,
 				741C2C1F23697DE600BE59EC /* ViewManager.swift */,
 				74F449842367039E00C73510 /* PlaylistManager.swift */,
 				7430EB2C23632CC0005829E4 /* Playlist.swift */,
@@ -416,6 +422,7 @@
 			files = (
 				7406519923434E360030A724 /* LaunchScreen.storyboard in Resources */,
 				748C8F04236B199000C371A8 /* Localizable.strings in Resources */,
+				748A9F9223990163004E0EED /* Settings.bundle in Resources */,
 				7406519623434E360030A724 /* Assets.xcassets in Resources */,
 				7406519123434E350030A724 /* Main.storyboard in Resources */,
 			);
@@ -520,6 +527,7 @@
 				74F449852367039E00C73510 /* PlaylistManager.swift in Sources */,
 				74846CF3234F16DF008EC89F /* PlayingViewController.swift in Sources */,
 				7406518A23434E350030A724 /* AppDelegate.swift in Sources */,
+				748A9F902398F4B4004E0EED /* SettingsManager.swift in Sources */,
 				7430EB2B23632B81005829E4 /* PlaylistCell.swift in Sources */,
 				74846CF7234F1788008EC89F /* ControlsViewController.swift in Sources */,
 				74884731236C413B00F0F906 /* SelectPlaylistController.swift in Sources */,
