@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  MusicApp
+
+  Created by Yehor Sorokin on 10/31/19.
+  Copyright © 2019 Yehor Sorokin. All rights reserved.
+*/
+"Not playing"      = "Not playing";
+"Unknown"          = "Unknown";
+"Sort by"          = "Sort by";
+"Options"          = "Options";
+"Artist"           = "Artist";
+"Favorites"        = "Favorites";
+"Take picture"     = "Take picture";
+"Choose photo"     = "Choose photo";
+"Unnamed playlist" = "Unnamed playlist";
+"Like"             = "Like ❤️";
+"Unlike"           = "Unlike 💔";
+"Title"            = "Title";
+"Recently added"   = "Recently added";
+"Add to playlist"  = "Add to playlist";
+"Dismiss"          = "Dismiss";
+"Sort"             = "Sort";
+"Library"          = "Library";
+"Playlists"        = "Playlists";
+"Your Music"       = "Your Music";
+"Create Playlist"  = "Create Playlist";
+"Repeat"           = "Repeat";
+"Suffle"           = "Shuffle";
+"Next in queue"    = "Next in queue";
+"Tracks"           = "tracks";
+"Success"          = "Success";
+"Fail"             = "Fail";
+"Failed to create playlist" = "Failed to create playlist";
+"Removed from favorites" = "Removed from favorites";
+"Added to favorites"     = "Added to favorites";

@@ -1,21 +1,41 @@
 //
-//  PlayingViewUpdater.swift
+//  ViewManager.swift
 //  MusicApp
 //
-//  Created by Yehor Sorokin on 10/28/19.
+//  Created by Yehor Sorokin on 10/30/19.
 //  Copyright © 2019 Yehor Sorokin. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class PLayingViewUpdater {
-    func updatePlayingView(
-        _ playingCover: inout UIImageView,
-        _ playingName: inout UILabel,
-        _ playButton: inout UIButton,
-        _ forwardButton: inout UIButton
-    ) {
+class ViewManager: UIViewController {
+    // MARK: - Outlets
+    @IBOutlet internal var tableView: UITableView!
+    @IBOutlet internal var playingView: UIView!
+    @IBOutlet internal var playingCover: UIImageView!
+    @IBOutlet internal var playingName: UILabel!
+    @IBOutlet internal var playButton: UIButton!
+    @IBOutlet internal var forwardButton: UIButton!
+    internal var player: MusicPlayer = MusicPlayer.shared
+    // MARK: - Methods
+    func setupActions() {
+        playButton.addTarget(self, action: #selector(playButtonTapped(_:)), for: .touchUpInside)
+        forwardButton.addTarget(self, action: #selector(forwardTapped(_:)), for: .touchUpInside)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updatePlayingView(_:)),
+            name: .MPMusicPlayerControllerNowPlayingItemDidChange,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updatePlayingView(_:)),
+            name: .MPMusicPlayerControllerPlaybackStateDidChange,
+            object: nil
+        )
+    }
+    @objc func updatePlayingView(_ notification: Notification?) {
         if let object = MusicPlayer.shared.nowPlayingItem {
             let img = object.artwork?.image(at: playingCover.bounds.size)
             playingCover.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
@@ -45,10 +65,23 @@ class PLayingViewUpdater {
             )
             if let img = self.view.makeScreenshot() {
                 details.prepared = PreparedData(image: img, outPosition: pos)
-                details.delegate = self
                 details.modalPresentationStyle = .fullScreen
                 present(details, animated: false)
             }
         }
+    }
+    @objc func playButtonTapped(_ sender: Any) {
+        if player.isPrepared && !forwardButton.isEnabled {
+            player.playRandomSong()
+        } else if player.playbackState == .paused {
+            player.play()
+            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
+        } else {
+            player.pause()
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
+        }
+    }
+    @objc func forwardTapped(_ sender: Any) {
+        player.goToNextInQueue()
     }
 }

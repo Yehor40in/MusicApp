@@ -11,7 +11,7 @@ import MediaPlayer
 
 final class PlayingViewController: UIViewController {
     // MARK: - Outlets
-    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet private weak var coverView: UIView!
     @IBOutlet private weak var coverImageView: UIImageView!
     @IBOutlet private weak var container: UIView!
@@ -27,7 +27,6 @@ final class PlayingViewController: UIViewController {
     @IBOutlet private weak var backgroundTrailingConstraint: NSLayoutConstraint!
     // MARK: - Properties
     var prepared: PreparedData?
-    weak var delegate: PlayingViewControllerDelegate?
     private var player: MusicPlayer? = MusicPlayer.shared
     // MARK: - Methods
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -41,6 +40,9 @@ final class PlayingViewController: UIViewController {
             coverImageView.image = img ?? UIImage(named: Config.musicIconPlaceholderName)
             coverImageView.layer.cornerRadius = Config.cornerRadiusPlaceholder
         }
+        fakeBackground.layer.cornerRadius = Config.cornerRadiusPlaceholder
+        coverView.layer.cornerRadius = Config.cornerRadiusPlaceholder
+        coverView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         chevron.isHidden = true
         update(with: player?.nowPlayingItem)
     }
@@ -56,7 +58,6 @@ final class PlayingViewController: UIViewController {
     // MARK: - Actions
     @IBAction func chevronTapped(_ sender: Any) {
         chevron.isHidden = true
-        delegate?.commitChanges()
         animateCoverOut()
     }
     // MARK: - Utilities
@@ -83,8 +84,8 @@ final class PlayingViewController: UIViewController {
         backgroundLeadingConstraint.constant = horizontalOffset
         backgroundBottomConstraint.constant = verticalOffset
         backgroundTrailingConstraint.constant = horizontalOffset
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: {[weak self] _ in
             self?.chevron.isHidden = false
         })
@@ -97,8 +98,8 @@ final class PlayingViewController: UIViewController {
         backgroundLeadingConstraint.constant = 0
         backgroundBottomConstraint.constant = 0
         backgroundTrailingConstraint.constant = 0
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
         }, completion: { [weak self] _ in
             self?.dismiss(animated: false, completion: nil)
         })

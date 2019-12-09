@@ -21,13 +21,24 @@ final class ControlsViewController: UIViewController {
     @IBOutlet private weak var repeatButton: UIButton!
     @IBOutlet private weak var shuffleButton: UIButton!
     @IBOutlet private weak var moreButton: UIButton!
+    @IBOutlet private weak var upNextLabel: UILabel!
     // MARK: - Delegate
     weak var delegate: ControlsControllerDelegate?
     // MARK: - Propertires
+    private var data: [MPMediaItem]?
+    private enum Localized {
+        static var upNextLabel: String = NSLocalizedString("Next in queue", comment: "Up Next label")
+        static var repeatLabel: String = NSLocalizedString("Repeat", comment: "Repeat")
+        static var shuffleTitle: String = NSLocalizedString("Shuffle", comment: "Shuffle")
+        static var removedPlaceholder: String = NSLocalizedString("Removed from favorites", comment: "Alert message")
+        static var addedPlaceholder: String = NSLocalizedString("Added to fvorites", comment: "Alert message")
+        static var alertTitle: String = NSLocalizedString("Success", comment: "Alert title")
+        static var dismissPlaceholder: String = NSLocalizedString("Dismiss", comment: "Dismiss")
+    }
     var vps: Float?
-    var player: MusicPlayer? = MusicPlayer.shared
+    var player: MusicPlayer = MusicPlayer.shared
     var updater: CADisplayLink?
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         nextInQueue.dataSource = self
@@ -35,127 +46,99 @@ final class ControlsViewController: UIViewController {
         nextInQueue.isEditing = true
         repeatButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
         shuffleButton.layer.cornerRadius = Config.cornerRadiusPlaceholder
-        repeatButton.layer.backgroundColor = checkRepeating() ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
-        shuffleButton.layer.backgroundColor = checkShuffled() ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
+        repeatButton.layer.backgroundColor = checkRepeating() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+        shuffleButton.layer.backgroundColor = checkShuffled() ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+        upNextLabel.text = Localized.upNextLabel
+        repeatButton.setTitle(Localized.repeatLabel, for: .normal)
+        shuffleButton.setTitle(Localized.shuffleTitle, for: .normal)
         updateDetails()
+        player.setUpNext()
+        data = player.upNext.map { $0 }
     }
+    // MARK: - Methods
     func handleProgress(for audio: MPMediaItem?, value: Double) {
+        songProgress.progress = 0
         if let item = audio {
             songProgress.progress = Float(value / item.playbackDuration)
             vps = Float(1 / item.playbackDuration)
             updater = CADisplayLink(target: self, selector: #selector(trackAudio))
             updater?.preferredFramesPerSecond = 1
             updater?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
+            if player.playbackState == .paused { updater?.isPaused = true }
         }
     }
-    // MARK: - Actions
-    @IBAction func backwardTapped(_ sender: Any) {
-        player?.goToPreviousInQueue()
-        delegate?.updateCover(with: player?.nowPlayingItem)
-        updateDetails()
-    }
-    @IBAction func playTapped(_ sender: Any) {
-        switch player?.playbackState {
-        case .paused:
-            player?.play()
-            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
-            updater?.isPaused = false
-        case .playing:
-            player?.pause()
-            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
-            updater?.isPaused = true
-        default:
-            return
-        }
-    }
-    @IBAction func forwardTapped(_ sender: Any) {
-        player?.goToNextInQueue()
-        delegate?.updateCover(with: player?.nowPlayingItem)
-        updateDetails()
-    }
-    @IBAction func repeatTapped(_ sender: Any) {
-        let repeating = checkRepeating()
-        player?.setRepeating(!repeating)
-        repeatButton.layer.backgroundColor = !repeating ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
-    }
-    @IBAction func shuffleTapped(_ sender: Any) {
-        let shuffled = checkShuffled()
-        player?.shuffleQueue(!shuffled)
-        shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemGreen.cgColor : UIColor.lightGray.cgColor
-        nextInQueue.reloadData()
-    }
-    @IBAction func moreTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(
+    func actionSheet() -> UIAlertController {
+        return UIAlertController(
             title: nil,
             message: Config.actionsMessagePlaceholder,
             preferredStyle: .actionSheet
         )
-        actionSheet.view.tintColor = UIColor.green
-        actionSheet.addAction(
-            UIAlertAction(title: Config.actionsLikePlaceholder, style: .default, handler: { [weak self] (_) in
-                let favs = PlaylistManager.getFavorites()
-                guard let item = self?.player?.nowPlayingItem else { return }
-                favs.items?.append(item)
+    }
+    func addToPlaylistAction() -> UIAlertAction {
+        return UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
+            if let selectVC = self?.storyboard?.instantiateViewController(withIdentifier: "SelectPlaylist")
+               as? SelectPlaylistController {
+                selectVC.modalPresentationStyle = .overCurrentContext
+                selectVC.modalTransitionStyle = .coverVertical
+                selectVC.toAdd = MediaItem(with: self?.player.nowPlayingItem)
+                let presentationController = selectVC.popoverPresentationController
+                presentationController?.sourceView = self?.moreButton.imageView
+                presentationController?.delegate = self
+                self?.present(selectVC, animated: true)
+            }
+        })
+    }
+    func addToFavoritesAction(message: String, title: String, favs: Playlist) -> UIAlertAction {
+        return UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
                 if PlaylistManager.storeFavorites(item: favs) {
                     let successAlert = UIAlertController(
-                        title: "Success",
-                        message: "Added to favorites",
+                        title: Localized.alertTitle,
+                        message: message,
                         preferredStyle: .alert
                     )
                     successAlert.view.tintColor = UIColor.green
-                    successAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    successAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
                     self?.present(successAlert, animated: true)
-                } else {
-                    let failAlert = UIAlertController(
-                        title: "Fail",
-                        message: "Failed to add to favorites",
-                        preferredStyle: .alert
-                    )
-                    failAlert.view.tintColor = UIColor.green
-                    failAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-                    self?.present(failAlert, animated: true)
                 }
-        }))
-
-        actionSheet.addAction(
-            UIAlertAction(title: Config.actionsAddToPlaceholder, style: .default, handler: { [weak self] (_) in
-            //
-            // Implementation
-            //
-        }))
-
-        actionSheet.addAction(
-            UIAlertAction(title: Config.actionsDeletePlaceholder, style: .destructive, handler: { [weak self] (_) in
-            //
-            // Implementation
-            //
-        }))
-
-        actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
-
-        self.present(actionSheet, animated: true, completion: nil)
+            })
     }
-    // MARK: - Utilities
+    func showActionSheet() {
+        let actions = actionSheet()
+        var message: String
+        var title: String
+        let favs = PlaylistManager.getFavorites()
+        guard let item = MusicPlayer.shared.nowPlayingItem else { return }
+        if PlaylistManager.isFavorite(item: item) {
+            favs.items = favs.items.filter { item.playbackStoreID != $0.storeID }
+            message = Localized.removedPlaceholder
+            title = Config.actionsUnlikePlaceholder
+        } else {
+            favs.items.append(MediaItem(with: item))
+            message = Localized.addedPlaceholder
+            title = Config.actionsLikePlaceholder
+        }
+        actions.view.tintColor = UIColor.systemPink
+        actions.addAction(addToFavoritesAction(message: message, title: title, favs: favs))
+        actions.addAction(addToPlaylistAction())
+        actions.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
+        present(actions, animated: true, completion: nil)
+    }
     func checkRepeating() -> Bool {
-        guard let repeating = player?.isRepeating else { return false }
-        return repeating
+        return player.isRepeating
     }
     func checkShuffled() -> Bool {
-        guard let shuffled = player?.isShuffled else { return false }
-        return shuffled
+        return player.isShuffled
     }
     func updateDetails() {
         updater?.invalidate()
-        guard let item = player?.nowPlayingItem else {
+        guard let item = player.nowPlayingItem else {
             songName.text = Config.songLabelPlaceholder
             artist.text = Config.songLabelPlaceholder
             return
         }
         songName.text = item.title
         artist.text = item.artist
-        guard let progress = player?.playbackTime else { return }
-        handleProgress(for: item, value: progress)
-        switch player?.playbackState {
+        switch player.playbackState {
         case .paused:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
             updater?.isPaused = true
@@ -165,21 +148,14 @@ final class ControlsViewController: UIViewController {
         default:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
+        handleProgress(for: item, value: player.playbackTime)
         nextInQueue.reloadData()
     }
-    func setPlayingItem(_ item: MPMediaItem) {
-        player?.updateUpNext(forward: true)
-        player?.nowPlayingItem = item
-        updateDetails()
-        delegate?.updateCover(with: item)
-    }
     @objc func trackAudio() {
-        guard songProgress.progress < 1 else {
-            guard let repeating = player?.isRepeating else { return }
-            if !repeating {
-                player?.updateUpNext(forward: true)
-                player?.goToNextInQueue()
-                delegate?.updateCover(with: player?.nowPlayingItem)
+        if songProgress.progress >= 1 {
+            if !player.isRepeating {
+                player.goToNextInQueue()
+                delegate?.updateCover(with: player.nowPlayingItem)
                 updateDetails()
             } else {
                 songProgress.progress = 0
@@ -190,48 +166,86 @@ final class ControlsViewController: UIViewController {
             songProgress.progress += value
         }
     }
+    // MARK: - Actions
+    @IBAction func backwardTapped(_ sender: Any) {
+        player.goToPreviousInQueue()
+        data = player.upNext
+        delegate?.updateCover(with: player.nowPlayingItem)
+        updateDetails()
+    }
+    @IBAction func playTapped(_ sender: Any) {
+        switch player.playbackState {
+        case .paused:
+            player.play()
+            playButton.setImage(UIImage(named: Config.pauseImagePlaceholder), for: .normal)
+            updater?.isPaused = false
+        case .playing:
+            player.pause()
+            playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
+            updater?.isPaused = true
+        default:
+            return
+        }
+    }
+    @IBAction func forwardTapped(_ sender: Any) {
+        player.goToNextInQueue()
+        data = player.upNext
+        delegate?.updateCover(with: player.nowPlayingItem)
+        updateDetails()
+    }
+    @IBAction func repeatTapped(_ sender: Any) {
+        let repeating = checkRepeating()
+        player.setRepeating(!repeating)
+        repeatButton.layer.backgroundColor = !repeating ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+    }
+    @IBAction func shuffleTapped(_ sender: Any) {
+        let shuffled = checkShuffled()
+        player.shuffleQueue(!shuffled)
+        data = player.upNext
+        shuffleButton.layer.backgroundColor = !shuffled ? UIColor.systemPink.cgColor : UIColor.lightGray.cgColor
+        nextInQueue.reloadData()
+    }
+    @IBAction func moreTapped(_ sender: Any) {
+        showActionSheet()
+    }
 }
-
+// MARK: - QueueList DataSource
 extension ControlsViewController: UITableViewDataSource {
-    // MARK: - QueueList DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let data = player?.upNext {
-            if let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell {
-                guard indexPath.row < data.count else { return UITableViewCell() }
-                cell.item = data[indexPath.row]
-                return cell
-            }
-        }
-        return UITableViewCell()
+        guard
+            let data = data,
+            let cell = nextInQueue.dequeueReusableCell(withIdentifier: "QueueCell") as? QueueCell,
+            indexPath.row < data.count && indexPath.row >= 0 else { return UITableViewCell() }
+        cell.item = data[indexPath.row]
+        return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let data = player?.upNext else { return 0 }
-        return data.count
+        return data?.count ?? 0
     }
 }
 
 extension ControlsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let items = player?.upNext else { return }
-        setPlayingItem(items[indexPath.row])
-    }
     func tableView(_ tableView: UITableView,
-                   editingStyleForRowAt indexPath: IndexPath
-    ) -> UITableViewCell.EditingStyle {
+                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if var queue = player?.upNext {
-            let temp = queue.remove(at: sourceIndexPath.row)
-            queue.insert(temp, at: destinationIndexPath.row)
-            player?.upNext = queue
-        }
+        let temp = player.upNext.remove(at: sourceIndexPath.row)
+        player.upNext.insert(temp, at: destinationIndexPath.row)
         nextInQueue.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+        data = player.upNext.map { $0 }
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+}
+
+extension ControlsViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }

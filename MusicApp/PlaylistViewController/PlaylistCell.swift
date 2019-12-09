@@ -8,23 +8,23 @@
 
 import UIKit
 
-class PlaylistCell: UITableViewCell {
+final class PlaylistCell: UITableViewCell {
     // MARK: - Properties
     @IBOutlet private weak var playlistCover: UIImageView!
     @IBOutlet private weak var playlistName: UILabel!
     @IBOutlet private weak var trackCount: UILabel!
+    @IBOutlet private weak var tracksLabel: UILabel!
     var item: Playlist? {
         didSet {
-            playlistCover.image = item?.artwork ?? UIImage(named: Config.playlistIconPlaceholder)
+            playlistCover.image = item?.artwork.getImage()
             playlistName.text = item?.name
-            if let temp = item?.items {
-                trackCount.text = String(temp.count)
-            }
+            trackCount.text = String(describing: item?.items.count ?? 0)
         }
     }
     // MARK: - Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         playlistCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
+        tracksLabel.text = NSLocalizedString("Tracks", comment: "Amount of tracks in playlist label")
     }
 }
