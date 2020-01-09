@@ -19,3 +19,5 @@ Follow next step to enjoy MusicApp
 # Contribution
 
 Feel free to fork, play with and add new features to MusicApp 😺
+
+Latest working version is currently on branh 'feature-7'
