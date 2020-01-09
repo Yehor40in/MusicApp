@@ -8,11 +8,12 @@ With just a few steps you can obtain perfect playlist that fits your needs and l
 
 # Usage
 
+```
 1) Select destination poit on map
 2) Push "Get playlist" button
 3) You are done!
+```
 
-
-# Distribution
+# Contribution
 
 Feel free to fork, play with and add new features to MusicApp 😺
