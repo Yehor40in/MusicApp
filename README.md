@@ -8,6 +8,8 @@ With just a few steps you can obtain perfect playlist that fits your needs and l
 
 # Usage
 
+Follow next step to enjoy MusicApp
+
 ```
 1) Select destination poit on map
 2) Push "Get playlist" button
