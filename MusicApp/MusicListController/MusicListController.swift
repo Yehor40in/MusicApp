@@ -8,7 +8,6 @@
 
 import UIKit
 import MediaPlayer
-import StoreKit
 
 final class MusicListController: ViewManager {
     // MARK: - Outlets
@@ -24,7 +23,7 @@ final class MusicListController: ViewManager {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkAuthorization()
+        items = preparedItems(from: player.rawItems, by: .title)
         playingCover.layer.cornerRadius = Config.cornerRadiusPlaceholder
         playingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.showDetails(_:))))
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -111,15 +110,6 @@ final class MusicListController: ViewManager {
         player.setupItems(by: option)
         return prepared
     }
-    func checkAuthorization() {
-        SKCloudServiceController.requestAuthorization {[weak self] status in
-            if status != .authorized {
-                return
-            }
-            guard let data = self?.player.rawItems else { return }
-            self?.items = self?.preparedItems(from: data, by: .title)
-        }
-    }
     func setPlayingItem(for path: IndexPath) {
         let key = Character(sectionTitles![path.section])
         player.setupItems(by: sortOption)
@@ -129,9 +119,8 @@ final class MusicListController: ViewManager {
         player.play()
     }
 }
-
+// MARK: - TableView DataSource
 extension MusicListController: UITableViewDataSource {
-    // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles?.count ?? 0
     }

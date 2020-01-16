@@ -7,6 +7,7 @@
 //
 import Foundation
 import MediaPlayer
+import StoreKit
 
 final class MusicPlayer {
     static var shared: MusicPlayer = MusicPlayer()
@@ -68,13 +69,16 @@ final class MusicPlayer {
     }
     // MARK: - Initialization
     init() {
-        setupItems(by: .title)
-        self.player = MPMusicPlayerController.systemMusicPlayer
-        self.player?.setQueue(with: MPMediaQuery.songs())
-        setUpNext()
-        self.player?.prepareToPlay()
+        checkAuthorization()
     }
     // MARK: - Methods
+    func checkAuthorization() {
+        SKCloudServiceController.requestAuthorization { [weak self] status in
+            if status == .authorized {
+                self?.player = MPMusicPlayerController.systemMusicPlayer
+            }
+        }
+    }
     func stop() {
         player?.stop()
     }
@@ -84,21 +88,22 @@ final class MusicPlayer {
     func pause() {
         player?.pause()
     }
-    func setupPlaylist(ids: [String]) {
-        items = items.filter {
-            ids.contains($0.playbackStoreID)
-        }
+    func filterItems(with ids: [String]) {
+        items = rawItems.filter { ids.contains($0.playbackStoreID) && $0.playbackStoreID != "0" }
     }
-    func playPlaylist(_ ids: [String]) {
-        stop()
-        setupPlaylist(ids: ids)
+    func setupPlaylist(_ ids: [String]) {
+        filterItems(with: ids)
         setupQueue(with: ids)
         setUpNext()
-        play()
     }
     func playRandomSong() {
         currentIndex = Int.random(in: 0..<rawItems.count)
         nowPlayingItem = rawItems[currentIndex]
+        play()
+    }
+    private func getRandomSong() -> MPMediaItem {
+        let rand = Int.random(in: 0..<rawItems.count)
+        return rawItems[rand]
     }
     func setupQueue(with tracks: Any?) {
         if let temp = tracks as? [String] {
@@ -106,6 +111,7 @@ final class MusicPlayer {
         } else if let temp = tracks as? MPMediaQuery {
             player?.setQueue(with: temp)
         }
+        player?.prepareToPlay()
     }
     func setupItems(by option: SortOption) {
         switch option {
@@ -167,5 +173,21 @@ final class MusicPlayer {
     }
     func setRepeating(_ flag: Bool) {
         player?.repeatMode = flag ? .one : .none
+    }
+    func getRoutePlaylist(for interval: TimeInterval) -> Bool {
+        guard interval > 0 else { return false }
+        var counter: TimeInterval = 0
+        var routePlaylist = [MediaItem]()
+        while counter < interval {
+            let temp = getRandomSong()
+            if temp.playbackStoreID != "0" {
+                routePlaylist.append(MediaItem(with: temp))
+                counter += temp.playbackDuration
+            }
+        }
+        let artwork = UIImage(named: Config.playlistIconPlaceholder)
+        guard var existed = PlaylistManager.getPlaylists() else { return false }
+        existed.append(Playlist(image: artwork, name: "Route playlist", media: routePlaylist, id: existed.count))
+        return PlaylistManager.storePlaylists(items: existed)
     }
 }

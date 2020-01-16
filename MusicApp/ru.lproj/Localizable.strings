@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MusicApp
 
@@ -20,17 +20,22 @@
 "Recently added"   = "Недавно добавленых";
 "Add to playlist"  = "Добавить в подборку";
 "Dismiss"          = "Отменить";
+"Delete"           = "Удалить";
 "Sort"             = "Сортировать";
 "Library"          = "Библиотека";
 "Playlists"        = "Подборки";
 "Your Music"       = "Ваша Музыка";
 "Create Playlist"  = "Новая Подборка";
 "Repeat"           = "Повтор";
-"Suffle"           = "Перемешать";
+"Shuffle"          = "Перемешать";
 "Next in queue"    = "Далее";
 "Tracks"           = "песен";
 "Success"          = "Успех";
 "Fail"             = "Неудача";
 "Failed to create playlist" = "Подборку не создано";
-"Removed from favorites" = "Удалено из любимых";
-"Added to favorites"     = "Добавлено к любимым";
+"Removed from favorites"    = "Удалено из любимых";
+"Added to favorites"        = "Добавлено к любимым";
+"Are you sure you want to delete?" = "Вы уверены, что хотите удалить?";
+"Where would you like to go?" = "Куда бы вы хотели пойти?";
+"Search for places" = "Начните поиск мест";
+"Yes" = "Да";

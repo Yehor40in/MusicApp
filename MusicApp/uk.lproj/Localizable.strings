@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MusicApp
 
@@ -20,17 +20,22 @@
 "Recently added"   = "Датою";
 "Add to playlist"  = "Додати до підбірки";
 "Dismiss"          = "Скасувати";
+"Delete"           = "Видалити";
 "Sort"             = "Сортувати";
 "Library"          = "Бібліотека";
 "Playlists"        = "Підбірки";
 "Your Music"       = "Ваша Музика";
 "Create Playlist"  = "Нова Підбірка";
 "Repeat"           = "Повтор";
-"Suffle"           = "Перемішати";
+"Shuffle"          = "Перемішати";
 "Next in queue"    = "Наступні у черзі";
 "Tracks"           = "пісень";
 "Success"          = "Успішно";
 "Fail"             = "Невдача";
 "Failed to create playlist" = "Підбірку не створено";
-"Removed from favorites" = "Прибрано із улюблених";
-"Added to favorites"     = "Додано до улюблених";
+"Removed from favorites"    = "Прибрано із улюблених";
+"Added to favorites"        = "Додано до улюблених";
+"Are you sure you want to delete?" = "Ви впевнені, що хочете видалити?";
+"Where would you like to go?" = "Куди б ви хотіли піти?";
+"Search for places" = "Почніть пошук місць";
+"Yes" = "Так";

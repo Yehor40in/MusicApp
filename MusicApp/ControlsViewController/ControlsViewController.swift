@@ -31,7 +31,7 @@ final class ControlsViewController: UIViewController {
         static var repeatLabel: String = NSLocalizedString("Repeat", comment: "Repeat")
         static var shuffleTitle: String = NSLocalizedString("Shuffle", comment: "Shuffle")
         static var removedPlaceholder: String = NSLocalizedString("Removed from favorites", comment: "Alert message")
-        static var addedPlaceholder: String = NSLocalizedString("Added to fvorites", comment: "Alert message")
+        static var addedPlaceholder: String = NSLocalizedString("Added to favorites", comment: "Alert message")
         static var alertTitle: String = NSLocalizedString("Success", comment: "Alert title")
         static var dismissPlaceholder: String = NSLocalizedString("Dismiss", comment: "Dismiss")
     }
@@ -81,33 +81,15 @@ final class ControlsViewController: UIViewController {
                 selectVC.modalPresentationStyle = .overCurrentContext
                 selectVC.modalTransitionStyle = .coverVertical
                 selectVC.toAdd = MediaItem(with: self?.player.nowPlayingItem)
-                let presentationController = selectVC.popoverPresentationController
-                presentationController?.sourceView = self?.moreButton.imageView
-                presentationController?.delegate = self
                 self?.present(selectVC, animated: true)
             }
         })
     }
-    func addToFavoritesAction(message: String, title: String, favs: Playlist) -> UIAlertAction {
-        return UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
-                if PlaylistManager.storeFavorites(item: favs) {
-                    let successAlert = UIAlertController(
-                        title: Localized.alertTitle,
-                        message: message,
-                        preferredStyle: .alert
-                    )
-                    successAlert.view.tintColor = UIColor.green
-                    successAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
-                    self?.present(successAlert, animated: true)
-                }
-            })
-    }
-    func showActionSheet() {
-        let actions = actionSheet()
+    func addToFavoritesAction() -> UIAlertAction? {
         var message: String
         var title: String
         let favs = PlaylistManager.getFavorites()
-        guard let item = MusicPlayer.shared.nowPlayingItem else { return }
+        guard let item = player.nowPlayingItem else { return nil }
         if PlaylistManager.isFavorite(item: item) {
             favs.items = favs.items.filter { item.playbackStoreID != $0.storeID }
             message = Localized.removedPlaceholder
@@ -117,8 +99,23 @@ final class ControlsViewController: UIViewController {
             message = Localized.addedPlaceholder
             title = Config.actionsLikePlaceholder
         }
+        return UIAlertAction(title: title, style: .default, handler: { [weak self] (_) in
+            if PlaylistManager.storeFavorites(item: favs) {
+                let successAlert = UIAlertController(
+                    title: Localized.alertTitle,
+                    message: message,
+                    preferredStyle: .alert
+                )
+                successAlert.view.tintColor = UIColor.green
+                successAlert.addAction(UIAlertAction(title: Localized.dismissPlaceholder, style: .cancel))
+                self?.present(successAlert, animated: true)
+            }
+        })
+    }
+    func showActionSheet() {
+        let actions = actionSheet()
         actions.view.tintColor = UIColor.systemPink
-        actions.addAction(addToFavoritesAction(message: message, title: title, favs: favs))
+        actions.addAction(addToFavoritesAction()!)
         actions.addAction(addToPlaylistAction())
         actions.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel, handler: nil))
         present(actions, animated: true, completion: nil)
@@ -136,6 +133,7 @@ final class ControlsViewController: UIViewController {
             artist.text = Config.songLabelPlaceholder
             return
         }
+        handleProgress(for: item, value: player.playbackTime)
         songName.text = item.title
         artist.text = item.artist
         switch player.playbackState {
@@ -148,7 +146,6 @@ final class ControlsViewController: UIViewController {
         default:
             playButton.setImage(UIImage(named: Config.playImagePlaceholder), for: .normal)
         }
-        handleProgress(for: item, value: player.playbackTime)
         nextInQueue.reloadData()
     }
     @objc func trackAudio() {
@@ -226,7 +223,7 @@ extension ControlsViewController: UITableViewDataSource {
         return data?.count ?? 0
     }
 }
-
+// MARK: - TableView Delegate
 extension ControlsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -240,12 +237,5 @@ extension ControlsViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
-    }
-}
-
-extension ControlsViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController,
-                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .none
     }
 }

@@ -42,7 +42,7 @@ final class CreatePlaylistController: UIViewController {
         let artwork = image ?? UIImage(named: Config.playlistIconPlaceholder)
         let media = songs ?? []
         guard var existed = PlaylistManager.getPlaylists() else { return false }
-        existed.append(Playlist(image: artwork, name: title, media: media))
+        existed.append(Playlist(image: artwork, name: title, media: media, id: existed.count))
         return PlaylistManager.storePlaylists(items: existed)
     }
     // MARK: - Actions
@@ -92,9 +92,8 @@ final class CreatePlaylistController: UIViewController {
         }
     }
 }
-
+// MARK: - TableView DataSource
 extension CreatePlaylistController: UITableViewDataSource {
-    // MARK: - TableView DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -115,9 +114,8 @@ extension CreatePlaylistController: UITableViewDataSource {
         return items.count + 1
     }
 }
-
+// MARK: - TableView Delegate
 extension CreatePlaylistController: UITableViewDelegate {
-    // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)
         -> UITableViewCell.EditingStyle {
         return indexPath.row == 0 ? .insert : .delete

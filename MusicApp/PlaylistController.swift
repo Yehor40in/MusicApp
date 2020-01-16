@@ -17,9 +17,9 @@ final class PlaylistController: UIViewController {
     @IBOutlet private weak var moreButton: UIButton!
     // MARK: - Properties
     var info: Playlist?
-    private var player = MusicPlayer.shared
+    var player = MusicPlayer.shared
     private var contents: [MediaItem]?
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -29,14 +29,41 @@ final class PlaylistController: UIViewController {
             playlistName.text = temp.name
             songsAmount.text = "\(contents?.count ?? 0)"
         }
+        tableView.delegate = self
         navigationItem.largeTitleDisplayMode = .never
     }
+    // MARK: - Actions
     @IBAction func playTapped(_ sender: Any) {
         guard let temp = info else { return }
-        player.playPlaylist(temp.getStoreIDs())
+        player.setupPlaylist(temp.getStoreIDs())
+        player.play()
+    }
+    @IBAction func moreTapped(_ sender: Any) {
+        showAlertController()
+    }
+    // MARK: - Methods
+    // swiftlint:disable line_length identifier_name
+    func showAlertController() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = UIColor.systemPink
+        let deleteAction = UIAlertAction(title: Config.deletePlaceholder, style: .destructive, handler: { [weak self] _ in
+            let alert = UIAlertController(title: nil, message: Config.deleteWaring, preferredStyle: .alert)
+            alert.view.tintColor = UIColor.systemPink
+            let confirmDeleteAction = UIAlertAction(title: Config.approvePlaceholder, style: .default, handler: { [weak self] _ in
+                guard let id = self?.info?.id else { return }
+                PlaylistManager.deletePlaylist(with: id)
+                self?.performSegue(withIdentifier: "unwindToPlaylists", sender: self)
+            })
+            alert.addAction(confirmDeleteAction)
+            alert.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel))
+            self?.present(alert, animated: true)
+        })
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(UIAlertAction(title: Config.dismissMessage, style: .cancel))
+        present(actionSheet, animated: true)
     }
 }
-
+// MARK: - TableView DataSource
 extension PlaylistController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -51,5 +78,20 @@ extension PlaylistController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contents?.count ?? 0
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        contents?.remove(at: indexPath.row)
+        guard
+            let identifier = info?.id,
+            let temp = contents else { return }
+        if PlaylistManager.updatePlaylist(with: identifier, set: temp) {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+}
+// MARK: - TableView Delegate
+extension PlaylistController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
 }

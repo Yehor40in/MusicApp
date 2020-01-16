@@ -15,7 +15,7 @@ final class PlaylistViewController: ViewManager {
     private enum Localized {
         static var title: String = NSLocalizedString("Playlists", comment: "Navigation item title")
     }
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -39,8 +39,9 @@ final class PlaylistViewController: ViewManager {
             ctrl.info = items[path.row]
         }
     }
+    @IBAction func unwindToPlaylists(segue: UIStoryboardSegue?) {}
 }
-
+// MARK: - TableView Delegate
 extension PlaylistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowPlaylist", sender: indexPath)

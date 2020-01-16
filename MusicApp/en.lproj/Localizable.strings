@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MusicApp
 
@@ -20,17 +20,22 @@
 "Recently added"   = "Recently added";
 "Add to playlist"  = "Add to playlist";
 "Dismiss"          = "Dismiss";
+"Delete"           = "Delete";
 "Sort"             = "Sort";
 "Library"          = "Library";
 "Playlists"        = "Playlists";
 "Your Music"       = "Your Music";
 "Create Playlist"  = "Create Playlist";
 "Repeat"           = "Repeat";
-"Suffle"           = "Shuffle";
+"Shuffle"          = "Shuffle";
 "Next in queue"    = "Next in queue";
 "Tracks"           = "tracks";
 "Success"          = "Success";
 "Fail"             = "Fail";
 "Failed to create playlist" = "Failed to create playlist";
-"Removed from favorites" = "Removed from favorites";
-"Added to favorites"     = "Added to favorites";
+"Removed from favorites"    = "Removed from favorites";
+"Added to favorites"        = "Added to favorites";
+"Are you sure you want to delete?" = "Are you sure you want to delete?";
+"Where would you like to go?" = "Where would you like to go?";
+"Search for places" = "Search for places";
+"Yes" = "Yes";

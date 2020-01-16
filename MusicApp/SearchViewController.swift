@@ -19,7 +19,7 @@ final class SearchViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchButton: UIButton!
     @IBOutlet private weak var searchField: UITextField!
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -63,7 +63,7 @@ final class SearchViewController: UIViewController {
         tableView.reloadData()
     }
 }
-// MARK: - TableView DataSource
+ // MARK: - TableView DataSource
 extension SearchViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -77,8 +77,7 @@ extension SearchViewController: UITableViewDataSource {
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let items = toDisplay else { return 0 }
-        return items.count
+        return toDisplay?.count ?? 0
     }
 }
 // MARK: - TableView Delegate

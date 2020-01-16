@@ -71,6 +71,9 @@ class MusicAppTests: XCTestCase {
             "Index of next playing song differs from next in queue index!"
         )
     }
+    func testZeroIntervalPlaylist() {
+        XCTAssertEqual(player.getRoutePlaylist(for: 0), false)
+    }
     func testCurrentIndexBackward() throws {
         player.playRandomSong()
         player.setUpNext()
@@ -87,10 +90,5 @@ class MusicAppTests: XCTestCase {
     func testMakePlaylists() {
         let temp = PlaylistManager.makePlaylists()
         XCTAssertNotEqual(temp.count, 0, "Recieved set should have at least favorites in it!")
-    }
-    // MARK: - MusicListController Tests
-    func testValidPath() {
-        let path = IndexPath(row: -1, section: -1)
-        XCTAssert(!ctrl.isValid(path), "This path should be invalid!")
     }
 }

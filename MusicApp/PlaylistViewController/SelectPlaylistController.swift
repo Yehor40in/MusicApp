@@ -15,7 +15,7 @@ final class SelectPlaylistController: UIViewController {
     // MARK: - Properties
     private var playlists: [Playlist] = PlaylistManager.makePlaylists()
     var toAdd: MediaItem?
-    // MARK: - Methods
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -26,9 +26,8 @@ final class SelectPlaylistController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-
+// MARK: - TableView DataSource
 extension SelectPlaylistController: UITableViewDataSource {
-    // MARK: - TableView DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -43,9 +42,8 @@ extension SelectPlaylistController: UITableViewDataSource {
         return playlists.count
     }
 }
-
+// MARK: - TableView Delegate
 extension SelectPlaylistController: UITableViewDelegate {
-    // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let newItem = toAdd else { return }
         if indexPath.row == 0 {

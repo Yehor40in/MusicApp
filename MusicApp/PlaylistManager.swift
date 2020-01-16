@@ -11,12 +11,14 @@ import MediaPlayer
 import UIKit
 
 final class PlaylistManager {
+    static var playlistIDs: [Int]?
     static func getFavorites() -> Playlist {
         let path = PlaylistManager.makePath(for: Config.favoritesFilename)
         let decoder = PropertyListDecoder()
         let empty = Playlist(
             image: UIImage(named: Config.favoritesImagePlaceholder),
-            name: Config.favoritesName
+            name: Config.favoritesName,
+            id: -1
         )
         guard let data = try? Data(contentsOf: path) else {
             return empty
@@ -27,6 +29,19 @@ final class PlaylistManager {
             print(error)
         }
         return empty
+    }
+    static func updatePlaylist(with identifier: Int, set items: [MediaItem]) -> Bool {
+        guard let existed = PlaylistManager.getPlaylists() else { return false }
+        for index in 0..<existed.count where existed[index].id == identifier {
+            existed[index].items = items
+            break
+        }
+        return PlaylistManager.storePlaylists(items: existed)
+    }
+    static func deletePlaylist(with identifier: Int) {
+        guard let existed = PlaylistManager.getPlaylists() else { return }
+        PlaylistManager.storePlaylists(items: existed.filter { $0.id != identifier })
+        playlistIDs?.removeAll { $0 == identifier }
     }
     static func storeFavorites(item: Playlist) -> Bool {
         let path = PlaylistManager.makePath(for: Config.favoritesFilename)
@@ -57,12 +72,18 @@ final class PlaylistManager {
         let decoder = PropertyListDecoder()
         guard let data = try? Data(contentsOf: path) else { return [] }
         do {
-            return try decoder.decode(Array<Playlist>.self, from: data)
+            let list = try decoder.decode(Array<Playlist>.self, from: data)
+            if playlistIDs == nil {
+                playlistIDs = []
+                _ = list.map { playlistIDs?.append($0.id) }
+            }
+            return list
         } catch let error {
             print(error)
         }
         return nil
     }
+    @discardableResult
     static func storePlaylists(items: [Playlist]) -> Bool {
         let path = PlaylistManager.makePath(for: Config.playlistsFilename)
         let encoder = PropertyListEncoder()
@@ -77,9 +98,11 @@ final class PlaylistManager {
         return false
     }
     static func makePath(for resource: String) -> URL {
-        return FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask
-        )[0].appendingPathComponent(resource)
+        return FileManager.default.urls(for: .documentDirectory,
+                                        in: .userDomainMask)[0].appendingPathComponent(resource)
+    }
+    static func getLastPlaylist() -> Playlist? {
+        let temp = PlaylistManager.getPlaylists()
+        return temp?.last
     }
 }
