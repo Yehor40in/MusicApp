@@ -20,4 +20,5 @@ Follow next step to enjoy MusicApp
 
 Feel free to fork, play with and add new features to MusicApp 😺
 
-Latest working version is currently on branch 'development'
+
+# Latest working version is currently on branch 'development'
